@@ -11,6 +11,7 @@ import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,12 +23,13 @@ public class TrainyApp {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(DatabaseConfig.class);
 
-        StationDaoImpl stationDao = context.getBean(StationDaoImpl.class);
-        EntityManager em = stationDao.em;
-        System.out.println(em);
-        TrainDaoImpl trainDao = context.getBean(TrainDaoImpl.class);
-        em = trainDao.em;
-        System.out.println(em);
+        // BIG SHIT WITH INTERFACES AND IMPSS
+        StationDao stationDao = context.getBean(StationDao.class);
+        //EntityManagerFactory em = stationDao.em;
+//        System.out.println(em);
+        TrainDao trainDao = context.getBean(TrainDao.class);
+//        em = trainDao.em;
+//        System.out.println(em);
 
 
 
@@ -43,11 +45,11 @@ public class TrainyApp {
         seats.put(3, false);
         seats.put(4, true);
         seats.put(5, true);
-        car.setSeats(seats);
+    //    car.setSeats(seats);
 
-        train.getTrainCars().add(car);
+        //train.getTrainCars().add(car);
 
-       // trainDao.persist(train);
+       // trainDao.persistCar(car);
 
 
         context.close();

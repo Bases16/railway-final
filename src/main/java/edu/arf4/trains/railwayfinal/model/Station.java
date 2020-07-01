@@ -1,12 +1,11 @@
 package edu.arf4.trains.railwayfinal.model;
 
 
-import util.Constants;
+import edu.arf4.trains.railwayfinal.util.Constants;
 
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "station")
 public class Station {
 
     @Id

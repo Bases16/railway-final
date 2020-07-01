@@ -1,4 +1,4 @@
-package util;
+package edu.arf4.trains.railwayfinal.util;
 
 public interface Constants {
 
