@@ -1,25 +1,30 @@
-package edu.arf4.trains.railwayfinal;
-
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TrainyApp {
+import static org.junit.Assert.*;
 
-    public static void main(String[] args) {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = DatabaseConfig.class)
+public class RawTests {
 
-        AnnotationConfigApplicationContext context =
-                new AnnotationConfigApplicationContext(DatabaseConfig.class);
+    @Autowired
+    TrainDao trainDao;
 
 
-        TrainDao trainDao = context.getBean(TrainDao.class);
+    @Test
+    public void someTest() {
 
         Train train = new Train();
         train.setDepartDate(LocalDate.of(2021,1,10));
@@ -42,6 +47,8 @@ public class TrainyApp {
         trainDao.persistTrain(train);
 
 
-        context.close();
     }
+
+
+
 }

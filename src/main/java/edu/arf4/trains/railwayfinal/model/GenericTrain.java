@@ -17,6 +17,7 @@ public class GenericTrain {
     @Id
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
+
     private String number;
 
     private final Integer numOfPlazkartCars = Constants.NUM_OF_PLAZKART_CARS;

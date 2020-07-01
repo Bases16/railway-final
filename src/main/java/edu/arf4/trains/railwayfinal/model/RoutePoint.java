@@ -1,8 +1,8 @@
 package edu.arf4.trains.railwayfinal.model;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalTime;
 
 @Embeddable
@@ -13,8 +13,8 @@ public class RoutePoint {
     // различаются только уточненное время-дата у конкретных точек, плюс счетчик билетов оставшихся
 
 
-    @OneToOne
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Station station;  //or String stationName ??
 
     private LocalTime departTime;

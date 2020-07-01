@@ -2,9 +2,16 @@ package edu.arf4.trains.railwayfinal.model;
 
 import edu.arf4.trains.railwayfinal.util.Constants;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +27,7 @@ public class Train {
 
     //not afraid of orphanRemoval because nothing will reference to traincar except Train
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<TrainCar> trainCars = new ArrayList<>(Constants.NUM_OF_TRAIN_CARS_IN_TRAIN);
+    private Set<TrainCar> trainCars = new HashSet<>(Constants.NUM_OF_TRAIN_CARS_IN_TRAIN);
 
 
     @ElementCollection
@@ -39,11 +46,11 @@ public class Train {
         this.departDate = departDate;
     }
 
-    public List<TrainCar> getTrainCars() {
+    public Set<TrainCar> getTrainCars() {
         return trainCars;
     }
 
-    public void setTrainCars(List<TrainCar> trainCars) {
+    public void setTrainCars(Set<TrainCar> trainCars) {
         this.trainCars = trainCars;
     }
 }

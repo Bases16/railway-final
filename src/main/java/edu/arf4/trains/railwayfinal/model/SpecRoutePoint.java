@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 public class SpecRoutePoint {
 
 
+    //maybe need to implement equals, hashcode to distinguish equal points
+
     private LocalDateTime departDateTime;
 
     private LocalDateTime arrivDateTime;

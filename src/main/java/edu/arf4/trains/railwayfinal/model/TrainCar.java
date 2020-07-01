@@ -24,6 +24,8 @@ public class TrainCar {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
+    private Integer number;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Train train;
 
@@ -54,5 +56,13 @@ public class TrainCar {
 
     public void setSeats(Map<Integer, Boolean> seats) {
         this.seats = seats;
+    }
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
     }
 }

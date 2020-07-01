@@ -1,12 +1,9 @@
-package edu.arf4.trains.railwayfinal.dao.implementations;
+package edu.arf4.trains.railwayfinal.dao;
 
-import edu.arf4.trains.railwayfinal.dao.interfaces.StationDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Repository
@@ -17,9 +14,6 @@ public class StationDaoImpl implements StationDao {
     public EntityManagerFactory em;
 
 
-    public StationDaoImpl() {
-        System.out.println("Station dao was created");
-    }
 
 
 }
