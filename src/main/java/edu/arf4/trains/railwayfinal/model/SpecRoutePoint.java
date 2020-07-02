@@ -1,21 +1,24 @@
 package edu.arf4.trains.railwayfinal.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Embeddable
 public class SpecRoutePoint {
 
+    private LocalDateTime departDatetime;
 
-    //maybe need to implement equals, hashcode to distinguish equal points
+    private LocalDateTime arrivalDatetime;
 
-    private LocalDateTime departDateTime;
-
-    private LocalDateTime arrivDateTime;
-
+    @Column(nullable = false)
     private Integer ticketsLeft;
 
-
-    //the other fields in abstract RoutePoint
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private RoutePoint extraPointData;
 
 }

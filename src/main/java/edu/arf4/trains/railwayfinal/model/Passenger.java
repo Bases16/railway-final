@@ -6,11 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "passengers")
 public class Passenger {
 
     @Id
@@ -23,13 +21,13 @@ public class Passenger {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String fName;
+    @Column(nullable = false, updatable = false)
+    private String firstName;
 
-    @Column(nullable = false)
-    private String lName;
+    @Column(nullable = false, updatable = false)
+    private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDate dateOfBirth;
 
 

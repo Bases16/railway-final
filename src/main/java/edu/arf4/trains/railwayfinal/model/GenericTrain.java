@@ -2,13 +2,15 @@ package edu.arf4.trains.railwayfinal.model;
 
 import edu.arf4.trains.railwayfinal.util.Constants;
 
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.ArrayList;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +20,7 @@ public class GenericTrain {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String number;
 
     private final Integer numOfPlazkartCars = Constants.NUM_OF_PLAZKART_CARS;
@@ -26,13 +29,14 @@ public class GenericTrain {
     private final Integer numOfCoopeCars = Constants.NUM_OF_COOPE_CARS;
     private final Integer numOfSeatsInCoopeCar = Constants.NUM_OF_SEATS_IN_COOPE_CAR;
 
-    private final Integer numOfSVCars = Constants.NUM_OF_SV_CARS;
-    private final Integer numOfSeatsInSVCar = Constants.NUM_OF_SEATS_IN_SV_CAR;
+    private final Integer numOfSwCars = Constants.NUM_OF_SW_CARS;
+    private final Integer numOfSeatsInSwCar = Constants.NUM_OF_SEATS_IN_SW_CAR;
 
+    @Embedded
+    private Schedule schedule;
 
-    @ElementCollection
-    private Set<RoutePoint> routePoints = new HashSet<>();  //else  SortedSet
-
+    @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
+    private Set<RoutePoint> routePoints = new HashSet<>();
 
 
 }

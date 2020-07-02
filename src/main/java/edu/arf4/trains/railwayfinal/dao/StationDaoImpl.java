@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 public class StationDaoImpl implements StationDao {
 
     @Autowired
-    public EntityManagerFactory em;
+    public EntityManagerFactory emf;
 
 
 

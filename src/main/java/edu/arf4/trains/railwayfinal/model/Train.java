@@ -3,6 +3,8 @@ package edu.arf4.trains.railwayfinal.model;
 import edu.arf4.trains.railwayfinal.util.Constants;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,21 +22,20 @@ public class Train {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
+    @Column(nullable = false)
     private LocalDate departDate;
 
-
-    //not afraid of orphanRemoval because nothing will reference to traincar except Train
-    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "train", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<TrainCar> trainCars = new HashSet<>(Constants.NUM_OF_TRAIN_CARS_IN_TRAIN);
 
-
     @ElementCollection
-    //@Column(nullable = false)
-    private Set<SpecRoutePoint> specRoutePoints; // ... = new ...
+    @CollectionTable(name = "spec_route_points")
+    private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
 
 
-
-
+    public Long getId() {
+        return id;
+    }
 
     public LocalDate getDepartDate() {
         return departDate;

@@ -17,29 +17,28 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Entity
-//@org.hibernate.annotations.Immutable //Can be immutable if we change SEATS separately ??? //  NO SETTERS
 public class TrainCar {
 
     @Id
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    private Integer number;
+    @Column(nullable = false, unique = true)
+    private Integer orderOfCar;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TrainCarType type;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Train train;
 
-    @Enumerated(EnumType.STRING)
-    private TrainCarType type;
-
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "train_car_seats")
     @MapKeyColumn(name = "seat_number")
-    @Column(name = "is_reserved")
-    @org.hibernate.annotations.OrderBy(clause = "seat_number asc") //тогда Map = new LinkedHashMap
-    private Map<Integer,Boolean> seats = new LinkedHashMap<>();//maybe need ordered List instead of Map with initial cap
-
-
+    @Column(name = "is_reserved", nullable = false)
+    @org.hibernate.annotations.OrderBy(clause = "seat_number ASC")
+    private Map<Integer,Boolean> seats = new LinkedHashMap<>(); // alt.: @SortNatural, TreeMap
 
 
     public TrainCarType getType() {
@@ -64,5 +63,13 @@ public class TrainCar {
 
     public void setTrain(Train train) {
         this.train = train;
+    }
+
+    public Integer getOrderOfCar() {
+        return orderOfCar;
+    }
+
+    public void setOrderOfCar(Integer orderOfCar) {
+        this.orderOfCar = orderOfCar;
     }
 }

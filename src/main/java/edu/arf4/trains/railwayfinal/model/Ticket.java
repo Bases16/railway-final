@@ -5,11 +5,9 @@ import edu.arf4.trains.railwayfinal.util.Constants;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,20 +17,30 @@ public class Ticket {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-//    private Train train;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Train train;
 
-//    private Passenger passenger;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Passenger passenger;
 
-//    private Station stationFrom;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Station stationFrom;
 
-//    private Station stationTo;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Station stationTo;
 
+    @Column(nullable = false)
     private LocalDateTime departureDateTime;
 
+    @Column(nullable = false)
     private LocalDateTime arrivalDateTime;
 
     @Column(nullable = false)
-    private float cost;
+    private Float cost;
 
 
 

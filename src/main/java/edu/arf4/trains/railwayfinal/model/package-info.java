@@ -8,7 +8,7 @@
                 ),
                 @org.hibernate.annotations.Parameter(
                         name = "initial_value",
-                        value = "76"
+                        value = "999"
                 )
         })
 package edu.arf4.trains.railwayfinal.model;

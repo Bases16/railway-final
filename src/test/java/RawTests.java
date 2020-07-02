@@ -36,7 +36,31 @@ public class RawTests {
         seats.put(1, false);
         seats.put(2, true);
         seats.put(3, false);
-        seats.put(4, true);
+        seats.put(4, false);
+        seats.put(5, true);
+
+        trainCar.setSeats(seats);
+
+        train.getTrainCars().add(trainCar);
+        trainCar.setTrain(train);
+
+        trainDao.persistTrain(train);
+    }
+
+    @Test
+    public void testing() {
+        Train train = new Train();
+        train.setDepartDate(LocalDate.of(2021,1,10));
+
+        TrainCar trainCar = new TrainCar();
+        trainCar.setType(TrainCarType.PLATZKART);
+        trainCar.setOrderOfCar(2);
+
+        Map<Integer, Boolean> seats = new HashMap<>();
+        seats.put(1, false);
+        seats.put(2, true);
+        seats.put(3, false);
+        seats.put(4, false);
         seats.put(5, true);
 
         trainCar.setSeats(seats);
@@ -46,9 +70,14 @@ public class RawTests {
 
         trainDao.persistTrain(train);
 
+        Train trainFromDB = trainDao.findTrainById(train.getId());
+
+        TrainCar trainCarFromDB = trainFromDB.getTrainCars().iterator().next();
+
+        trainCarFromDB.getSeats().forEach( (k, v) -> System.out.println("key:" + k + " v:" + v) );
+
 
     }
-
 
 
 }

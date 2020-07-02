@@ -1,35 +1,42 @@
 package edu.arf4.trains.railwayfinal.model;
 
-import javax.persistence.Embeddable;
+import edu.arf4.trains.railwayfinal.util.Constants;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.LocalTime;
 
-@Embeddable
-//@org.hibernate.annotations.Immutable  // can be in embeddable???
+@Entity
 public class RoutePoint {
 
-    //may be one class of POINT??
-    // различаются только уточненное время-дата у конкретных точек, плюс счетчик билетов оставшихся
+    @Id
+    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
+    private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private GenericTrain genericTrain;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Station station;  //or String stationName ??
+    private Station station;
+
+    @Column(nullable = false)
+    private Integer orderOfStation;
 
     private LocalTime departTime;
 
     private LocalTime arrivalTime;
 
+    @Column(nullable = false)
+    private Integer daysFromTrainDepartToDepartFromHere;
 
-    private int daysFromTrainDepartToDepFromHere;
-
-    private int daysFromTrainDepartToArrivHere;
-
-
-    //maybe could implement in sorted/ordered collection???  then override equals??????
-    private int orderOfStation;
-
-
+    @Column(nullable = false)
+    private Integer daysFromTrainDepartToArrivalHere;
 
 }

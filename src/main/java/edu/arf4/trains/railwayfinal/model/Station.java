@@ -1,9 +1,11 @@
 package edu.arf4.trains.railwayfinal.model;
 
-
 import edu.arf4.trains.railwayfinal.util.Constants;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Station {
@@ -12,5 +14,6 @@ public class Station {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 }
