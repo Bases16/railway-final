@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import java.util.LinkedHashMap;
@@ -31,6 +32,7 @@ public class TrainCar {
     private TrainCarType type;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(nullable = false)
     private Train train;
 
     @ElementCollection(fetch = FetchType.EAGER)

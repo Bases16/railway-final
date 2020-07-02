@@ -1,5 +1,6 @@
-package edu.arf4.trains.railwayfinal.dao;
+package edu.arf4.trains.railwayfinal.dao.imps;
 
+import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class TrainDaoImpl implements TrainDao {
 
 
 
-//     // 3 - FOR FACTORY without starting Transaction   - error
+//     // 3 - FOR FACTORY without starting Transaction   - error       ///////////////THE MOST INTERESTING CASE
 //    @Override
 //    public void persistTrain(Train train) {
 //        EntityManager manager = factory.createEntityManager();
