@@ -22,7 +22,7 @@ public class RoutePoint {
     @JoinColumn(nullable = false)
     private GenericTrain genericTrain;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Station station;
 
@@ -38,5 +38,9 @@ public class RoutePoint {
 
     @Column(nullable = false)
     private Integer daysFromTrainDepartToArrivalHere;
+
+//    public RoutePoint(GenericTrain genericTrain) {
+//        this.genericTrain = genericTrain;
+//    }
 
 }

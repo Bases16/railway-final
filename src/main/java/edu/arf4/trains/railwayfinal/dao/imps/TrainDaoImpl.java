@@ -2,7 +2,7 @@ package edu.arf4.trains.railwayfinal.dao.imps;
 
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.model.Train;
-import edu.arf4.trains.railwayfinal.model.TrainCar;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,13 +10,8 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
+import javax.transaction.Status;
 import javax.transaction.UserTransaction;
 
 @Repository
@@ -69,60 +64,76 @@ public class TrainDaoImpl implements TrainDao {
 
 
 
-     // 3 - FOR FACTORY without starting Transaction   -  now good(with jta),     ////earlier error /////THE MOST INTERESTING CASE
-//    @Override
-//    public void persistTrain(Train train) {
-//        EntityManager manager = factory.createEntityManager();
-//        manager.persist(train);
-//        manager.close();
-//    }
-//    @Override
-//    public Train findTrainById(Long id) {
-//        EntityManager manager = factory.createEntityManager();
-//        Train train = manager.find(Train.class, id);
-//        manager.close();
-//        return train;
-//    }
-
-
-
-    // 4 - FOR FACTORY TRYING starting Transaction    -  good
+    //3 - FOR FACTORY without starting Transaction -now good(with jta), ///earlier error /////THE MOST INTERESTING CASE
     @Override
-    public void persistTrain(Train train) {
-        EntityManager manager = null;
-        UserTransaction transaction = transactionManager.getUserTransaction();
-        try {
-            transaction.begin();
-            manager = factory.createEntityManager();
-            manager.persist(train);
-            transaction.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (manager != null && manager.isOpen()) {
-                manager.close();
-            }
-        }
+    public void addTrain(Train train) {
+        EntityManager manager = factory.createEntityManager();
+        manager.persist(train);
+        manager.close();
     }
     @Override
     public Train findTrainById(Long id) {
-        EntityManager manager = null;
-        UserTransaction transaction = transactionManager.getUserTransaction();
-        Train train = null;
-        try {
-            transaction.begin();
-            manager = factory.createEntityManager();
-            train = manager.find(Train.class, id);
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (manager != null && manager.isOpen()) {
-                manager.close();
-            }
-        }
+        EntityManager manager = factory.createEntityManager();
+        Train train = manager.find(Train.class, id);
+
+        Hibernate.initialize(train.getTrainCars());
+
+        manager.close();
         return train;
     }
+
+
+
+//    // 4 - FOR FACTORY TRYING starting Transaction    -  good
+//    @Override
+//    public void persistTrain(Train train) {
+//        EntityManager em = null;
+//        UserTransaction tx = transactionManager.getUserTransaction();
+//        try {
+//            tx.begin();
+//            em = factory.createEntityManager();
+//            em.persist(train);
+//            tx.commit();
+//        } catch (Exception ex) {
+//            try {
+//                if (tx.getStatus() == Status.STATUS_ACTIVE || tx.getStatus() == Status.STATUS_MARKED_ROLLBACK)
+//                    tx.rollback();
+//            } catch (Exception rbEx) {
+//                System.err.println("Rollback of transaction failed, trace follows!");
+//                rbEx.printStackTrace(System.err);
+//            }
+//            throw new RuntimeException(ex);
+//        } finally {
+//            if (em != null && em.isOpen()) {
+//                em.close();
+//            }
+//        }
+//    }
+//    @Override
+//    public Train findTrainById(Long id) {
+//        EntityManager em = null;
+//        UserTransaction tx = transactionManager.getUserTransaction();
+//        Train train = null;
+//        try {
+//            tx.begin();
+//            em = factory.createEntityManager();
+//            train = em.find(Train.class, id);
+//            tx.commit();
+//        } catch (Exception ex) {
+//            try {
+//                if (tx.getStatus() == Status.STATUS_ACTIVE || tx.getStatus() == Status.STATUS_MARKED_ROLLBACK)
+//                    tx.rollback();
+//            } catch (Exception rbEx) {
+//                System.err.println("Rollback of transaction failed, trace follows!");
+//                rbEx.printStackTrace(System.err);
+//            }
+//            throw new RuntimeException(ex);
+//        } finally {
+//            if (em != null && em.isOpen()) {
+//                em.close();
+//            }
+//        }
+//        return train;
+//    }
 
 }

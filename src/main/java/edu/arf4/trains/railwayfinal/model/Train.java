@@ -25,10 +25,10 @@ public class Train {
     @Column(nullable = false)
     private LocalDate departDate;
 
-    @OneToMany(mappedBy = "train", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<TrainCar> trainCars = new HashSet<>(Constants.NUM_OF_TRAIN_CARS_IN_TRAIN);
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "spec_route_points")
     private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
 
