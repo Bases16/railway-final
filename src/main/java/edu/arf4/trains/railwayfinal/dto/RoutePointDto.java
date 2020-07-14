@@ -1,42 +1,62 @@
 package edu.arf4.trains.railwayfinal.dto;
 
-import javax.persistence.Column;
-
 public class RoutePointDto {
-
-
 
     //private String GenericTrain;
 
-    private String station;
-    private String orderOfStation;
+    private long stationId;
+    private int orderOfStation;
     private String departTime;
     private String arrivalTime;
-    private String daysFromTrainDepartToDepartFromHere;
-    private String daysFromTrainDepartToArrivalHere;
+    private int daysFromTrainDepartToDepartFromHere;
+    private int daysFromTrainDepartToArrivalHere;
 
 
-    public String getStation() {
-        return station;
+    public long getStationId() {
+        return stationId;
     }
 
-    public String getOrderOfStation() {
+    public void setStationId(long stationId) {
+        this.stationId = stationId;
+    }
+
+    public int getOrderOfStation() {
         return orderOfStation;
+    }
+
+    public void setOrderOfStation(int orderOfStation) {
+        this.orderOfStation = orderOfStation;
     }
 
     public String getDepartTime() {
         return departTime;
     }
 
+    public void setDepartTime(String departTime) {
+        this.departTime = departTime;
+    }
+
     public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public String getDaysFromTrainDepartToDepartFromHere() {
+    public void setArrivalTime(String arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public int getDaysFromTrainDepartToDepartFromHere() {
         return daysFromTrainDepartToDepartFromHere;
     }
 
-    public String getDaysFromTrainDepartToArrivalHere() {
+    public void setDaysFromTrainDepartToDepartFromHere(int daysFromTrainDepartToDepartFromHere) {
+        this.daysFromTrainDepartToDepartFromHere = daysFromTrainDepartToDepartFromHere;
+    }
+
+    public int getDaysFromTrainDepartToArrivalHere() {
         return daysFromTrainDepartToArrivalHere;
+    }
+
+    public void setDaysFromTrainDepartToArrivalHere(int daysFromTrainDepartToArrivalHere) {
+        this.daysFromTrainDepartToArrivalHere = daysFromTrainDepartToArrivalHere;
     }
 }

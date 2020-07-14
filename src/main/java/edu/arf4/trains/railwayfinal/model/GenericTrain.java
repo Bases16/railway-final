@@ -39,10 +39,13 @@ public class GenericTrain {
     private Set<RoutePoint> routePoints = new HashSet<>();
 
 
+    private GenericTrain() {}
+
     public GenericTrain(Schedule schedule) {
         this.schedule = schedule;
     }
 
+    //  getters/setters
     public Long getId() { return id; }
 
     public String getNumber() { return number; }

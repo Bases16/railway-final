@@ -8,4 +8,6 @@ public interface GenericTrainDao {
     // schedule, routePoints, number
     void addGenericTrain(GenericTrain train);
 
+    GenericTrain getGenericTrainByNumber(String number);
+
 }

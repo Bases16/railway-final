@@ -33,14 +33,72 @@ public class RoutePoint {
 
     private LocalTime arrivalTime;
 
-    @Column(nullable = false)
+    @Column(nullable = false)  // MAYBE NO NEED IN NOT NULLABLE  //NEED SOME CHECKS !!!!!
     private Integer daysFromTrainDepartToDepartFromHere;
 
     @Column(nullable = false)
     private Integer daysFromTrainDepartToArrivalHere;
 
-//    public RoutePoint(GenericTrain genericTrain) {
-//        this.genericTrain = genericTrain;
-//    }
+
+    // getters/setters
+    public Long getId() {
+        return id;
+    }
+
+    public GenericTrain getGenericTrain() {
+        return genericTrain;
+    }
+
+    public void setGenericTrain(GenericTrain genericTrain) {
+        this.genericTrain = genericTrain;
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    public Integer getOrderOfStation() {
+        return orderOfStation;
+    }
+
+    public void setOrderOfStation(Integer orderOfStation) {
+        this.orderOfStation = orderOfStation;
+    }
+
+    public LocalTime getDepartTime() {
+        return departTime;
+    }
+
+    public void setDepartTime(LocalTime departTime) {
+        this.departTime = departTime;
+    }
+
+    public LocalTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(LocalTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public Integer getDaysFromTrainDepartToDepartFromHere() {
+        return daysFromTrainDepartToDepartFromHere;
+    }
+
+    public void setDaysFromTrainDepartToDepartFromHere(Integer daysFromTrainDepartToDepartFromHere) {
+        this.daysFromTrainDepartToDepartFromHere = daysFromTrainDepartToDepartFromHere;
+    }
+
+    public Integer getDaysFromTrainDepartToArrivalHere() {
+        return daysFromTrainDepartToArrivalHere;
+    }
+
+    public void setDaysFromTrainDepartToArrivalHere(Integer daysFromTrainDepartToArrivalHere) {
+        this.daysFromTrainDepartToArrivalHere = daysFromTrainDepartToArrivalHere;
+    }
 
 }

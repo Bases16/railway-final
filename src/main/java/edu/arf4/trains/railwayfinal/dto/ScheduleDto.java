@@ -2,46 +2,78 @@ package edu.arf4.trains.railwayfinal.dto;
 
 public class ScheduleDto {
 
-    private String weekPeriodicity;
+    private int weekPeriodicity;
 
-    private String monday;
-    private String tuesday;
-    private String wednesday;
-    private String thursday;
-    private String friday;
-    private String saturday;
-    private String sunday;
+    private boolean monday;
+    private boolean tuesday;
+    private boolean wednesday;
+    private boolean thursday;
+    private boolean friday;
+    private boolean saturday;
+    private boolean sunday;
 
 
-    public String getWeekPeriodicity() {
+    public int getWeekPeriodicity() {
         return weekPeriodicity;
     }
 
-    public String getMonday() {
+    public boolean getMonday() {
         return monday;
     }
 
-    public String getTuesday() {
+    public boolean getTuesday() {
         return tuesday;
     }
 
-    public String getWednesday() {
+    public boolean getWednesday() {
         return wednesday;
     }
 
-    public String getThursday() {
+    public boolean getThursday() {
         return thursday;
     }
 
-    public String getFriday() {
+    public boolean getFriday() {
         return friday;
     }
 
-    public String getSaturday() {
+    public boolean getSaturday() {
         return saturday;
     }
 
-    public String getSunday() {
+    public boolean getSunday() {
         return sunday;
+    }
+
+    public void setWeekPeriodicity(int weekPeriodicity) {
+        this.weekPeriodicity = weekPeriodicity;
+    }
+
+    public void setMonday(boolean monday) {
+        this.monday = monday;
+    }
+
+    public void setTuesday(boolean tuesday) {
+        this.tuesday = tuesday;
+    }
+
+    public void setWednesday(boolean wednesday) {
+        this.wednesday = wednesday;
+    }
+
+    public void setThursday(boolean thursday) {
+        this.thursday = thursday;
+    }
+
+    public void setFriday(boolean friday) {
+        this.friday = friday;
+    }
+
+    public void setSaturday(boolean saturday) {
+        this.saturday = saturday;
+    }
+
+    public void setSunday(boolean sunday) {
+        this.sunday = sunday;
     }
 }

@@ -41,6 +41,7 @@ public class DatabaseConfig {
         properties.put("hibernate.connection.characterEncoding", env.getRequiredProperty("hibernate.connection.characterEncoding"));
         properties.put("hibernate.connection.useUnicode", env.getRequiredProperty("hibernate.connection.useUnicode"));
         properties.put("hibernate.physical_naming_strategy", env.getRequiredProperty("hibernate.physical_naming_strategy"));
+        properties.put("hibernate.hbm2ddl.import_files", env.getRequiredProperty("hibernate.hbm2ddl.import_files"));
 
         properties.put("hibernate.connection.handling_mode", env.getRequiredProperty("hibernate.connection.handling_mode"));
         properties.put("hibernate.current_session_context_class", env.getRequiredProperty("hibernate.current_session_context_class"));

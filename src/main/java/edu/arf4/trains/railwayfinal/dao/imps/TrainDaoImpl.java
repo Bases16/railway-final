@@ -18,24 +18,26 @@ import javax.transaction.UserTransaction;
 @Transactional
 public class TrainDaoImpl implements TrainDao {
 
-    @Autowired
-    private EntityManagerFactory factory;
+//    @Autowired
+//    private EntityManagerFactory factory;
     @Autowired
     private JtaTransactionManager transactionManager;
 
-//    @PersistenceContext(unitName = "entityManagerFactory")
-//    private EntityManager em;
+    @PersistenceContext(unitName = "entityManagerFactory")
+    private EntityManager em;
 
 
-//       // 1 - FOR READY ENTITY MANAGER   - good
-//    @Override
-//    public void persistTrain(Train train) {
-//        em.persist(train);
-//    }
-//    @Override
-//    public Train findTrainById(Long id) {
-//        return em.find(Train.class, id);
-//    }
+    // // 1 - FOR READY ENTITY MANAGER   - good (with jta good too)   //but should we close EM explicitly???
+    @Override
+    public void addTrain(Train train) {
+        em.persist(train);
+    }
+    @Override
+    public Train findTrainById(Long id) {
+        Train train = em.find(Train.class, id);
+        Hibernate.initialize(train.getTrainCars());
+        return train;
+    }
 
 
 //    // 2 - FOR READY ENTITY MANAGER trying start transaction    -  error ;   but did not try with jta
@@ -64,23 +66,23 @@ public class TrainDaoImpl implements TrainDao {
 
 
 
-    //3 - FOR FACTORY without starting Transaction -now good(with jta), ///earlier error /////THE MOST INTERESTING CASE
-    @Override
-    public void addTrain(Train train) {
-        EntityManager manager = factory.createEntityManager();
-        manager.persist(train);
-        manager.close();
-    }
-    @Override
-    public Train findTrainById(Long id) {
-        EntityManager manager = factory.createEntityManager();
-        Train train = manager.find(Train.class, id);
-
-        Hibernate.initialize(train.getTrainCars());
-
-        manager.close();
-        return train;
-    }
+//    //3 - FOR FACTORY without starting Transaction -now good(with jta), ///earlier error /////THE MOST INTERESTING CASE
+//    @Override
+//    public void addTrain(Train train) {
+//        EntityManager manager = factory.createEntityManager();
+//        manager.persist(train);
+//        manager.close();
+//    }
+//    @Override
+//    public Train findTrainById(Long id) {
+//        EntityManager manager = factory.createEntityManager();
+//        Train train = manager.find(Train.class, id);
+//
+//        Hibernate.initialize(train.getTrainCars());
+//
+//        manager.close();
+//        return train;
+//    }
 
 
 

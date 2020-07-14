@@ -1,10 +1,8 @@
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
-import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
-import edu.arf4.trains.railwayfinal.service.GenericTrainService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,13 +16,10 @@ import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class)
-public class RawTests {
+public class TestingTrainComponents {
 
     @Autowired
     TrainDao trainDao;
-    @Autowired
-    GenericTrainService genericTrainService;
-
 
     @Ignore
     @Test
@@ -55,15 +50,6 @@ public class RawTests {
         TrainCar trainCarFromDB = trainFromDB.getTrainCars().iterator().next();
 
         trainCarFromDB.getSeats().forEach( (k, v) -> System.out.println("key:" + k + " v:" + v) );
-    }
-
-
-    @Test
-    public void testingGenericTrainService() {
-
-        GenericTrainDto genericTrainDto = new GenericTrainDto();
-        genericTrainService.createGenericTrain(genericTrainDto);
-
     }
 
 }
