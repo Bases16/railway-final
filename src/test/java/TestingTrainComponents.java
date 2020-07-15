@@ -3,6 +3,7 @@ import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
+import edu.arf4.trains.railwayfinal.service.TrainService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,8 @@ public class TestingTrainComponents {
 
     @Autowired
     TrainDao trainDao;
+    @Autowired
+    TrainService trainService;
 
     @Ignore
     @Test
@@ -50,6 +53,13 @@ public class TestingTrainComponents {
         TrainCar trainCarFromDB = trainFromDB.getTrainCars().iterator().next();
 
         trainCarFromDB.getSeats().forEach( (k, v) -> System.out.println("key:" + k + " v:" + v) );
+    }
+
+    @Ignore
+    @Test
+    public void testingCalcDepartDatesForGenTrainByDates() {
+
+
     }
 
 }

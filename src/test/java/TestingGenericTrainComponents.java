@@ -1,5 +1,4 @@
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
-import edu.arf4.trains.railwayfinal.config.TestDatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestDatabaseConfig.class)
+@ContextConfiguration(classes = DatabaseConfig.class)
 public class TestingGenericTrainComponents {
 
     @Autowired
