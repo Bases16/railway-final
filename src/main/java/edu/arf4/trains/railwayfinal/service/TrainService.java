@@ -4,6 +4,8 @@ import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +36,9 @@ public class TrainService {
 
         List<DayOfWeek> departDaysOfWeek = Converter.getDaysOfWeekFromSchedule(schedule);
 
-        int period = Period.between(startDate, endDate).getDays() + 1;
-
+        DateTime jodaStartDate = Converter.convertLocalDateToJodaDateTime(startDate);
+        DateTime jodaEndDate = Converter.convertLocalDateToJodaDateTime(endDate);
+        int period = Days.daysBetween(jodaStartDate, jodaEndDate).getDays() + 1;
 
         for (int i = 1; i <= period; i++) {
 

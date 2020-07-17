@@ -1,5 +1,7 @@
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.service.TrainService;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -17,7 +19,6 @@ public class SimpleTestsForMe {
     public void testCalcDepartDatesFromScheduleByDates() {
 
         Schedule schedule = new Schedule();
-        schedule.setWeekPeriodicity(3);
         schedule.setMonday(true);
         schedule.setTuesday(false);
         schedule.setWednesday(false);
@@ -26,13 +27,21 @@ public class SimpleTestsForMe {
         schedule.setSaturday(false);
         schedule.setSunday(true);
 
-
         LocalDate startDate = LocalDate.of(2020, 7, 20);
         LocalDate endDate = LocalDate.of(2020, 8, 30);
 
+        schedule.setWeekPeriodicity(3);
         List<LocalDate> list = trainService.calcDepartDatesFromScheduleByDates(schedule, startDate, endDate);
+        assertEquals(list.size(), 6);
 
-        assertEquals(list.size(), 18);
+        schedule.setWeekPeriodicity(6);
+        list = trainService.calcDepartDatesFromScheduleByDates(schedule, startDate, endDate);
+        assertEquals(list.size(), 3);
+
+        schedule.setWeekPeriodicity(5);
+        list = trainService.calcDepartDatesFromScheduleByDates(schedule, startDate, endDate);
+        assertEquals(list.size(), 6);
+
     }
 
 
@@ -42,9 +51,18 @@ public class SimpleTestsForMe {
         LocalDate startDate = LocalDate.of(2020, 2, 20);
         LocalDate endDate = LocalDate.of(2021, 2, 20);
 
-        System.out.println(startDate.lengthOfMonth());
-        System.out.println(endDate.lengthOfMonth());
+        DateTime start = new DateTime(2021, 2, 20, 0, 0);
+        DateTime end = new DateTime(2021, 3, 20, 0, 0);
 
+
+
+        int period = Days.daysBetween(start, end).getDays();
+
+        System.out.println(period);
+
+
+//        System.out.println(startDate.lengthOfMonth());
+//        System.out.println(endDate.lengthOfMonth());
     }
 
 

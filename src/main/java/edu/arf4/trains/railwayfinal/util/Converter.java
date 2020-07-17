@@ -1,8 +1,10 @@
 package edu.arf4.trains.railwayfinal.util;
 
 import edu.arf4.trains.railwayfinal.model.Schedule;
+import org.joda.time.DateTime;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +35,9 @@ public class Converter {
         return LocalTime.parse(time, T_FORMATTER);
     }
 
+    public static DateTime convertLocalDateToJodaDateTime(LocalDate ld) {
+        return new DateTime(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth(), 0, 0);
+    }
 
     public static List<DayOfWeek> getDaysOfWeekFromSchedule(Schedule schedule) {
         List<DayOfWeek> resultList = new ArrayList<>();
@@ -45,5 +50,6 @@ public class Converter {
         if(schedule.getSunday()) resultList.add(DayOfWeek.SUNDAY);
         return resultList;
     }
+
 
 }
