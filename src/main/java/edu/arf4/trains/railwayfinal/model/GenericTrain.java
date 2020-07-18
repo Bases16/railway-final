@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -62,4 +61,28 @@ public class GenericTrain {
     public Set<RoutePoint> getRoutePoints() { return routePoints; }
 
     public void setRoutePoints(Set<RoutePoint> routePoints) { this.routePoints = routePoints; }
+
+    public Integer getNumOfPlazkartCars() {
+        return numOfPlazkartCars;
+    }
+
+    public Integer getNumOfSeatsInPlazkartCar() {
+        return numOfSeatsInPlazkartCar;
+    }
+
+    public Integer getNumOfCoopeCars() {
+        return numOfCoopeCars;
+    }
+
+    public Integer getNumOfSeatsInCoopeCar() {
+        return numOfSeatsInCoopeCar;
+    }
+
+    public Integer getNumOfSwCars() {
+        return numOfSwCars;
+    }
+
+    public Integer getNumOfSeatsInSwCar() {
+        return numOfSeatsInSwCar;
+    }
 }

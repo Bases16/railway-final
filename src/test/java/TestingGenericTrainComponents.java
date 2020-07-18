@@ -4,6 +4,7 @@ import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
 import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
+import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.service.GenericTrainService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class)
@@ -70,19 +70,21 @@ public class TestingGenericTrainComponents {
         routePointDtoSet.add(pointDto1);
         routePointDtoSet.add(pointDto2);
 
-//        genericTrainDto.setRoutePointDtoSet(routePointDtoSet);
+        genericTrainDto.setRoutePointDtoSet(routePointDtoSet);
 
-
-        genericTrainService.createGenericTrain(genericTrainDto);
+        Long newGenTrainId = genericTrainService.createGenericTrain(genericTrainDto);
 
         GenericTrain genericTrain = genericTrainDao.getGenericTrainByNumber(RIGHT_GT_NUMBER);
 
+        Schedule retrievedSchedule = genericTrainDao.getScheduleByGenTrainId(newGenTrainId);
+
         assertNotNull(genericTrain);
 
-//        assertEquals(genericTrain.getRoutePoints().size(), 2);
+        assertEquals(genericTrain.getRoutePoints().size(), 2);
+
+        assertTrue(retrievedSchedule.getSunday());
 
     }
-
 
 
 

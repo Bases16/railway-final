@@ -1,7 +1,11 @@
 package edu.arf4.trains.railwayfinal.service;
 
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
+import edu.arf4.trains.railwayfinal.dao.TrainDao;
+import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
+import edu.arf4.trains.railwayfinal.model.Train;
+import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.util.Converter;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -12,45 +16,45 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TrainService {
 
     @Autowired
     GenericTrainDao genericTrainDao;
+    @Autowired
+    TrainDao trainDao;
 
 
     /**
-     *
      *
      * @param startDate always must be monday
      * @param endDate   always must be sunday
      */
     public void registerTrainByGivenDatesAndGenTrain(Long genTrainId, LocalDate startDate, LocalDate endDate) {
 
-        // need only schedule here
-        // - we can load just a schedule from DB by Query creating
-        // - we can load a GenericTrain from DB
+        Schedule schedule = this.genericTrainDao.getScheduleByGenTrainId(genTrainId);
 
-        List<LocalDate> dateList = calcDepartDatesFromScheduleByDates(new Schedule(), startDate, endDate);
+        List<LocalDate> dateList = calcDepartDatesFromScheduleByDates(schedule, startDate, endDate);
+
+        GenericTrain genericTrain = this.genericTrainDao.getGenericTrainById(genTrainId);
 
         if (!dateList.isEmpty()) {
-                registerTrainOnDates(genTrainId, dateList);
+            for(LocalDate date : dateList) {
+                registerTrainOnDate(genericTrain, date);
+            }
         } else throw new RuntimeException("This train doesn't go these days");
     }
 
 
 
-    private void registerTrainOnDates(Long genTrainId, List<LocalDate> dateList) {
+    private void registerTrainOnDate(GenericTrain genericTrain, LocalDate date) {
 
+            Train train = new Train();
+            train.setDepartDate(date);
 
-
-
-        for(LocalDate date : dateList) {
-
-
-
-        }
+            Set<TrainCar> trainCarSet = train.getTrainCars();
 
 
 

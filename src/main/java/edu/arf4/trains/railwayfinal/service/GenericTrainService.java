@@ -23,7 +23,7 @@ public class GenericTrainService {
     @Autowired
     StationDao stationDao;
 
-    public void createGenericTrain(GenericTrainDto genericTrainDto) {
+    public Long createGenericTrain(GenericTrainDto genericTrainDto) {
 
         Schedule schedule = convertDtoToSchedule(genericTrainDto.getSchedule());
         GenericTrain genericTrain = new GenericTrain(schedule);
@@ -31,7 +31,7 @@ public class GenericTrainService {
         Set<RoutePoint> routePointSet = convertDtoSetToRoutePointSet(genericTrainDto.getRoutePointDtoSet(), genericTrain);
         genericTrain.setRoutePoints(routePointSet);
 
-        this.genericTrainDao.addGenericTrain(genericTrain);
+        return this.genericTrainDao.addGenericTrain(genericTrain);
     }
 
 

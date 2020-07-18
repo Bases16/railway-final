@@ -22,7 +22,7 @@ public class TestingTrainComponents {
     @Autowired
     TrainDao trainDao;
 
-//    @Ignore
+    @Ignore
     @Test
     public void testingTrainDao() {
         Train train = new Train();

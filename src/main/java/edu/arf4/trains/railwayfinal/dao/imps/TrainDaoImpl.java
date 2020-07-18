@@ -29,8 +29,9 @@ public class TrainDaoImpl implements TrainDao {
 
     // // 1 - FOR READY ENTITY MANAGER   - good (with jta good too)   //but should we close EM explicitly???
     @Override
-    public void addTrain(Train train) {
+    public Long addTrain(Train train) {
         em.persist(train);
+        return train.getId();
     }
     @Override
     public Train findTrainById(Long id) {
