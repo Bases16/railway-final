@@ -11,6 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +31,7 @@ public class Train {
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<TrainCar> trainCars = new HashSet<>(Constants.NUM_OF_TRAIN_CARS_IN_TRAIN);
 
+    @Size(min = 2)
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "spec_route_points")
     private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
@@ -51,6 +55,14 @@ public class Train {
 
     public void setTrainCars(Set<TrainCar> trainCars) {
         this.trainCars = trainCars;
+    }
+
+    public Set<SpecRoutePoint> getSpecRoutePoints() {
+        return specRoutePoints;
+    }
+
+    public void setSpecRoutePoints(Set<SpecRoutePoint> specRoutePoints) {
+        this.specRoutePoints = specRoutePoints;
     }
 }
 

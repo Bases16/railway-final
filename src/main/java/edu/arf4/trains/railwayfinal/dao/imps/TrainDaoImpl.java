@@ -43,6 +43,8 @@ public class TrainDaoImpl implements TrainDao {
 //    // 2 - FOR READY ENTITY MANAGER trying start transaction    -  error ;   but did not try with jta
 //    @Override
 //    public void persistTrain(Train train) {
+//
+//
 //        EntityTransaction transaction = em.getTransaction();
 //        transaction.begin();
 //
@@ -69,6 +71,9 @@ public class TrainDaoImpl implements TrainDao {
 //    //3 - FOR FACTORY without starting Transaction -now good(with jta), ///earlier error /////THE MOST INTERESTING CASE
 //    @Override
 //    public void addTrain(Train train) {
+
+//
+
 //        EntityManager manager = factory.createEntityManager();
 //        manager.persist(train);
 //        manager.close();
@@ -89,6 +94,8 @@ public class TrainDaoImpl implements TrainDao {
 //    // 4 - FOR FACTORY TRYING starting Transaction    -  good
 //    @Override
 //    public void persistTrain(Train train) {
+    //
+//
 //        EntityManager em = null;
 //        UserTransaction tx = transactionManager.getUserTransaction();
 //        try {

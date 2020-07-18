@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,11 +37,12 @@ public class GenericTrain {
     @Embedded
     private Schedule schedule;
 
+    @Size(min = 2)
     @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
     private Set<RoutePoint> routePoints = new HashSet<>();
 
 
-    private GenericTrain() {}
+    protected GenericTrain() {}
 
     public GenericTrain(Schedule schedule) {
         this.schedule = schedule;

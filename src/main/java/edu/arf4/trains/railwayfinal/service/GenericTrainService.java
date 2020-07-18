@@ -50,7 +50,9 @@ public class GenericTrainService {
     }
     private Set<RoutePoint> convertDtoSetToRoutePointSet(Set<RoutePointDto> dtoSet, GenericTrain genericTrain) {
         Set<RoutePoint> set = new HashSet<>();
-        for(RoutePointDto dto : dtoSet) { set.add(convertDtoToRoutePoint(dto, genericTrain)); }
+        if (dtoSet != null) {
+            for(RoutePointDto dto : dtoSet) { set.add(convertDtoToRoutePoint(dto, genericTrain)); }
+        }
         return set;
     }
     private RoutePoint convertDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {

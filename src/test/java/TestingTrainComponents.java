@@ -21,14 +21,13 @@ public class TestingTrainComponents {
 
     @Autowired
     TrainDao trainDao;
-    @Autowired
-    TrainService trainService;
 
-    @Ignore
+//    @Ignore
     @Test
     public void testingTrainDao() {
         Train train = new Train();
         train.setDepartDate(LocalDate.of(2021,1,10));
+        train.setDepartDate(null);
 
         TrainCar trainCar = new TrainCar();
         trainCar.setType(TrainCarType.COOPE);
@@ -55,11 +54,5 @@ public class TestingTrainComponents {
         trainCarFromDB.getSeats().forEach( (k, v) -> System.out.println("key:" + k + " v:" + v) );
     }
 
-    @Ignore
-    @Test
-    public void testingCalcDepartDatesForGenTrainByDates() {
-
-
-    }
 
 }

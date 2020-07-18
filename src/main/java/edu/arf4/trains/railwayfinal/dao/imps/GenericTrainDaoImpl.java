@@ -21,10 +21,6 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 
     @Override
     public void addGenericTrain(GenericTrain genericTrain) {
-
-        if(genericTrain.getRoutePoints().size() < 2) {
-            throw new RuntimeException("attempting to persist genericTrain with invalid number of routePoints");
-        }
         EntityManager manager = emf.createEntityManager();
         manager.persist(genericTrain);
         manager.close();
@@ -42,7 +38,8 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
         em.close();
         return gt;
 
-
     }
+
+
 
 }

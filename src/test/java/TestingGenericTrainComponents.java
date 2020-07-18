@@ -70,7 +70,7 @@ public class TestingGenericTrainComponents {
         routePointDtoSet.add(pointDto1);
         routePointDtoSet.add(pointDto2);
 
-        genericTrainDto.setRoutePointDtoSet(routePointDtoSet);
+//        genericTrainDto.setRoutePointDtoSet(routePointDtoSet);
 
 
         genericTrainService.createGenericTrain(genericTrainDto);
@@ -79,7 +79,7 @@ public class TestingGenericTrainComponents {
 
         assertNotNull(genericTrain);
 
-        assertEquals(genericTrain.getRoutePoints().size(), 2);
+//        assertEquals(genericTrain.getRoutePoints().size(), 2);
 
     }
 
