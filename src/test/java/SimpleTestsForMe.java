@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class SimpleTestsForMe {
 
-    private TrainService trainService = new TrainService();
+    final TrainService trainService = new TrainService();
 
     @Test
     public void testCalcDepartDatesFromScheduleByDates() {
@@ -45,7 +45,7 @@ public class SimpleTestsForMe {
 
 
     @Test
-    public void testAddTrainCarsOfSpecTypeInGivenCarSet() {
+    public void testAddTrainCarsOfSpecTypeInTrain() {
 
         Train train = new Train();
 
@@ -53,12 +53,10 @@ public class SimpleTestsForMe {
 
         orderOfCar = trainService.addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.PLATZKART,
                                                                  3, 6 );
-
         assertEquals(orderOfCar, 4);
 
         trainService.addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.COOPE,
                                                                  2, 4 );
-
         assertEquals(train.getTrainCars().size(), 5);
 
         train.getTrainCars().iterator().forEachRemaining( v -> System.out.println(v.getSeats().size() + " " + v.getType()

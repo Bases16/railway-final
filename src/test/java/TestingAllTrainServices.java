@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class)
-public class TestingGenericTrainComponents {
+public class TestingAllTrainServices {
 
     @Autowired
     GenericTrainService genericTrainService;
@@ -30,6 +30,9 @@ public class TestingGenericTrainComponents {
 
     @Autowired
     TrainService trainService;
+
+    //todo Wwwwwwwwwwwwwwwwwwwwwwwww??????????????????????????
+    String q = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint WHERE srp.routePoint.station.id := id" ;
 
 
     final String RIGHT_GT_NUMBER = "777-AYE";
@@ -78,22 +81,22 @@ public class TestingGenericTrainComponents {
         genericTrainDto.setRoutePointDtoSet(routePointDtoSet);
 
         Long newGenTrainId = genericTrainService.createGenericTrain(genericTrainDto);
-
         GenericTrain genericTrain = genericTrainDao.getGenericTrainByNumber(RIGHT_GT_NUMBER);
-
         Schedule retrievedSchedule = genericTrainDao.getScheduleByGenTrainId(newGenTrainId);
 
         assertNotNull(genericTrain);
-
         assertEquals(genericTrain.getRoutePoints().size(), 2);
-
         assertTrue(retrievedSchedule.getSunday());
+
 
 
         LocalDate start = LocalDate.of(2020, 7, 20);
         LocalDate end = LocalDate.of(2020, 8, 9);
-
         trainService.registerTrainByGivenDatesAndGenTrain(newGenTrainId, start, end);
+
+
+
+
 
 
     }
