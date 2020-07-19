@@ -6,26 +6,21 @@ import edu.arf4.trains.railwayfinal.model.Schedule;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @Repository
-@Transactional
 public class GenericTrainDaoImpl implements GenericTrainDao {
 
     @Autowired
     EntityManagerFactory emf;
-    @Autowired
-    JtaTransactionManager transactionManager;
 
     @Override
     public Long addGenericTrain(GenericTrain genericTrain) {
-        EntityManager manager = emf.createEntityManager();
-        manager.persist(genericTrain);
-        manager.close();
+        EntityManager em = emf.createEntityManager();
+        em.persist(genericTrain);
+        em.close();
         return genericTrain.getId();
     }
 
@@ -45,10 +40,12 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 
     @Override
     public GenericTrain getGenericTrainById(Long id) {
+        System.out.println(" getGenericTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         EntityManager em = emf.createEntityManager();
         GenericTrain genericTrain = em.find(GenericTrain.class, id);
-        Hibernate.initialize(genericTrain.getRoutePoints());
+        Hibernate.initialize(genericTrain.getRoutePoints());           //todo fix
         em.close();
+        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEMMMMM  is:  " + em.isOpen());
         return genericTrain;
     }
 

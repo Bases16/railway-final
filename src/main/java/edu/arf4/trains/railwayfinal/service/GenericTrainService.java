@@ -11,11 +11,13 @@ import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Transactional
 public class GenericTrainService {
 
     @Autowired
@@ -25,18 +27,16 @@ public class GenericTrainService {
 
     public Long createGenericTrain(GenericTrainDto genericTrainDto) {
 
-        Schedule schedule = convertDtoToSchedule(genericTrainDto.getSchedule());
+        Schedule schedule = convertScheduleDtoToSchedule(genericTrainDto.getSchedule());
         GenericTrain genericTrain = new GenericTrain(schedule);
         genericTrain.setNumber(genericTrainDto.getNumber());
-        Set<RoutePoint> routePointSet = convertDtoSetToRoutePointSet(genericTrainDto.getRoutePointDtoSet(), genericTrain);
+        Set<RoutePoint> routePointSet = convertRoutePointDtoSetToRoutePointSet(genericTrainDto.getRoutePointDtoSet(), genericTrain);
         genericTrain.setRoutePoints(routePointSet);
 
         return this.genericTrainDao.addGenericTrain(genericTrain);
     }
 
-
-
-    private Schedule convertDtoToSchedule(ScheduleDto dto) {
+    private Schedule convertScheduleDtoToSchedule(ScheduleDto dto) {
         Schedule schedule = new Schedule();
         schedule.setWeekPeriodicity(dto.getWeekPeriodicity());
         schedule.setMonday(dto.getMonday());
@@ -48,14 +48,14 @@ public class GenericTrainService {
         schedule.setSunday(dto.getSunday());
         return schedule;
     }
-    private Set<RoutePoint> convertDtoSetToRoutePointSet(Set<RoutePointDto> dtoSet, GenericTrain genericTrain) {
+    private Set<RoutePoint> convertRoutePointDtoSetToRoutePointSet(Set<RoutePointDto> dtoSet, GenericTrain genericTrain) {
         Set<RoutePoint> set = new HashSet<>();
         if (dtoSet != null) {
-            for(RoutePointDto dto : dtoSet) { set.add(convertDtoToRoutePoint(dto, genericTrain)); }
+            for(RoutePointDto dto : dtoSet) { set.add(convertRoutePointDtoToRoutePoint(dto, genericTrain)); }
         }
         return set;
     }
-    private RoutePoint convertDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
+    private RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
         RoutePoint point = new RoutePoint();
         point.setStation(this.stationDao.getStationProxyById(dto.getStationId()));
         point.setOrderOfStation(dto.getOrderOfStation());
@@ -66,6 +66,5 @@ public class GenericTrainService {
         point.setGenericTrain(genericTrain);
         return point;
     }
-
 
 }

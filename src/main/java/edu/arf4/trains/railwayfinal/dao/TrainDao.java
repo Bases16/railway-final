@@ -1,5 +1,6 @@
 package edu.arf4.trains.railwayfinal.dao;
 
+import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.Train;
 
 public interface TrainDao {
@@ -9,5 +10,7 @@ public interface TrainDao {
     Train findTrainById(Long id);
 
 
+
+    void addExample(Example ex);
 
 }

@@ -1,6 +1,7 @@
 package edu.arf4.trains.railwayfinal.dao.imps;
 
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
+import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.Train;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,84 +13,41 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Status;
-import javax.transaction.UserTransaction;
 
 @Repository
-@Transactional
+//@Transactional
 public class TrainDaoImpl implements TrainDao {
 
-//    @Autowired
-//    private EntityManagerFactory factory;
     @Autowired
-    private JtaTransactionManager transactionManager;
+    private EntityManagerFactory emf;
 
-    @PersistenceContext(unitName = "entityManagerFactory")
-    private EntityManager em;
+//    @PersistenceContext(unitName = "entityManagerFactory")
+//    private EntityManager em;
 
 
     // // 1 - FOR READY ENTITY MANAGER   - good (with jta good too)   //but should we close EM explicitly???
     @Override
     public Long addTrain(Train train) {
+        EntityManager em = emf.createEntityManager();
         em.persist(train);
+        em.close();
         return train.getId();
     }
     @Override
     public Train findTrainById(Long id) {
+        EntityManager em = emf.createEntityManager();
         Train train = em.find(Train.class, id);
         Hibernate.initialize(train.getTrainCars());
+        em.close();
         return train;
     }
 
-
-//    // 2 - FOR READY ENTITY MANAGER trying start transaction    -  error ;   but did not try with jta
-//    @Override
-//    public void persistTrain(Train train) {
-//
-//
-//        EntityTransaction transaction = em.getTransaction();
-//        transaction.begin();
-//
-//
-//        em.persist(train);
-//
-//        transaction.commit();
-//    }
-//    @Override
-//    public Train findTrainById(Long id) {
-//        EntityTransaction transaction = em.getTransaction();
-//        transaction.begin();
-//
-//        Train train = em.find(Train.class, id);
-//
-//        transaction.commit();
-//
-//        return train;
-//    }
-
-
-
-
-//    //3 - FOR FACTORY without starting Transaction -now good(with jta), ///earlier error /////THE MOST INTERESTING CASE
-//    @Override
-//    public void addTrain(Train train) {
-
-//
-
-//        EntityManager manager = factory.createEntityManager();
-//        manager.persist(train);
-//        manager.close();
-//    }
-//    @Override
-//    public Train findTrainById(Long id) {
-//        EntityManager manager = factory.createEntityManager();
-//        Train train = manager.find(Train.class, id);
-//
-//        Hibernate.initialize(train.getTrainCars());
-//
-//        manager.close();
-//        return train;
-//    }
-
+    @Override
+    public void addExample(Example ex) {
+        EntityManager em = emf.createEntityManager();
+        em.persist(ex);
+        em.close();
+    }
 
 
 //    // 4 - FOR FACTORY TRYING starting Transaction    -  good

@@ -2,6 +2,7 @@ package edu.arf4.trains.railwayfinal.service;
 
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
+import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
@@ -14,6 +15,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -25,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
+//@Transactional
 public class TrainService {
 
     @Autowired
@@ -50,10 +53,12 @@ public class TrainService {
             for(LocalDate date : dateList) {
                 registerTrainOnDate(genericTrain, date);
             }
-        } else throw new RuntimeException("This train doesn't go these days");
+
+            Example example = new Example(11);
+            this.trainDao.addExample(example);
+
+        } else throw new RuntimeException("This train doesn't go these days"); //todo runtime exc
     }
-
-
 
     private void registerTrainOnDate(GenericTrain genericTrain, LocalDate date) {
 
