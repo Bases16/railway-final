@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.validation.constraints.NotEmpty;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class TrainCar {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Integer orderOfCar;
 
     @Enumerated(EnumType.STRING)
@@ -35,6 +36,7 @@ public class TrainCar {
     @JoinColumn(nullable = false)
     private Train train;
 
+    @NotEmpty
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "train_car_seats")
     @MapKeyColumn(name = "seat_number")
@@ -42,13 +44,15 @@ public class TrainCar {
     @org.hibernate.annotations.OrderBy(clause = "seat_number ASC")
     private Map<Integer,Boolean> seats = new LinkedHashMap<>(); // alt.: @SortNatural, TreeMap
 
+    protected TrainCar() {}
+
+    public TrainCar(Integer orderOfCar, TrainCarType type) {
+        this.orderOfCar = orderOfCar;
+        this.type = type;
+    }
 
     public TrainCarType getType() {
         return type;
-    }
-
-    public void setType(TrainCarType type) {
-        this.type = type;
     }
 
     public Map<Integer, Boolean> getSeats() {
@@ -71,7 +75,4 @@ public class TrainCar {
         return orderOfCar;
     }
 
-    public void setOrderOfCar(Integer orderOfCar) {
-        this.orderOfCar = orderOfCar;
-    }
 }

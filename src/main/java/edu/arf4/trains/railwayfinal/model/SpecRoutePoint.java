@@ -22,6 +22,37 @@ public class SpecRoutePoint {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    private RoutePoint extraPointData;
+    private RoutePoint routePoint;
 
+    public LocalDateTime getDepartDatetime() {
+        return departDatetime;
+    }
+
+    public void setDepartDatetime(LocalDateTime departDatetime) {
+        this.departDatetime = departDatetime;
+    }
+
+    public LocalDateTime getArrivalDatetime() {
+        return arrivalDatetime;
+    }
+
+    public void setArrivalDatetime(LocalDateTime arrivalDatetime) {
+        this.arrivalDatetime = arrivalDatetime;
+    }
+
+    public Integer getTicketsLeft() {
+        return ticketsLeft;
+    }
+
+    public void setTicketsLeft(Integer ticketsLeft) {
+        this.ticketsLeft = ticketsLeft;
+    }
+
+    public RoutePoint getRoutePoint() {
+        return routePoint;
+    }
+
+    public void setRoutePoint(RoutePoint routePoint) {
+        this.routePoint = routePoint;
+    }
 }

@@ -33,12 +33,9 @@ public class RoutePoint {
 
     private LocalTime arrivalTime;
 
-    @Column(nullable = false)  // MAYBE NO NEED IN NOT NULLABLE  //NEED SOME CHECKS !!!!!
     private Integer daysFromTrainDepartToDepartFromHere;
 
-    @Column(nullable = false)
     private Integer daysFromTrainDepartToArrivalHere;
-
 
     // getters/setters
     public Long getId() {

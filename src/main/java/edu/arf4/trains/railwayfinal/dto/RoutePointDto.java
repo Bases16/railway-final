@@ -8,8 +8,8 @@ public class RoutePointDto {
     private int orderOfStation;
     private String departTime;
     private String arrivalTime;
-    private int daysFromTrainDepartToDepartFromHere;
-    private int daysFromTrainDepartToArrivalHere;
+    private Integer daysFromTrainDepartToDepartFromHere;
+    private Integer daysFromTrainDepartToArrivalHere;
 
 
     public long getStationId() {
@@ -44,19 +44,19 @@ public class RoutePointDto {
         this.arrivalTime = arrivalTime;
     }
 
-    public int getDaysFromTrainDepartToDepartFromHere() {
+    public Integer getDaysFromTrainDepartToDepartFromHere() {
         return daysFromTrainDepartToDepartFromHere;
     }
 
-    public void setDaysFromTrainDepartToDepartFromHere(int daysFromTrainDepartToDepartFromHere) {
+    public void setDaysFromTrainDepartToDepartFromHere(Integer daysFromTrainDepartToDepartFromHere) {
         this.daysFromTrainDepartToDepartFromHere = daysFromTrainDepartToDepartFromHere;
     }
 
-    public int getDaysFromTrainDepartToArrivalHere() {
+    public Integer getDaysFromTrainDepartToArrivalHere() {
         return daysFromTrainDepartToArrivalHere;
     }
 
-    public void setDaysFromTrainDepartToArrivalHere(int daysFromTrainDepartToArrivalHere) {
+    public void setDaysFromTrainDepartToArrivalHere(Integer daysFromTrainDepartToArrivalHere) {
         this.daysFromTrainDepartToArrivalHere = daysFromTrainDepartToArrivalHere;
     }
 }

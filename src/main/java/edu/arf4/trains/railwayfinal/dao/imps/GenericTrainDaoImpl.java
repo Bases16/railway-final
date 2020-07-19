@@ -67,6 +67,4 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
         return schedule;
     }
 
-
-
 }

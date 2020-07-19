@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -29,6 +30,7 @@ public class Train {
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<TrainCar> trainCars = new HashSet<>();
 
+    @Valid
     @Size(min = 2)
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "spec_route_points")

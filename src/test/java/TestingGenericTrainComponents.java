@@ -6,12 +6,14 @@ import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.service.GenericTrainService;
+import edu.arf4.trains.railwayfinal.service.TrainService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +27,9 @@ public class TestingGenericTrainComponents {
     GenericTrainService genericTrainService;
     @Autowired
     GenericTrainDao genericTrainDao;
+
+    @Autowired
+    TrainService trainService;
 
 
     final String RIGHT_GT_NUMBER = "777-AYE";
@@ -58,13 +63,13 @@ public class TestingGenericTrainComponents {
         pointDto1.setDepartTime("10:30");
         pointDto1.setArrivalTime(null);
         pointDto1.setDaysFromTrainDepartToDepartFromHere(0);
-        pointDto1.setDaysFromTrainDepartToArrivalHere(0);
+        pointDto1.setDaysFromTrainDepartToArrivalHere(null);
 
         pointDto2.setStationId(14); //Astana
         pointDto2.setOrderOfStation(2);
         pointDto2.setDepartTime(null);
         pointDto2.setArrivalTime("15:45");
-        pointDto2.setDaysFromTrainDepartToDepartFromHere(2);
+        pointDto2.setDaysFromTrainDepartToDepartFromHere(null);
         pointDto2.setDaysFromTrainDepartToArrivalHere(2);
 
         routePointDtoSet.add(pointDto1);
@@ -83,6 +88,13 @@ public class TestingGenericTrainComponents {
         assertEquals(genericTrain.getRoutePoints().size(), 2);
 
         assertTrue(retrievedSchedule.getSunday());
+
+
+        LocalDate start = LocalDate.of(2020, 7, 20);
+        LocalDate end = LocalDate.of(2020, 8, 9);
+
+        trainService.registerTrainByGivenDatesAndGenTrain(newGenTrainId, start, end);
+
 
     }
 

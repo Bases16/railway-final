@@ -1,7 +1,7 @@
 import edu.arf4.trains.railwayfinal.model.Schedule;
+import edu.arf4.trains.railwayfinal.model.Train;
+import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.service.TrainService;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -45,52 +45,25 @@ public class SimpleTestsForMe {
 
 
     @Test
-    public void testPeriod() {
+    public void testAddTrainCarsOfSpecTypeInGivenCarSet() {
 
-        LocalDate startDate = LocalDate.of(2020, 2, 20);
-        LocalDate endDate = LocalDate.of(2021, 2, 20);
+        Train train = new Train();
 
-        DateTime start = new DateTime(2021, 2, 20, 0, 0);
-        DateTime end = new DateTime(2021, 3, 20, 0, 0);
+        int orderOfCar = 1;
 
+        orderOfCar = trainService.addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.PLATZKART,
+                                                                 3, 6 );
 
+        assertEquals(orderOfCar, 4);
 
-        int period = Days.daysBetween(start, end).getDays();
+        trainService.addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.COOPE,
+                                                                 2, 4 );
 
-        System.out.println(period);
+        assertEquals(train.getTrainCars().size(), 5);
 
-
-//        System.out.println(startDate.lengthOfMonth());
-//        System.out.println(endDate.lengthOfMonth());
+        train.getTrainCars().iterator().forEachRemaining( v -> System.out.println(v.getSeats().size() + " " + v.getType()
+                                                         + " " + v.getOrderOfCar() ));
     }
-
-
-
-
-        @Test
-    public void testWP() {
-
-        float x = 8f / 7f;
-
-        float reminder = 0f % 3;
-
-        int y = (int) x;
-
-//        if(x % 2 == 0)
-
-        //int x = Double.valueOf( 8d / 7d).intValue();
-
-        System.out.println(x);
-        System.out.println(reminder);
-        System.out.println(y);
-    }
-
-
-
-
-
-
-
 
 
     @Test

@@ -29,9 +29,7 @@ public class TestingTrainComponents {
         train.setDepartDate(LocalDate.of(2021,1,10));
         train.setDepartDate(null);
 
-        TrainCar trainCar = new TrainCar();
-        trainCar.setType(TrainCarType.COOPE);
-        trainCar.setOrderOfCar(2);
+        TrainCar trainCar = new TrainCar(2, TrainCarType.COOPE);
 
         Map<Integer, Boolean> seats = new HashMap<>();
         seats.put(1, false);

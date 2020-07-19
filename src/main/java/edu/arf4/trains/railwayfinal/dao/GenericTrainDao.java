@@ -16,4 +16,5 @@ public interface GenericTrainDao {
     GenericTrain getGenericTrainById(Long id);
 
     Schedule getScheduleByGenTrainId(Long id);
+
 }
