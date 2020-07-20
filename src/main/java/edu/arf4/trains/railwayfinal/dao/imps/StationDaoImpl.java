@@ -38,11 +38,10 @@ public class StationDaoImpl implements StationDao {
     }
 
 
-
+    @Override
     public List<SpecRoutePoint> getSrpListByStationId(Long id) {
 
-        String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
-                "WHERE srp.routePoint.station.id := id" ;
+        String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint WHERE srp.routePoint.station.id =:id" ;
 
         EntityManager em = emf.createEntityManager();
         List<SpecRoutePoint> srpList = null;
@@ -50,6 +49,8 @@ public class StationDaoImpl implements StationDao {
         srpList = em.createQuery(query, SpecRoutePoint.class).
                 setParameter("id", id).
                 getResultList();
+
+        em.close();
         return srpList;
     }
 

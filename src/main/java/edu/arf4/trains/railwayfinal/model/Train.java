@@ -30,10 +30,8 @@ public class Train {
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<TrainCar> trainCars = new HashSet<>();
 
-    @Valid
     @Size(min = 2)
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "spec_route_points")
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
     private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
 
 

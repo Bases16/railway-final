@@ -1,6 +1,9 @@
 package edu.arf4.trains.railwayfinal.dao;
 
+import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
+
+import java.util.List;
 
 public interface StationDao {
 
@@ -9,5 +12,6 @@ public interface StationDao {
 
     Long addStation(Station station);
 
+    List<SpecRoutePoint> getSrpListByStationId(Long id);
 
 }

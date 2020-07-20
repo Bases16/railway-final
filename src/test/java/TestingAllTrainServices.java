@@ -1,5 +1,6 @@
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
+import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
@@ -7,6 +8,7 @@ import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
 import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
+import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.service.GenericTrainService;
 import edu.arf4.trains.railwayfinal.service.TrainService;
@@ -18,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -34,9 +37,8 @@ public class TestingAllTrainServices {
     TrainDao trainDao;
     @Autowired
     TrainService trainService;
-
-    //todo Wwwwwwwwwwwwwwwwwwwwwwwww??????????????????????????
-    String q = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint WHERE srp.routePoint.station.id := id" ;
+    @Autowired
+    StationDao stationDao;
 
 
     final String RIGHT_GT_NUMBER = "777-AYE";
@@ -97,8 +99,14 @@ public class TestingAllTrainServices {
         LocalDate end = LocalDate.of(2020, 8, 16);
         trainService.registerTrainByGivenDatesAndGenTrain(newGenTrainId, start, end);
 
-        Train train = trainDao.findTrainById(1051L);  // WHHYYYYYY!!??????
+        Train train = trainDao.findTrainById(1065L);  // WHHYYYYYY!!??????
         assertNotNull(train.getDepartDate());
+
+
+        List<SpecRoutePoint> srpList =
+        stationDao.getSrpListByStationId(14L);
+
+        assertEquals(srpList.size(), 8);
 
 
     }
@@ -117,5 +125,8 @@ public class TestingAllTrainServices {
 
         assertEquals(ex.getMyInt(), 5);
     }
+
+
+
 
 }

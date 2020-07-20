@@ -1,15 +1,28 @@
 package edu.arf4.trains.railwayfinal.model;
 
+import edu.arf4.trains.railwayfinal.util.Constants;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Future;
 import java.time.LocalDateTime;
 
-@Embeddable
+@Entity
 public class SpecRoutePoint {
+
+    @Id
+    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Train train;
 
     @Future
     private LocalDateTime departDatetime;
@@ -20,9 +33,28 @@ public class SpecRoutePoint {
     @Column(nullable = false)
     private Integer ticketsLeft;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
     private RoutePoint routePoint;
+
+    protected SpecRoutePoint() {}
+
+    public SpecRoutePoint(Train train) {
+        this.train = train;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
 
     public LocalDateTime getDepartDatetime() {
         return departDatetime;

@@ -84,7 +84,7 @@ public class TrainService {
 
         for (RoutePoint rp : genericTrain.getRoutePoints()) {
 
-            SpecRoutePoint specRP = new SpecRoutePoint();
+            SpecRoutePoint specRP = new SpecRoutePoint(train);
             specRP.setRoutePoint(rp);
             int numberOfSeatsInTrain = (numOfPlazkartCars * numOfSeatsInPlazkartCar) + (numOfCoopeCars * numOfSeatsInCoopeCar)
                                                                  + (numOfSwCars * numOfSeatsInSwCar);
