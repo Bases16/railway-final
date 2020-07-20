@@ -4,6 +4,7 @@ import edu.arf4.trains.railwayfinal.util.Constants;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 
@@ -11,12 +12,13 @@ import javax.validation.constraints.Max;
 public class Example {
 
     @Id
-    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Max(value = 10)
     private int myInt;
 
+    protected Example(){}
 
     public Example(@Max(value = 10) int myInt) {
         this.myInt = myInt;

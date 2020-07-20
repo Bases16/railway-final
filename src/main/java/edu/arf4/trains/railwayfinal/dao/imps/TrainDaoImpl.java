@@ -20,6 +20,8 @@ public class TrainDaoImpl implements TrainDao {
 
     @Autowired
     private EntityManagerFactory emf;
+    @Autowired
+    private JtaTransactionManager transactionManager;
 
 //    @PersistenceContext(unitName = "entityManagerFactory")
 //    private EntityManager em;
@@ -35,6 +37,7 @@ public class TrainDaoImpl implements TrainDao {
     }
     @Override
     public Train findTrainById(Long id) {
+        System.out.println("findTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         EntityManager em = emf.createEntityManager();
         Train train = em.find(Train.class, id);
         Hibernate.initialize(train.getTrainCars());
@@ -42,15 +45,29 @@ public class TrainDaoImpl implements TrainDao {
         return train;
     }
 
+
+
+    @Transactional
     @Override
-    public void addExample(Example ex) {
+    public Long addExample(Example ex) {
         EntityManager em = emf.createEntityManager();
         em.persist(ex);
         em.close();
+        return ex.getId();
+    }
+//    @Transactional
+    @Override
+    public Example findExample(Long id) {
+        EntityManager em = emf.createEntityManager();
+        Example ex = em.find(Example.class, id);
+        em.close();
+        return ex;
     }
 
 
-//    // 4 - FOR FACTORY TRYING starting Transaction    -  good
+
+
+    //    // 4 - FOR FACTORY TRYING starting Transaction    -  good
 //    @Override
 //    public void persistTrain(Train train) {
     //

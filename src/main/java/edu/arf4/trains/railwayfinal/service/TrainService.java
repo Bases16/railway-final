@@ -41,26 +41,24 @@ public class TrainService {
      * @param startDate always must be monday
      * @param endDate   always must be sunday
      */
+//    @Transactional
     public void registerTrainByGivenDatesAndGenTrain(Long genTrainId, LocalDate startDate, LocalDate endDate) {
 
-        Schedule schedule = this.genericTrainDao.getScheduleByGenTrainId(genTrainId);
-
-        List<LocalDate> dateList = calcDepartDatesFromScheduleByDates(schedule, startDate, endDate);
-
         GenericTrain genericTrain = this.genericTrainDao.getGenericTrainById(genTrainId);
+
+        List<LocalDate> dateList = calcDepartDatesFromScheduleByDates(genericTrain.getSchedule(), startDate, endDate);
 
         if (!dateList.isEmpty()) {
             for(LocalDate date : dateList) {
                 registerTrainOnDate(genericTrain, date);
             }
 
-            Example example = new Example(11);
-            this.trainDao.addExample(example);
+            this.trainDao.addExample(new Example(9));
 
         } else throw new RuntimeException("This train doesn't go these days"); //todo runtime exc
     }
 
-    private void registerTrainOnDate(GenericTrain genericTrain, LocalDate date) {
+    public void registerTrainOnDate(GenericTrain genericTrain, LocalDate date) {
 
         Train train = new Train();
         train.setDepartDate(date);
@@ -128,7 +126,6 @@ public class TrainService {
         }
         return orderOfCar;
     }
-
 
     /**
      *

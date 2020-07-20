@@ -6,15 +6,20 @@ import edu.arf4.trains.railwayfinal.model.Schedule;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @Repository
+//@Transactional
 public class GenericTrainDaoImpl implements GenericTrainDao {
 
     @Autowired
     EntityManagerFactory emf;
+    @Autowired
+    JtaTransactionManager transactionManager; //почему не бесцветный как в trainDao??
 
     @Override
     public Long addGenericTrain(GenericTrain genericTrain) {
@@ -27,6 +32,7 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
     // WE COULD ADD EXTRA PARAMETER IN SUCH METHODS TO DEFINE THE FETCH TYPE
     @Override
     public GenericTrain getGenericTrainByNumber(String number) {
+        System.out.println(" getGenericTrainByNumber aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         String query = "SELECT gt FROM GenericTrain gt JOIN FETCH gt.routePoints WHERE gt.number =:number";
 
@@ -43,15 +49,15 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
         System.out.println(" getGenericTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         EntityManager em = emf.createEntityManager();
         GenericTrain genericTrain = em.find(GenericTrain.class, id);
-        Hibernate.initialize(genericTrain.getRoutePoints());           //todo fix
+//        Hibernate.initialize(genericTrain.getRoutePoints());
         em.close();
-        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEMMMMM  is:  " + em.isOpen());
         return genericTrain;
     }
 
     // perhaps the method makes no sense if substitute it for one finding GenTrain without rouPoints initializing
     @Override
     public Schedule getScheduleByGenTrainId(Long id) {
+        System.out.println(" getScheduleByGenTrainId aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         String query = "SELECT gt.schedule FROM GenericTrain gt WHERE gt.id =:id";
 

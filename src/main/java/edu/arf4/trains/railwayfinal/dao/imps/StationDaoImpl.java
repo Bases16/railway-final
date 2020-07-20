@@ -15,17 +15,22 @@ public class StationDaoImpl implements StationDao {
     private EntityManagerFactory emf;
 
     @Override
-    public Station getStationProxyById(Long id) {
+    public Long addStation(Station station) {
         EntityManager em = emf.createEntityManager();
-        Station station = em.getReference(Station.class, id);
+        em.persist(station);
         em.close();
-        return station;
+        return station.getId();
     }
 
     @Override
-    public Station getStationById(Long id) {
+    public Station getStationById(Long id, boolean getProxy) {
         EntityManager em = emf.createEntityManager();
-        Station station = em.find(Station.class, id);
+        Station station = null;
+        if(getProxy) {
+            station = em.getReference(Station.class, id);
+        } else {
+            station = em.find(Station.class, id);
+        }
         em.close();
         return station;
     }

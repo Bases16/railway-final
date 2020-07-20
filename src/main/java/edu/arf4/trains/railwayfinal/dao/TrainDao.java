@@ -11,6 +11,7 @@ public interface TrainDao {
 
 
 
-    void addExample(Example ex);
+    Long addExample(Example ex);
+    Example findExample(Long id);
 
 }

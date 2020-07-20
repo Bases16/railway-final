@@ -5,10 +5,9 @@ import edu.arf4.trains.railwayfinal.model.Station;
 public interface StationDao {
 
 
+    Station getStationById(Long id, boolean getProxy);
 
-    Station getStationProxyById(Long id);
-
-    Station getStationById(Long id);
+    Long addStation(Station station);
 
 
 }

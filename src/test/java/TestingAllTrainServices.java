@@ -1,10 +1,13 @@
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
+import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
 import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
+import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
+import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.service.GenericTrainService;
 import edu.arf4.trains.railwayfinal.service.TrainService;
 import org.junit.Test;
@@ -27,7 +30,8 @@ public class TestingAllTrainServices {
     GenericTrainService genericTrainService;
     @Autowired
     GenericTrainDao genericTrainDao;
-
+    @Autowired
+    TrainDao trainDao;
     @Autowired
     TrainService trainService;
 
@@ -82,26 +86,36 @@ public class TestingAllTrainServices {
 
         Long newGenTrainId = genericTrainService.createGenericTrain(genericTrainDto);
         GenericTrain genericTrain = genericTrainDao.getGenericTrainByNumber(RIGHT_GT_NUMBER);
-        Schedule retrievedSchedule = genericTrainDao.getScheduleByGenTrainId(newGenTrainId);
+//        Schedule retrievedSchedule = genericTrainDao.getScheduleByGenTrainId(newGenTrainId);
 
         assertNotNull(genericTrain);
         assertEquals(genericTrain.getRoutePoints().size(), 2);
-        assertTrue(retrievedSchedule.getSunday());
+//        assertTrue(retrievedSchedule.getSunday());
 
 
-
-        LocalDate start = LocalDate.of(2020, 7, 20);
-        LocalDate end = LocalDate.of(2020, 8, 9);
+        LocalDate start = LocalDate.of(2020, 7, 27);
+        LocalDate end = LocalDate.of(2020, 8, 16);
         trainService.registerTrainByGivenDatesAndGenTrain(newGenTrainId, start, end);
 
-
-
-
+        Train train = trainDao.findTrainById(1051L);  // WHHYYYYYY!!??????
+        assertNotNull(train.getDepartDate());
 
 
     }
 
 
 
+    @Test
+    public void TestExample() {
+
+        Long id = trainDao.addExample(new Example(5));
+
+        assertNotNull(id);
+        System.out.println("IDDDDDD IS: " + id);
+
+        Example ex = trainDao.findExample(id);
+
+        assertEquals(ex.getMyInt(), 5);
+    }
 
 }

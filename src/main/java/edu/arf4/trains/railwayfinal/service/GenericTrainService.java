@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Transactional
+//@Transactional
 public class GenericTrainService {
 
     @Autowired
@@ -25,6 +25,7 @@ public class GenericTrainService {
     @Autowired
     StationDao stationDao;
 
+//    @Transactional
     public Long createGenericTrain(GenericTrainDto genericTrainDto) {
 
         Schedule schedule = convertScheduleDtoToSchedule(genericTrainDto.getSchedule());
@@ -55,9 +56,10 @@ public class GenericTrainService {
         }
         return set;
     }
-    private RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
+//    @Transactional
+    public RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
         RoutePoint point = new RoutePoint();
-        point.setStation(this.stationDao.getStationProxyById(dto.getStationId()));
+        point.setStation(this.stationDao.getStationById(dto.getStationId(), true));
         point.setOrderOfStation(dto.getOrderOfStation());
         point.setDaysFromTrainDepartToArrivalHere(dto.getDaysFromTrainDepartToArrivalHere());
         point.setDaysFromTrainDepartToDepartFromHere(dto.getDaysFromTrainDepartToDepartFromHere());
