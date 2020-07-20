@@ -41,7 +41,7 @@ public class TrainService {
      * @param startDate always must be monday
      * @param endDate   always must be sunday
      */
-//    @Transactional
+    @Transactional
     public void registerTrainByGivenDatesAndGenTrain(Long genTrainId, LocalDate startDate, LocalDate endDate) {
 
         GenericTrain genericTrain = this.genericTrainDao.getGenericTrainById(genTrainId);

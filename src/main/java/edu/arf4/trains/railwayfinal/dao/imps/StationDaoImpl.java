@@ -1,12 +1,14 @@
 package edu.arf4.trains.railwayfinal.dao.imps;
 
 import edu.arf4.trains.railwayfinal.dao.StationDao;
+import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 @Repository
 public class StationDaoImpl implements StationDao {
@@ -36,6 +38,20 @@ public class StationDaoImpl implements StationDao {
     }
 
 
+
+    public List<SpecRoutePoint> getSrpListByStationId(Long id) {
+
+        String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
+                "WHERE srp.routePoint.station.id := id" ;
+
+        EntityManager em = emf.createEntityManager();
+        List<SpecRoutePoint> srpList = null;
+
+        srpList = em.createQuery(query, SpecRoutePoint.class).
+                setParameter("id", id).
+                getResultList();
+        return srpList;
+    }
 
 
 }

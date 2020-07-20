@@ -20,8 +20,8 @@ public class TrainDaoImpl implements TrainDao {
 
     @Autowired
     private EntityManagerFactory emf;
-    @Autowired
-    private JtaTransactionManager transactionManager;
+//    @Autowired
+//    private JtaTransactionManager transactionManager;
 
 //    @PersistenceContext(unitName = "entityManagerFactory")
 //    private EntityManager em;
@@ -55,7 +55,6 @@ public class TrainDaoImpl implements TrainDao {
         em.close();
         return ex.getId();
     }
-//    @Transactional
     @Override
     public Example findExample(Long id) {
         EntityManager em = emf.createEntityManager();

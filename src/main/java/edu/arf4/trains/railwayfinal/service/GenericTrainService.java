@@ -25,7 +25,7 @@ public class GenericTrainService {
     @Autowired
     StationDao stationDao;
 
-//    @Transactional
+    @Transactional
     public Long createGenericTrain(GenericTrainDto genericTrainDto) {
 
         Schedule schedule = convertScheduleDtoToSchedule(genericTrainDto.getSchedule());

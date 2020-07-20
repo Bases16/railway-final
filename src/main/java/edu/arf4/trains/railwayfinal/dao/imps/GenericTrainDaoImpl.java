@@ -18,8 +18,8 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 
     @Autowired
     EntityManagerFactory emf;
-    @Autowired
-    JtaTransactionManager transactionManager; //почему не бесцветный как в trainDao??
+//    @Autowired
+//    JtaTransactionManager transactionManager; //почему не бесцветный как в trainDao??
 
     @Override
     public Long addGenericTrain(GenericTrain genericTrain) {
