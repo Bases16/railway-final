@@ -33,8 +33,7 @@ public class SpecRoutePoint {
     @Column(nullable = false)
     private Integer ticketsLeft;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private RoutePoint routePoint;
 

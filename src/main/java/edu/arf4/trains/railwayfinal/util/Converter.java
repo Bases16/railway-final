@@ -19,20 +19,19 @@ public class Converter {
 
 
     public static String convertLocalDateTimeToString(LocalDateTime dateTime) {
-        return dateTime.format(DT_FORMATTER);
+        return dateTime == null ? null : dateTime.format(DT_FORMATTER);
     }
 
     public static String convertLocalTimeToString(LocalTime time) {
-        return time.format(T_FORMATTER);
+        return time == null ? null : time.format(T_FORMATTER);
     }
 
-
     public static LocalDateTime convertStringToLocalDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, DT_FORMATTER);
+        return dateTime == null ? null : LocalDateTime.parse(dateTime, DT_FORMATTER);
     }
 
     public static LocalTime convertStringToLocalTime(String time) {
-        return LocalTime.parse(time, T_FORMATTER);
+        return time == null ? null : LocalTime.parse(time, T_FORMATTER);
     }
 
     public static DateTime convertLocalDateToJodaDateTime(LocalDate ld) {

@@ -12,6 +12,5 @@ public interface StationDao {
 
     Long addStation(Station station);
 
-    List<SpecRoutePoint> getSrpListByStationId(Long id);
 
 }

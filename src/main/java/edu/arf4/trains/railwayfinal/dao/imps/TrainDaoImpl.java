@@ -2,6 +2,7 @@ package edu.arf4.trains.railwayfinal.dao.imps;
 
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.model.Example;
+import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Train;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Status;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 //@Transactional
@@ -44,6 +47,31 @@ public class TrainDaoImpl implements TrainDao {
         em.close();
         return train;
     }
+
+
+    @Override
+    public List<SpecRoutePoint> getSrpListByStationId(Long id, LocalDateTime start, LocalDateTime end) {
+
+        String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
+                "WHERE srp.routePoint.station.id =:id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )" +
+                                                     " OR   (srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
+
+        EntityManager em = emf.createEntityManager();
+        List<SpecRoutePoint> srpList = null;
+
+        srpList = em.createQuery(query, SpecRoutePoint.class)
+                .setParameter("id", id)
+                .setParameter("start", start)
+                .setParameter("end", end)
+                .getResultList();
+
+        em.close();
+        return srpList;
+    }
+
+
+
+
 
 
 

@@ -2,6 +2,8 @@ import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.service.TrainService;
+import edu.arf4.trains.railwayfinal.util.Converter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -79,4 +81,15 @@ public class SimpleTestsForMe {
 
         assertTrue(localDateList.contains(date3));
     }
+
+
+    @Ignore
+    @Test
+    public void converterShit() {
+
+        System.out.println( Converter.convertStringToLocalTime(null) ); //  NullPointerExc
+
+        System.out.println(Converter.convertLocalDateTimeToString(null) ); // NullPointerExc
+    }
+
 }

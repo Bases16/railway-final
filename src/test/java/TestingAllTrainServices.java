@@ -5,6 +5,7 @@ import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
 import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
+import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
@@ -19,6 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +39,6 @@ public class TestingAllTrainServices {
     TrainDao trainDao;
     @Autowired
     TrainService trainService;
-    @Autowired
-    StationDao stationDao;
 
 
     final String RIGHT_GT_NUMBER = "777-AYE";
@@ -103,10 +103,23 @@ public class TestingAllTrainServices {
         assertNotNull(train.getDepartDate());
 
 
-        List<SpecRoutePoint> srpList =
-        stationDao.getSrpListByStationId(14L);
+        LocalDate st = LocalDate.of(2020, 7, 29);
+        LocalDate en = LocalDate.of(2020, 7, 31);
 
-        assertEquals(srpList.size(), 8);
+        System.out.println();
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
+        System.out.println();
+        List<TrainDto> trainDtoList = trainService.getTrainDtoListByStation(14L, st, en);
+//        List<TrainDto> trainDtoList2 = trainService.getTrainDtoListByStation(13L, st, en);
+
+        assertEquals(trainDtoList.size(), 2);
+//        assertEquals(trainDtoList2.size(), 2);
+
+        for(TrainDto dto : trainDtoList) {
+            System.out.println(dto);
+        }
+
+        // todo  add 2 generictrains at least
 
 
     }

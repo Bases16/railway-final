@@ -63,8 +63,8 @@ public class GenericTrainService {
         point.setOrderOfStation(dto.getOrderOfStation());
         point.setDaysFromTrainDepartToArrivalHere(dto.getDaysFromTrainDepartToArrivalHere());
         point.setDaysFromTrainDepartToDepartFromHere(dto.getDaysFromTrainDepartToDepartFromHere());
-        point.setDepartTime(dto.getDepartTime() == null ? null : Converter.convertStringToLocalTime(dto.getDepartTime()));
-        point.setArrivalTime(dto.getArrivalTime() == null ? null : Converter.convertStringToLocalTime(dto.getArrivalTime()));
+        point.setDepartTime(Converter.convertStringToLocalTime(dto.getDepartTime()));
+        point.setArrivalTime(Converter.convertStringToLocalTime(dto.getArrivalTime()));
         point.setGenericTrain(genericTrain);
         return point;
     }

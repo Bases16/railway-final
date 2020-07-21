@@ -2,6 +2,7 @@ package edu.arf4.trains.railwayfinal.service;
 
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
+import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
@@ -167,4 +168,61 @@ public class TrainService {
     }
 
 
+
+    @Transactional(readOnly = true)
+    public List<TrainDto> getTrainDtoListByStation(Long stationId, LocalDate start, LocalDate end) {
+
+        LocalDateTime st = LocalDateTime.of(start, LocalTime.MIN);
+        LocalDateTime en = LocalDateTime.of(end, LocalTime.MIN).plusDays(1);
+
+        List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationId, st, en);
+
+        if(srpList == null || srpList.isEmpty()) {
+            return null;                            // todo  ???????
+        }
+
+        List<TrainDto> trainDtoList = new ArrayList<>();
+
+        for(SpecRoutePoint srp : srpList) {
+
+            TrainDto dto = new TrainDto();
+            dto.setDepartDateTime(Converter.convertLocalDateTimeToString(srp.getDepartDatetime()));
+            dto.setArrivalDateTime(Converter.convertLocalDateTimeToString(srp.getArrivalDatetime()));
+            dto.setNumber(srp.getRoutePoint().getGenericTrain().getNumber());
+
+            // todo      route   |   optimize number
+
+            trainDtoList.add(dto);
+        }
+
+        return trainDtoList;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
