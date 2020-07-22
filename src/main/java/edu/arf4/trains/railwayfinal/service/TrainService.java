@@ -189,8 +189,8 @@ public class TrainService {
             dto.setDepartDateTime(Converter.convertLocalDateTimeToString(srp.getDepartDatetime()));
             dto.setArrivalDateTime(Converter.convertLocalDateTimeToString(srp.getArrivalDatetime()));
             dto.setNumber(srp.getRoutePoint().getGenericTrain().getNumber());
-
-            // todo      route   |   optimize number
+            dto.setRoute(srp.getRoutePoint().getGenericTrain().getRoute());
+            // todo    streamline generic train initializing
 
             trainDtoList.add(dto);
         }

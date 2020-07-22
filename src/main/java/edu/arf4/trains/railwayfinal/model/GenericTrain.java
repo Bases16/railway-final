@@ -24,6 +24,9 @@ public class GenericTrain {
     @Column(nullable = false, unique = true)
     private String number;
 
+    @Column(nullable = false)
+    private String route;
+
     private final Integer numOfPlazkartCars = Constants.NUM_OF_PLAZKART_CARS;
     private final Integer numOfSeatsInPlazkartCar = Constants.NUM_OF_SEATS_IN_PLAZKART_CAR;
 
@@ -53,6 +56,14 @@ public class GenericTrain {
     public String getNumber() { return number; }
 
     public void setNumber(String number) { this.number = number; }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
 
     public Schedule getSchedule() { return schedule; }
 

@@ -31,6 +31,7 @@ public class GenericTrainService {
         Schedule schedule = convertScheduleDtoToSchedule(genericTrainDto.getSchedule());
         GenericTrain genericTrain = new GenericTrain(schedule);
         genericTrain.setNumber(genericTrainDto.getNumber());
+        genericTrain.setRoute(genericTrainDto.getRoute());
         Set<RoutePoint> routePointSet = convertRoutePointDtoSetToRoutePointSet(genericTrainDto.getRoutePointDtoSet(), genericTrain);
         genericTrain.setRoutePoints(routePointSet);
 

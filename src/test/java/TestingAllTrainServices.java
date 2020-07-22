@@ -49,6 +49,7 @@ public class TestingAllTrainServices {
         GenericTrainDto genericTrainDto = new GenericTrainDto();
 
         genericTrainDto.setNumber(RIGHT_GT_NUMBER);
+        genericTrainDto.setRoute("New-York - Astana");
 
         ScheduleDto scheduleDto = new ScheduleDto();
         scheduleDto.setWeekPeriodicity(2);

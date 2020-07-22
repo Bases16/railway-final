@@ -42,6 +42,7 @@ public class DatabaseConfig {
         properties.put("hibernate.connection.useUnicode", env.getRequiredProperty("hibernate.connection.useUnicode"));
         properties.put("hibernate.physical_naming_strategy", env.getRequiredProperty("hibernate.physical_naming_strategy"));
         properties.put("hibernate.hbm2ddl.import_files", env.getRequiredProperty("hibernate.hbm2ddl.import_files"));
+        properties.put("hibernate.hbm2ddl.import_files_sql_extractor", env.getRequiredProperty("hibernate.hbm2ddl.import_files_sql_extractor"));
         properties.put("javax.persistence.validation.mode", env.getRequiredProperty("javax.persistence.validation.mode"));
 
         properties.put("hibernate.connection.handling_mode", env.getRequiredProperty("hibernate.connection.handling_mode"));
