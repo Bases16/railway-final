@@ -9,8 +9,8 @@ public class TrainDto {
 
     private String number;
     private String route;
-    private String departDateTime;
     private String arrivalDateTime;
+    private String departDateTime;
 
 
     @Override
@@ -18,8 +18,8 @@ public class TrainDto {
         return "TrainDto{" +
                 "number='" + number + '\'' +
                 ", route='" + route + '\'' +
-                ", departDateTime='" + departDateTime + '\'' +
                 ", arrivalDateTime='" + arrivalDateTime + '\'' +
+                ", departDateTime='" + departDateTime + '\'' +
                 '}';
     }
 

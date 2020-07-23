@@ -180,21 +180,15 @@ public class TrainService {
         if(srpList == null || srpList.isEmpty()) {
             return null;                            // todo  ???????
         }
-
         List<TrainDto> trainDtoList = new ArrayList<>();
-
         for(SpecRoutePoint srp : srpList) {
-
             TrainDto dto = new TrainDto();
             dto.setDepartDateTime(Converter.convertLocalDateTimeToString(srp.getDepartDatetime()));
             dto.setArrivalDateTime(Converter.convertLocalDateTimeToString(srp.getArrivalDatetime()));
             dto.setNumber(srp.getRoutePoint().getGenericTrain().getNumber());
             dto.setRoute(srp.getRoutePoint().getGenericTrain().getRoute());
-            // todo    streamline generic train initializing
-
             trainDtoList.add(dto);
         }
-
         return trainDtoList;
     }
 }

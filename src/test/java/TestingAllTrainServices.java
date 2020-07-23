@@ -75,7 +75,7 @@ public class TestingAllTrainServices {
         pointDto1.setDaysFromTrainDepartToDepartFromHere(0);
         pointDto1.setDaysFromTrainDepartToArrivalHere(null);
 
-        pointDto2.setStationId(14); //Astana
+        pointDto2.setStationId(15); //Myshkin
         pointDto2.setOrderOfStation(2);
         pointDto2.setDepartTime(null);
         pointDto2.setArrivalTime("15:45");
@@ -104,23 +104,18 @@ public class TestingAllTrainServices {
         assertNotNull(train.getDepartDate());
 
 
-        LocalDate st = LocalDate.of(2020, 7, 29);
-        LocalDate en = LocalDate.of(2020, 7, 31);
+        LocalDate st = LocalDate.of(2020, 7, 26);
+        LocalDate en = LocalDate.of(2020, 12, 10);
 
-        System.out.println();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
-        System.out.println();
-        List<TrainDto> trainDtoList = trainService.getTrainDtoListByStation(14L, st, en);
-//        List<TrainDto> trainDtoList2 = trainService.getTrainDtoListByStation(13L, st, en);
-
-        assertEquals(trainDtoList.size(), 2);
-//        assertEquals(trainDtoList2.size(), 2);
+        System.out.println("\n AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa \n");
+        List<TrainDto> trainDtoList = trainService.getTrainDtoListByStation(15L, st, en);
 
         for(TrainDto dto : trainDtoList) {
             System.out.println(dto);
         }
 
-        // todo  add 2 generictrains at least
+        assertEquals(trainDtoList.size(), 12);
+
 
 
     }

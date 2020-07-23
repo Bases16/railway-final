@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@org.hibernate.annotations.BatchSize(size = 9)
 public class GenericTrain {
 
     @Id

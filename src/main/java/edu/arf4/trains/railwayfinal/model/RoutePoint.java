@@ -21,7 +21,6 @@ public class RoutePoint {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-//    @org.hibernate.annotations.BatchSize(size = 8)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private GenericTrain genericTrain;
