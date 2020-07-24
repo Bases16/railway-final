@@ -2,10 +2,6 @@ package edu.arf4.trains.railwayfinal.dto;
 
 public class TrainDto {
 
-    // number
-    //  Moscow - Adler
-    //  departDateTime  (if not null)
-    //  arrivalDateTime (if not null)
 
     private String number;
     private String route;

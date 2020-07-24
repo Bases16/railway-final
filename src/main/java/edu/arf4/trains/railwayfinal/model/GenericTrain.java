@@ -28,19 +28,18 @@ public class GenericTrain {
     @Column(nullable = false)
     private String route;
 
-    private final Integer numOfPlazkartCars = Constants.NUM_OF_PLAZKART_CARS;
-    private final Integer numOfSeatsInPlazkartCar = Constants.NUM_OF_SEATS_IN_PLAZKART_CAR;
-
-    private final Integer numOfCoopeCars = Constants.NUM_OF_COOPE_CARS;
-    private final Integer numOfSeatsInCoopeCar = Constants.NUM_OF_SEATS_IN_COOPE_CAR;
-
-    private final Integer numOfSwCars = Constants.NUM_OF_SW_CARS;
-    private final Integer numOfSeatsInSwCar = Constants.NUM_OF_SEATS_IN_SW_CAR;
+    private Integer numOfPlazkartCars;
+    private Integer numOfSeatsInPlazkartCar;
+    private Integer numOfCoopeCars;
+    private Integer numOfSeatsInCoopeCar;
+    private Integer numOfSwCars;
+    private Integer numOfSeatsInSwCar;
 
     @Embedded
     private Schedule schedule;
 
     @Size(min = 2)
+    @org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
     private Set<RoutePoint> routePoints = new HashSet<>();
 
@@ -51,7 +50,6 @@ public class GenericTrain {
         this.schedule = schedule;
     }
 
-    //  getters/setters
     public Long getId() { return id; }
 
     public String getNumber() { return number; }
@@ -96,5 +94,29 @@ public class GenericTrain {
 
     public Integer getNumOfSeatsInSwCar() {
         return numOfSeatsInSwCar;
+    }
+
+    public void setNumOfPlazkartCars(Integer numOfPlazkartCars) {
+        this.numOfPlazkartCars = numOfPlazkartCars;
+    }
+
+    public void setNumOfSeatsInPlazkartCar(Integer numOfSeatsInPlazkartCar) {
+        this.numOfSeatsInPlazkartCar = numOfSeatsInPlazkartCar;
+    }
+
+    public void setNumOfCoopeCars(Integer numOfCoopeCars) {
+        this.numOfCoopeCars = numOfCoopeCars;
+    }
+
+    public void setNumOfSeatsInCoopeCar(Integer numOfSeatsInCoopeCar) {
+        this.numOfSeatsInCoopeCar = numOfSeatsInCoopeCar;
+    }
+
+    public void setNumOfSwCars(Integer numOfSwCars) {
+        this.numOfSwCars = numOfSwCars;
+    }
+
+    public void setNumOfSeatsInSwCar(Integer numOfSeatsInSwCar) {
+        this.numOfSeatsInSwCar = numOfSeatsInSwCar;
     }
 }

@@ -3,6 +3,8 @@ package edu.arf4.trains.railwayfinal.dao;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 
+import java.util.List;
+
 public interface GenericTrainDao {
 
 
@@ -14,6 +16,8 @@ public interface GenericTrainDao {
     GenericTrain getGenericTrainByNumber(String number);
 
     GenericTrain getGenericTrainById(Long id);
+
+    List<GenericTrain> getAllGenericTrains();
 
     Schedule getScheduleByGenTrainId(Long id);
 

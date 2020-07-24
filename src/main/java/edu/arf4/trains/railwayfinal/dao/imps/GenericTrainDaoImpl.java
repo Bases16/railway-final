@@ -1,9 +1,11 @@
 package edu.arf4.trains.railwayfinal.dao.imps;
 
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
+import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,8 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 //@Transactional
@@ -52,6 +56,16 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 //        Hibernate.initialize(genericTrain.getRoutePoints());
         em.close();
         return genericTrain;
+    }
+
+    @Override
+    public List<GenericTrain> getAllGenericTrains() {
+
+        List<GenericTrain> genericTrains = new ArrayList<>();
+        EntityManager em = emf.createEntityManager();
+        genericTrains = em.createQuery("SELECT gt FROM GenericTrain gt", GenericTrain.class).getResultList();
+
+        return genericTrains;
     }
 
     // perhaps the method makes no sense if substitute it for one finding GenTrain without rouPoints initializing

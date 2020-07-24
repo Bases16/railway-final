@@ -191,6 +191,18 @@ public class TrainService {
         }
         return trainDtoList;
     }
+
+
+
+
+
+    public List<TrainDto> getTrainDtoListBy2StationsAndDateRange(Long stationFromId, Long stationToId,
+                                                                       LocalDate start, LocalDate end) {
+
+
+        return null;
+    }
+
 }
 
 

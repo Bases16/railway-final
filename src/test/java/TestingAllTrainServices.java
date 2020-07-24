@@ -50,6 +50,12 @@ public class TestingAllTrainServices {
 
         genericTrainDto.setNumber(RIGHT_GT_NUMBER);
         genericTrainDto.setRoute("New-York - Astana");
+        genericTrainDto.setNumOfPlazkartCars(2);
+        genericTrainDto.setNumOfSeatsInPlazkartCar(4);
+        genericTrainDto.setNumOfCoopeCars(2);
+        genericTrainDto.setNumOfSeatsInCoopeCar(2);
+        genericTrainDto.setNumOfSwCars(2);
+        genericTrainDto.setNumOfSeatsInSwcar(1);
 
         ScheduleDto scheduleDto = new ScheduleDto();
         scheduleDto.setWeekPeriodicity(2);
@@ -113,9 +119,15 @@ public class TestingAllTrainServices {
         for(TrainDto dto : trainDtoList) {
             System.out.println(dto);
         }
-
         assertEquals(trainDtoList.size(), 12);
 
+        System.out.println(" BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+        List<GenericTrainDto> genericTrainDtos = genericTrainService.getAllGenericTrains();
+        assertEquals(genericTrainDtos.size(), 3);
+
+        for(GenericTrainDto dto : genericTrainDtos) {
+            System.out.println(dto);
+        }
 
 
     }
