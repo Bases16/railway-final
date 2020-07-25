@@ -4,18 +4,22 @@ public class TrainDto {
 
 
     private String number;
-    private String route;
-    private String arrivalDateTime;
-    private String departDateTime;
+    private String globalRoute;
+    private String localRoute;
+    private String localSrcArrivalDateTime;
+    private String localSrcDepartDateTime;
+    private String localDstArrivalDateTime;
 
 
     @Override
     public String toString() {
         return "TrainDto{" +
                 "number='" + number + '\'' +
-                ", route='" + route + '\'' +
-                ", arrivalDateTime='" + arrivalDateTime + '\'' +
-                ", departDateTime='" + departDateTime + '\'' +
+                ", globalRoute='" + globalRoute + '\'' +
+                ", localRoute='" + localRoute + '\'' +
+                ", localSrcArrivalDateTime='" + localSrcArrivalDateTime + '\'' +
+                ", localSrcDepartDateTime='" + localSrcDepartDateTime + '\'' +
+                ", localDstArrivalDateTime='" + localDstArrivalDateTime + '\'' +
                 '}';
     }
 
@@ -27,27 +31,43 @@ public class TrainDto {
         this.number = number;
     }
 
-    public String getRoute() {
-        return route;
+    public String getGlobalRoute() {
+        return globalRoute;
     }
 
-    public void setRoute(String route) {
-        this.route = route;
+    public void setGlobalRoute(String globalRoute) {
+        this.globalRoute = globalRoute;
     }
 
-    public String getDepartDateTime() {
-        return departDateTime;
+    public String getLocalSrcDepartDateTime() {
+        return localSrcDepartDateTime;
     }
 
-    public void setDepartDateTime(String departDateTime) {
-        this.departDateTime = departDateTime;
+    public void setLocalSrcDepartDateTime(String localSrcDepartDateTime) {
+        this.localSrcDepartDateTime = localSrcDepartDateTime;
     }
 
-    public String getArrivalDateTime() {
-        return arrivalDateTime;
+    public String getLocalSrcArrivalDateTime() {
+        return localSrcArrivalDateTime;
     }
 
-    public void setArrivalDateTime(String arrivalDateTime) {
-        this.arrivalDateTime = arrivalDateTime;
+    public void setLocalSrcArrivalDateTime(String localSrcArrivalDateTime) {
+        this.localSrcArrivalDateTime = localSrcArrivalDateTime;
+    }
+
+    public String getLocalRoute() {
+        return localRoute;
+    }
+
+    public void setLocalRoute(String localRoute) {
+        this.localRoute = localRoute;
+    }
+
+    public String getLocalDstArrivalDateTime() {
+        return localDstArrivalDateTime;
+    }
+
+    public void setLocalDstArrivalDateTime(String localDstArrivalDateTime) {
+        this.localDstArrivalDateTime = localDstArrivalDateTime;
     }
 }
