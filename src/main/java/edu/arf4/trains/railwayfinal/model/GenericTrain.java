@@ -39,6 +39,7 @@ public class GenericTrain {
     private Schedule schedule;
 
     @Size(min = 2)
+    @org.hibernate.annotations.OrderBy(clause = "order_of_station DESC")
     @org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
     private Set<RoutePoint> routePoints = new HashSet<>();

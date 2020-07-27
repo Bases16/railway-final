@@ -68,7 +68,7 @@ INSERT INTO spec_route_point(id, train_id, route_point_id, tickets_left, arrival
 INSERT INTO generic_train(id, number, route, num_of_coope_cars, num_of_seats_in_coope_car, num_of_plazkart_cars,
 num_of_seats_in_plazkart_car, num_of_sw_cars, num_of_seats_in_sw_car,
 week_periodicity, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES (2, '1488НH', 'Liski - Genoa', 1, 2, 1, 3, 1, 1, 3, true, false , false, false, true, false, false);
+VALUES (2, '1488HH', 'Liski - Genoa', 1, 2, 1, 3, 1, 1, 3, true, false , false, false, true, false, false);
 
 INSERT INTO route_point(id, generic_train_id, station_id, order_of_station, arrival_time, days_from_train_depart_to_arrival_here,
                         depart_time, days_from_train_depart_to_depart_from_here) VALUES

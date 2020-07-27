@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -194,8 +195,7 @@ public class TrainService {
 
 
 
-
-
+    @Transactional(readOnly = true)
     public List<TrainDto> getTrainDtoListBy2StationsAndDateRange(Long stationFromId, Long stationToId,
                                                                        LocalDate start, LocalDate end) {
         LocalDateTime st = LocalDateTime.of(start, LocalTime.MIN);
@@ -207,7 +207,28 @@ public class TrainService {
             return null;                            // todo  ???????
         }
 
-//         srp.getRoutePoint().getGenericTrain().getRoutePoints()
+        for(SpecRoutePoint srp : srpList) {
+
+            Set<RoutePoint> rpList = srp.getRoutePoint().getGenericTrain().getRoutePoints();
+
+            boolean isThere2ndStation = false;
+            Iterator<RoutePoint> iterator = rpList.iterator();
+            while (iterator.hasNext() || !isThere2ndStation) {
+
+                RoutePoint rp = iterator.next();
+                if (rp.getStation().getId() == stationToId)
+                    isThere2ndStation = true;
+
+                if(isThere2ndStation) {
+                    TrainDto dto = new TrainDto();
+                    dto.setGlobalRoute(rp.getGenericTrain().getRoute());
+                    dto.setNumber(rp.getGenericTrain().getNumber());
+
+                }
+
+            }
+        }
+
 
 
 

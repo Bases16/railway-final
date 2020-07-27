@@ -2,7 +2,6 @@ package edu.arf4.trains.railwayfinal.dto;
 
 public class TrainDto {
 
-
     private String number;
     private String globalRoute;
     private String localRoute;

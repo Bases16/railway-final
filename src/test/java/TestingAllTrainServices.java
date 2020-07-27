@@ -133,6 +133,11 @@ public class TestingAllTrainServices {
     }
 
 
+    @Test
+    public void tess() {
+        GenericTrain gt = genericTrainDao.getGenericTrainByNumber("1488HH");
+        gt.getRoutePoints().iterator().forEachRemaining(v -> System.out.println(v.getOrderOfStation()));
+    }
 
     @Test
     public void TestExample() {
