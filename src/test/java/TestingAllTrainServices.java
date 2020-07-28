@@ -102,8 +102,8 @@ public class TestingAllTrainServices {
 //        assertTrue(retrievedSchedule.getSunday());
 
 
-        LocalDate start = LocalDate.of(2020, 7, 27);
-        LocalDate end = LocalDate.of(2020, 8, 16);
+        LocalDate start = LocalDate.of(2020, 8, 10);
+        LocalDate end = LocalDate.of(2020, 8, 30);
         trainService.registerTrainByGivenDatesAndGenTrain(newGenTrainId, start, end);
 
         Train train = trainDao.findTrainById(1065L);  // WHHYYYYYY!!??????
@@ -128,6 +128,21 @@ public class TestingAllTrainServices {
         for(GenericTrainDto dto : genericTrainDtos) {
             System.out.println(dto);
         }
+
+        System.out.println(" CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+
+        LocalDate s = LocalDate.of(2020, 11, 30);
+        LocalDate e = LocalDate.of(2020, 12, 4);
+
+        List<TrainDto> trainDtos=trainService.getTrainDtoListBy2StationsAndDateRange(15L, 17L, s, e);
+
+        for(TrainDto dto : trainDtos) {
+            System.out.println(dto);
+        }
+
+        assertEquals(trainDtos.size(), 2);
+
+
 
 
     }

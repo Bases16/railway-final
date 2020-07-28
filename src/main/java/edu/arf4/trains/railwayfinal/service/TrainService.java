@@ -206,26 +206,29 @@ public class TrainService {
         if(srpList == null || srpList.isEmpty()) {
             return null;                            // todo  ???????
         }
+        List<TrainDto> trainDtoList = new ArrayList<>();
 
         for(SpecRoutePoint srp : srpList) {
+            RoutePoint thisRP = srp.getRoutePoint();
+            Set<RoutePoint> rpList = thisRP.getGenericTrain().getRoutePoints();// batch and subselect executes here
 
-            Set<RoutePoint> rpList = srp.getRoutePoint().getGenericTrain().getRoutePoints();
-
-            boolean isThere2ndStation = false;
-            Iterator<RoutePoint> iterator = rpList.iterator();
-            while (iterator.hasNext() || !isThere2ndStation) {
-
-                RoutePoint rp = iterator.next();
-                if (rp.getStation().getId() == stationToId)
-                    isThere2ndStation = true;
-
-                if(isThere2ndStation) {
+            for (RoutePoint rp : rpList) {
+                if (rp.getStation().getId() == stationToId && rp.getOrderOfStation() > thisRP.getOrderOfStation()) {
                     TrainDto dto = new TrainDto();
                     dto.setGlobalRoute(rp.getGenericTrain().getRoute());
                     dto.setNumber(rp.getGenericTrain().getNumber());
+                    dto.setLocalSrcDepartDateTime(Converter.convertLocalDateTimeToString(srp.getDepartDatetime()));
+                    dto.setLocalSrcArrivalDateTime(Converter.convertLocalDateTimeToString(srp.getArrivalDatetime()));
 
+                    LocalDate d = srp.getDepartDatetime().toLocalDate();
+                    LocalDate requiredDate = d.plusDays(rp.getDaysFromTrainDepartToArrivalHere() -
+                            thisRP.getDaysFromTrainDepartToDepartFromHere());
+                    dto.setLocalDstArrivalDateTime(Converter.convertLocalDateTimeToString(
+                            LocalDateTime.of(requiredDate, rp.getArrivalTime())));
+
+                    trainDtoList.add(dto);
+                    break;
                 }
-
             }
         }
 
@@ -233,7 +236,7 @@ public class TrainService {
 
 
 
-        return null;
+        return trainDtoList;
     }
 
 }
