@@ -13,12 +13,12 @@ public interface GenericTrainDao {
      */
     Long addGenericTrain(GenericTrain train);
 
-    GenericTrain getGenericTrainByNumber(String number);
-
-    GenericTrain getGenericTrainById(Long id);
 
     List<GenericTrain> getAllGenericTrains();
 
-    Schedule getScheduleByGenTrainId(Long id);
+    GenericTrain getGenericTrainById(Long id);
 
+
+//    Schedule getScheduleByGenTrainId(Long id);
+//    GenericTrain getGenericTrainByNumber(String number);
 }

@@ -1,50 +1,40 @@
+package edu.arf4.trains.railwayfinal.service;
+
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
-import edu.arf4.trains.railwayfinal.dao.StationDao;
-import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
 import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
-import edu.arf4.trains.railwayfinal.dto.TrainDto;
-import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
-import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
-import edu.arf4.trains.railwayfinal.model.Train;
-import edu.arf4.trains.railwayfinal.service.GenericTrainService;
-import edu.arf4.trains.railwayfinal.service.TrainService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.transaction.Transactional;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class)
-public class TestingAllTrainServices {
+public class GenericTrainServiceTest {
 
     @Autowired
     GenericTrainService genericTrainService;
     @Autowired
     GenericTrainDao genericTrainDao;
-    @Autowired
-    TrainDao trainDao;
-    @Autowired
-    TrainService trainService;
-
 
     final String RIGHT_GT_NUMBER = "777-AYE";
 
     @Test
-    public void testingGenericTrainService() {
+    @Transactional
+    @Rollback(value = true)
+    public void createGenericTrain() {
 
         GenericTrainDto genericTrainDto = new GenericTrainDto();
 
@@ -94,80 +84,18 @@ public class TestingAllTrainServices {
         genericTrainDto.setRoutePointDtoSet(routePointDtoSet);
 
         Long newGenTrainId = genericTrainService.createGenericTrain(genericTrainDto);
-        GenericTrain genericTrain = genericTrainDao.getGenericTrainByNumber(RIGHT_GT_NUMBER);
-//        Schedule retrievedSchedule = genericTrainDao.getScheduleByGenTrainId(newGenTrainId);
+        GenericTrain genericTrain = genericTrainDao.getGenericTrainById(newGenTrainId);
 
         assertNotNull(genericTrain);
         assertEquals(genericTrain.getRoutePoints().size(), 2);
-//        assertTrue(retrievedSchedule.getSunday());
-
-
-        LocalDate start = LocalDate.of(2020, 8, 10);
-        LocalDate end = LocalDate.of(2020, 8, 30);
-        trainService.registerTrainByGivenDatesAndGenTrain(newGenTrainId, start, end);
-
-        Train train = trainDao.findTrainById(1065L);  // WHHYYYYYY!!??????
-        assertNotNull(train.getDepartDate());
-
-
-        LocalDate st = LocalDate.of(2020, 7, 26);
-        LocalDate en = LocalDate.of(2020, 12, 10);
-
-        System.out.println("\n AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa \n");
-        List<TrainDto> trainDtoList = trainService.getTrainDtoListByStation(15L, st, en);
-
-        for(TrainDto dto : trainDtoList) {
-            System.out.println(dto);
-        }
-        assertEquals(trainDtoList.size(), 12);
-
-        System.out.println(" BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-        List<GenericTrainDto> genericTrainDtos = genericTrainService.getAllGenericTrains();
-        assertEquals(genericTrainDtos.size(), 3);
-
-        for(GenericTrainDto dto : genericTrainDtos) {
-            System.out.println(dto);
-        }
-
-        System.out.println(" CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-
-        LocalDate s = LocalDate.of(2020, 11, 30);
-        LocalDate e = LocalDate.of(2020, 12, 4);
-
-        List<TrainDto> trainDtos=trainService.getTrainDtoListBy2StationsAndDateRange(15L, 17L, s, e);
-
-        for(TrainDto dto : trainDtos) {
-            System.out.println(dto);
-        }
-
-        assertEquals(trainDtos.size(), 2);
-
-
 
 
     }
 
 
     @Test
-    public void tess() {
-        GenericTrain gt = genericTrainDao.getGenericTrainByNumber("1488HH");
-        gt.getRoutePoints().iterator().forEachRemaining(v -> System.out.println(v.getOrderOfStation()));
+    public void getAllGenericTrains() {
+
+        createGenericTrain();
     }
-
-    @Test
-    public void TestExample() {
-
-        Long id = trainDao.addExample(new Example(5));
-
-        assertNotNull(id);
-        System.out.println("IDDDDDD IS: " + id);
-
-        Example ex = trainDao.findExample(id);
-
-        assertEquals(ex.getMyInt(), 5);
-    }
-
-
-
-
 }

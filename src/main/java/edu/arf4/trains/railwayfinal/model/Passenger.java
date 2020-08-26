@@ -15,12 +15,6 @@ public class Passenger {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
     @Column(nullable = false, updatable = false)
     private String firstName;
 

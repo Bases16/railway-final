@@ -12,9 +12,9 @@ import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.util.Converter;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +22,13 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Profile({"main", "alter"})
 @Service
 //@Transactional
 public class TrainService {
@@ -65,7 +66,7 @@ public class TrainService {
         Train train = new Train();
         train.setDepartDate(date);
 
-        Set<TrainCar> trainCarSet = train.getTrainCars();
+//        Set<TrainCar> trainCarSet = train.getTrainCars();
 
         int orderOfCar = 1;
         int numOfPlazkartCars = genericTrain.getNumOfPlazkartCars();
@@ -140,9 +141,7 @@ public class TrainService {
         int weekPeriodicity = schedule.getWeekPeriodicity();
         List<DayOfWeek> departDaysOfWeek = Converter.getDaysOfWeekFromSchedule(schedule);
 
-        DateTime jodaStartDate = Converter.convertLocalDateToJodaDateTime(startDate);
-        DateTime jodaEndDate = Converter.convertLocalDateToJodaDateTime(endDate);
-        int period = Days.daysBetween(jodaStartDate, jodaEndDate).getDays() + 1;
+        long period = ChronoUnit.DAYS.between(startDate, endDate) + 1;
 
         for (int i = 1; i <= period; i++) {
             LocalDate date = startDate.plusDays(i - 1);
@@ -184,6 +183,7 @@ public class TrainService {
         List<TrainDto> trainDtoList = new ArrayList<>();
         for(SpecRoutePoint srp : srpList) {
             TrainDto dto = new TrainDto();
+            dto.setId(srp.getTrain().getId());
             dto.setLocalSrcDepartDateTime(Converter.convertLocalDateTimeToString(srp.getDepartDatetime()));
             dto.setLocalSrcArrivalDateTime(Converter.convertLocalDateTimeToString(srp.getArrivalDatetime()));
             dto.setNumber(srp.getRoutePoint().getGenericTrain().getNumber());
@@ -192,7 +192,6 @@ public class TrainService {
         }
         return trainDtoList;
     }
-
 
 
     @Transactional(readOnly = true)
@@ -213,8 +212,9 @@ public class TrainService {
             Set<RoutePoint> rpList = thisRP.getGenericTrain().getRoutePoints();// batch and subselect executes here
 
             for (RoutePoint rp : rpList) {
-                if (rp.getStation().getId() == stationToId && rp.getOrderOfStation() > thisRP.getOrderOfStation()) {
+                if (rp.getStation().getId().equals(stationToId) && rp.getOrderOfStation() > thisRP.getOrderOfStation()) {
                     TrainDto dto = new TrainDto();
+                    dto.setId(srp.getTrain().getId());
                     dto.setGlobalRoute(rp.getGenericTrain().getRoute());
                     dto.setNumber(rp.getGenericTrain().getNumber());
                     dto.setLocalSrcDepartDateTime(Converter.convertLocalDateTimeToString(srp.getDepartDatetime()));
@@ -231,11 +231,6 @@ public class TrainService {
                 }
             }
         }
-
-
-
-
-
         return trainDtoList;
     }
 

@@ -9,24 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Status;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Profile("main")
+@Profile("alter")
 @Repository
-//@Transactional
-public class TrainDaoImpl implements TrainDao {
+public class AlterTrainDaoImpl implements TrainDao {
 
     @Autowired
     private EntityManagerFactory emf;
-//    @Autowired
-//    private JtaTransactionManager transactionManager;
 
 //    @PersistenceContext(unitName = "entityManagerFactory")
 //    private EntityManager em;
@@ -56,7 +50,7 @@ public class TrainDaoImpl implements TrainDao {
 
         String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
                 "WHERE srp.routePoint.station.id =:id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )" +
-                                                     " OR   (srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
+                " OR   (srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
 
         EntityManager em = emf.createEntityManager();
         List<SpecRoutePoint> srpList = null;
@@ -88,60 +82,5 @@ public class TrainDaoImpl implements TrainDao {
     }
 
 
-
-
-    //    // 4 - FOR FACTORY TRYING starting Transaction    -  good
-//    @Override
-//    public void persistTrain(Train train) {
-    //
-//
-//        EntityManager em = null;
-//        UserTransaction tx = transactionManager.getUserTransaction();
-//        try {
-//            tx.begin();
-//            em = factory.createEntityManager();
-//            em.persist(train);
-//            tx.commit();
-//        } catch (Exception ex) {
-//            try {
-//                if (tx.getStatus() == Status.STATUS_ACTIVE || tx.getStatus() == Status.STATUS_MARKED_ROLLBACK)
-//                    tx.rollback();
-//            } catch (Exception rbEx) {
-//                System.err.println("Rollback of transaction failed, trace follows!");
-//                rbEx.printStackTrace(System.err);
-//            }
-//            throw new RuntimeException(ex);
-//        } finally {
-//            if (em != null && em.isOpen()) {
-//                em.close();
-//            }
-//        }
-//    }
-//    @Override
-//    public Train findTrainById(Long id) {
-//        EntityManager em = null;
-//        UserTransaction tx = transactionManager.getUserTransaction();
-//        Train train = null;
-//        try {
-//            tx.begin();
-//            em = factory.createEntityManager();
-//            train = em.find(Train.class, id);
-//            tx.commit();
-//        } catch (Exception ex) {
-//            try {
-//                if (tx.getStatus() == Status.STATUS_ACTIVE || tx.getStatus() == Status.STATUS_MARKED_ROLLBACK)
-//                    tx.rollback();
-//            } catch (Exception rbEx) {
-//                System.err.println("Rollback of transaction failed, trace follows!");
-//                rbEx.printStackTrace(System.err);
-//            }
-//            throw new RuntimeException(ex);
-//        } finally {
-//            if (em != null && em.isOpen()) {
-//                em.close();
-//            }
-//        }
-//        return train;
-//    }
 
 }

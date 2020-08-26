@@ -10,6 +10,7 @@ import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Profile({"main","alter"})
 @Service
 //@Transactional
 public class GenericTrainService {
@@ -67,7 +69,7 @@ public class GenericTrainService {
         return set;
     }
 //    @Transactional
-    public RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
+    private RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
         RoutePoint point = new RoutePoint();
         point.setStation(this.stationDao.getStationById(dto.getStationId(), true));
         point.setOrderOfStation(dto.getOrderOfStation());

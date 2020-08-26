@@ -49,7 +49,7 @@
             <version>6.1.5.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish</groupId>
+            <groupId>org.glassfish</groupId>  <!-- jakarta expression language for bean validation -->
             <artifactId>jakarta.el</artifactId>
             <version>3.0.3</version>
         </dependency>
@@ -78,12 +78,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.10.6</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -97,6 +91,17 @@
                     <target>${java.version}</target>
                     <testSource>${java.version}</testSource>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+<!--                <configuration>-->
+<!--                    <includes>-->
+<!--                        <include>MySimpleTests.java</include>-->
+<!--                    </includes>-->
+<!--                </configuration>-->
             </plugin>
 
             <plugin>

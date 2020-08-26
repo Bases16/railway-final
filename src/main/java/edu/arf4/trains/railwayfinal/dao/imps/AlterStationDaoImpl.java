@@ -1,7 +1,6 @@
 package edu.arf4.trains.railwayfinal.dao.imps;
 
 import edu.arf4.trains.railwayfinal.dao.StationDao;
-import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -9,11 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.List;
 
-@Profile("main")
+@Profile("alter")
 @Repository
-public class StationDaoImpl implements StationDao {
+public class AlterStationDaoImpl implements StationDao {
 
     @Autowired
     private EntityManagerFactory emf;
@@ -38,8 +36,4 @@ public class StationDaoImpl implements StationDao {
         em.close();
         return station;
     }
-
-
-
 }
-

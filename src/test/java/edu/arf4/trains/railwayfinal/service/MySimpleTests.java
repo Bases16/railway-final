@@ -1,18 +1,28 @@
+package edu.arf4.trains.railwayfinal.service;
+
+import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.service.TrainService;
-import edu.arf4.trains.railwayfinal.util.Converter;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
-public class SimpleTestsForMe {
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = DatabaseConfig.class)
+public class MySimpleTests {
 
     final TrainService trainService = new TrainService();
 
@@ -83,13 +93,28 @@ public class SimpleTestsForMe {
     }
 
 
-    @Ignore
+
+
+//    @Ignore
     @Test
-    public void converterShit() {
+    public void WTF() {
 
-        System.out.println( Converter.convertStringToLocalTime(null) ); //  NullPointerExc
+        LocalDate dateBefore = LocalDate.of(2019, Month.FEBRUARY, 27);
+        LocalDate dateAfter = LocalDate.of(2020, Month.MARCH, 2);
+        long noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
+        System.out.println(noOfDaysBetween);
 
-        System.out.println(Converter.convertLocalDateTimeToString(null) ); // NullPointerExc
+//        int y = 1/0;
+
     }
 
+
+
+
+
+
 }
+
+
+
+

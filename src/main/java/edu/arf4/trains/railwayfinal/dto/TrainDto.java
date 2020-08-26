@@ -2,6 +2,7 @@ package edu.arf4.trains.railwayfinal.dto;
 
 public class TrainDto {
 
+    private Long id;
     private String number;
     private String globalRoute;
     private String localRoute;
@@ -20,6 +21,17 @@ public class TrainDto {
                 ", localSrcDepartDateTime='" + localSrcDepartDateTime + '\'' +
                 ", localDstArrivalDateTime='" + localDstArrivalDateTime + '\'' +
                 '}';
+    }
+
+    public TrainDto() {}
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNumber() {

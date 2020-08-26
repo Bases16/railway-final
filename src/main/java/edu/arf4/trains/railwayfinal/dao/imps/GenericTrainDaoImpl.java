@@ -7,23 +7,28 @@ import edu.arf4.trains.railwayfinal.model.Schedule;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
+@Profile("main")
 @Repository
 //@Transactional
 public class GenericTrainDaoImpl implements GenericTrainDao {
 
     @Autowired
     EntityManagerFactory emf;
-//    @Autowired
-//    JtaTransactionManager transactionManager; //почему не бесцветный как в trainDao??
+    @Autowired
+    JtaTransactionManager jtaTxManager; //почему не бесцветный как в trainDao??
 
     @Override
     public Long addGenericTrain(GenericTrain genericTrain) {
@@ -33,20 +38,6 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
         return genericTrain.getId();
     }
 
-    // WE COULD ADD EXTRA PARAMETER IN SUCH METHODS TO DEFINE THE FETCH TYPE
-    @Override
-    public GenericTrain getGenericTrainByNumber(String number) {
-        System.out.println(" getGenericTrainByNumber aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-        String query = "SELECT gt FROM GenericTrain gt JOIN FETCH gt.routePoints WHERE gt.number =:number";
-
-        EntityManager em = emf.createEntityManager();
-        GenericTrain gt = em.createQuery(query, GenericTrain.class)
-                .setParameter("number", number)
-                .getSingleResult();
-        em.close();
-        return gt;
-    }
 
     @Override
     public GenericTrain getGenericTrainById(Long id) {
@@ -68,21 +59,37 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
         return genericTrains;
     }
 
+
+    // WE COULD ADD EXTRA PARAMETER IN SUCH METHODS TO DEFINE THE FETCH TYPE
+//    @Override
+//    public GenericTrain getGenericTrainByNumber(String number) {
+//        System.out.println(" getGenericTrainByNumber aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//
+//        String query = "SELECT gt FROM GenericTrain gt JOIN FETCH gt.routePoints WHERE gt.number =:number";
+//
+//        EntityManager em = emf.createEntityManager();
+//        GenericTrain gt = em.createQuery(query, GenericTrain.class)
+//                .setParameter("number", number)
+//                .getSingleResult();
+//        em.close();
+//        return gt;
+//    }
+
     // perhaps the method makes no sense if substitute it for one finding GenTrain without rouPoints initializing
-    @Override
-    public Schedule getScheduleByGenTrainId(Long id) {
-        System.out.println(" getScheduleByGenTrainId aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-        String query = "SELECT gt.schedule FROM GenericTrain gt WHERE gt.id =:id";
-
-        EntityManager em = emf.createEntityManager();
-        Schedule schedule = em.createQuery(query, Schedule.class)
-                .setParameter("id", id)
-                .getSingleResult();
-        em.close();
-
-        return schedule;
-    }
+//    @Override
+//    public Schedule getScheduleByGenTrainId(Long id) {
+//        System.out.println(" getScheduleByGenTrainId aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//
+//        String query = "SELECT gt.schedule FROM GenericTrain gt WHERE gt.id =:id";
+//
+//        EntityManager em = emf.createEntityManager();
+//        Schedule schedule = em.createQuery(query, Schedule.class)
+//                .setParameter("id", id)
+//                .getSingleResult();
+//        em.close();
+//
+//        return schedule;
+//    }
 
 
 
