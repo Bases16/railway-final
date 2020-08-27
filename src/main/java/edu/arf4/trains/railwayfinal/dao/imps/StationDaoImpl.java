@@ -9,18 +9,22 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Profile("main")
+//@Profile("main")
 @Repository
 public class StationDaoImpl implements StationDao {
 
-    @Autowired
-    private EntityManagerFactory emf;
+//    @Autowired
+//    private EntityManagerFactory emf;
+
+    @PersistenceContext(unitName = "entityManagerFactory")
+    private EntityManager em;
 
     @Override
     public Long addStation(Station station) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         em.persist(station);
         em.close();
         return station.getId();
@@ -28,7 +32,7 @@ public class StationDaoImpl implements StationDao {
 
     @Override
     public Station getStationById(Long id, boolean getProxy) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         Station station = null;
         if(getProxy) {
             station = em.getReference(Station.class, id);

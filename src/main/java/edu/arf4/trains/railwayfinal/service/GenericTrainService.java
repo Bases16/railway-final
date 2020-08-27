@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Profile({"main","alter"})
+//@Profile({"main","alter"})
 @Service
 //@Transactional
 public class GenericTrainService {
@@ -68,7 +68,7 @@ public class GenericTrainService {
         }
         return set;
     }
-//    @Transactional
+
     private RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
         RoutePoint point = new RoutePoint();
         point.setStation(this.stationDao.getStationById(dto.getStationId(), true));

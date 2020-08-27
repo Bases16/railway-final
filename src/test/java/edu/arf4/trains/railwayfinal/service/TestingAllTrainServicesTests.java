@@ -1,5 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
+import edu.arf4.trains.railwayfinal.config.AlterDatabaseConfig;
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
@@ -29,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfig.class)
+//@ContextConfiguration(classes = AlterDatabaseConfig.class)
 public class TestingAllTrainServicesTests {
 
     @Autowired
@@ -149,7 +151,7 @@ public class TestingAllTrainServicesTests {
 
 
     @Test
-//    @Ignore
+    @Ignore
     public void TestExample() {
 
         Long id = trainDao.addExample(new Example(5));
@@ -163,6 +165,7 @@ public class TestingAllTrainServicesTests {
     }
 
     @Test
+    @Ignore
     public void Temple() {
 
         GenericTrainServiceTest test = new GenericTrainServiceTest();

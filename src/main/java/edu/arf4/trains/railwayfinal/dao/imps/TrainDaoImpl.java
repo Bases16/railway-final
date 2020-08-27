@@ -18,24 +18,22 @@ import javax.transaction.Status;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Profile("main")
+//@Profile("main")
 @Repository
 //@Transactional
 public class TrainDaoImpl implements TrainDao {
 
-    @Autowired
-    private EntityManagerFactory emf;
 //    @Autowired
-//    private JtaTransactionManager transactionManager;
+//    private EntityManagerFactory emf;
 
-//    @PersistenceContext(unitName = "entityManagerFactory")
-//    private EntityManager em;
+    @PersistenceContext(unitName = "entityManagerFactory")
+    private EntityManager em;
 
 
     // // 1 - FOR READY ENTITY MANAGER   - good (with jta good too)   //but should we close EM explicitly???
     @Override
     public Long addTrain(Train train) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         em.persist(train);
         em.close();
         return train.getId();
@@ -43,7 +41,7 @@ public class TrainDaoImpl implements TrainDao {
     @Override
     public Train findTrainById(Long id) {
         System.out.println("findTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         Train train = em.find(Train.class, id);
         Hibernate.initialize(train.getTrainCars());
         em.close();
@@ -58,7 +56,7 @@ public class TrainDaoImpl implements TrainDao {
                 "WHERE srp.routePoint.station.id =:id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )" +
                                                      " OR   (srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
 
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         List<SpecRoutePoint> srpList = null;
 
         srpList = em.createQuery(query, SpecRoutePoint.class)
@@ -74,14 +72,14 @@ public class TrainDaoImpl implements TrainDao {
     @Transactional
     @Override
     public Long addExample(Example ex) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         em.persist(ex);
         em.close();
         return ex.getId();
     }
     @Override
     public Example findExample(Long id) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         Example ex = em.find(Example.class, id);
         em.close();
         return ex;

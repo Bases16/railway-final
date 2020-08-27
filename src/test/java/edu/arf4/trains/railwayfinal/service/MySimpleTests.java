@@ -5,6 +5,7 @@ import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.service.TrainService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,13 +21,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = DatabaseConfig.class)
+
 public class MySimpleTests {
 
     final TrainService trainService = new TrainService();
 
     @Test
+    @Ignore
     public void testCalcDepartDatesFromScheduleByDates() {
 
         Schedule schedule = new Schedule();
@@ -57,6 +58,7 @@ public class MySimpleTests {
 
 
     @Test
+    @Ignore
     public void testAddTrainCarsOfSpecTypeInTrain() {
 
         Train train = new Train();
@@ -77,6 +79,7 @@ public class MySimpleTests {
 
 
     @Test
+    @Ignore
     public void testDatesAndContains() {
         LocalDate date1 = LocalDate.of(2020, 7, 15);
         LocalDate date2 = LocalDate.of(2020, 7, 17);
@@ -95,7 +98,7 @@ public class MySimpleTests {
 
 
 
-//    @Ignore
+    @Ignore
     @Test
     public void WTF() {
 

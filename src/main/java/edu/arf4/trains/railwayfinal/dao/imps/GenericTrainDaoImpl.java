@@ -14,25 +14,32 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
-@Profile("main")
+//@Profile("main")
 @Repository
 //@Transactional
 public class GenericTrainDaoImpl implements GenericTrainDao {
 
-    @Autowired
-    EntityManagerFactory emf;
-    @Autowired
-    JtaTransactionManager jtaTxManager; //почему не бесцветный как в trainDao??
+//    @Autowired
+//    EntityManagerFactory emf;
+
+    @PersistenceContext(unitName = "entityManagerFactory")
+    private EntityManager em;
+
+
+//    @Autowired
+//    JtaTransactionManager jtaTxManager; //почему не бесцветный как в trainDao??
+
 
     @Override
     public Long addGenericTrain(GenericTrain genericTrain) {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         em.persist(genericTrain);
         em.close();
         return genericTrain.getId();
@@ -42,7 +49,7 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
     @Override
     public GenericTrain getGenericTrainById(Long id) {
         System.out.println(" getGenericTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         GenericTrain genericTrain = em.find(GenericTrain.class, id);
 //        Hibernate.initialize(genericTrain.getRoutePoints());
         em.close();
@@ -53,7 +60,7 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
     public List<GenericTrain> getAllGenericTrains() {
 
         List<GenericTrain> genericTrains = new ArrayList<>();
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
         genericTrains = em.createQuery("SELECT gt FROM GenericTrain gt", GenericTrain.class).getResultList();
 
         return genericTrains;
