@@ -35,7 +35,7 @@ public class TrainDaoImpl implements TrainDao {
     public Long addTrain(Train train) {
 //        EntityManager em = emf.createEntityManager();
         em.persist(train);
-        em.close();
+//        em.close();
         return train.getId();
     }
     @Override
@@ -44,7 +44,7 @@ public class TrainDaoImpl implements TrainDao {
 //        EntityManager em = emf.createEntityManager();
         Train train = em.find(Train.class, id);
         Hibernate.initialize(train.getTrainCars());
-        em.close();
+//        em.close();
         return train;
     }
 
@@ -65,7 +65,7 @@ public class TrainDaoImpl implements TrainDao {
                 .setParameter("end", end)
                 .getResultList();
 
-        em.close();
+//        em.close();
         return srpList;
     }
 
@@ -81,7 +81,7 @@ public class TrainDaoImpl implements TrainDao {
     public Example findExample(Long id) {
 //        EntityManager em = emf.createEntityManager();
         Example ex = em.find(Example.class, id);
-        em.close();
+//        em.close();
         return ex;
     }
 

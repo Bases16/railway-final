@@ -1,7 +1,7 @@
 package edu.arf4.trains.railwayfinal.config;
 
-//import com.atomikos.icatch.jta.UserTransactionManager;
-//import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.atomikos.icatch.jta.UserTransactionManager;
+import com.atomikos.jdbc.AtomikosDataSourceBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,11 +18,11 @@ import javax.persistence.EntityManagerFactory;
 import java.util.Properties;
 
 //@Profile("main")
-//@Configuration
-//@EnableTransactionManagement
-//@PropertySource(value = "classpath:database.properties")
-//
-//@ComponentScan("edu.arf4.trains.railwayfinal") //for testing
+@Configuration
+@EnableTransactionManagement
+@PropertySource(value = "classpath:database.properties")
+
+@ComponentScan("edu.arf4.trains.railwayfinal") //for testing
 public class DatabaseConfig {
 
     private Environment env;
@@ -54,48 +54,48 @@ public class DatabaseConfig {
         return properties;
     }
 
-//
-//    @Bean(initMethod = "init", destroyMethod = "close")
-//    public AtomikosDataSourceBean xaDataSource() {
-//        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-//        xaDataSource.setXaDataSourceClassName(env.getRequiredProperty("datasource.xa_datasource_class_name"));
-//
-//        Properties xaProperties = new Properties();
-//        xaProperties.put("user", env.getRequiredProperty("datasource.username"));
-//        xaProperties.put("password", env.getRequiredProperty("datasource.password"));
-//        xaProperties.put("URL", env.getRequiredProperty("datasource.url"));
-//        xaDataSource.setXaProperties(xaProperties);
-//        xaDataSource.setUniqueResourceName("myXADataSource");
-//        xaDataSource.setPoolSize(5);
-//        xaDataSource.setLocalTransactionMode(true);
-//        return xaDataSource;
-//    }
-//
-//    @Bean
-//    public EntityManagerFactory entityManagerFactory(AtomikosDataSourceBean xaDataSource) {
-//        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-//        factoryBean.setDataSource(xaDataSource);
-//        factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-//        factoryBean.setPackagesToScan("edu.arf4.trains.railwayfinal.model");
-//        factoryBean.setJpaProperties(hibernateProperties());
-//        factoryBean.afterPropertiesSet();
-//        return factoryBean.getObject();
-//    }
-//
-//    @Bean(initMethod = "init", destroyMethod = "close")
-//    public UserTransactionManager userTransactionManager() {
-//        UserTransactionManager userTransactionManager = new UserTransactionManager();
-//        userTransactionManager.setForceShutdown(true);
-//        return userTransactionManager;
-//    }
-//
-//    @Bean
-//    public JtaTransactionManager transactionManager() {
-//        JtaTransactionManager transactionManager = new JtaTransactionManager();
-//        transactionManager.setTransactionManager(userTransactionManager());
-//        transactionManager.setUserTransaction(userTransactionManager());
-//        return transactionManager;
-//    }
+
+    @Bean(initMethod = "init", destroyMethod = "close")
+    public AtomikosDataSourceBean xaDataSource() {
+        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+        xaDataSource.setXaDataSourceClassName(env.getRequiredProperty("datasource.xa_datasource_class_name"));
+
+        Properties xaProperties = new Properties();
+        xaProperties.put("user", env.getRequiredProperty("datasource.username"));
+        xaProperties.put("password", env.getRequiredProperty("datasource.password"));
+        xaProperties.put("URL", env.getRequiredProperty("datasource.url"));
+        xaDataSource.setXaProperties(xaProperties);
+        xaDataSource.setUniqueResourceName("myXADataSource");
+        xaDataSource.setPoolSize(5);
+        xaDataSource.setLocalTransactionMode(true);
+        return xaDataSource;
+    }
+
+    @Bean
+    public EntityManagerFactory entityManagerFactory(AtomikosDataSourceBean xaDataSource) {
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+        factoryBean.setDataSource(xaDataSource);
+        factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        factoryBean.setPackagesToScan("edu.arf4.trains.railwayfinal.model");
+        factoryBean.setJpaProperties(hibernateProperties());
+        factoryBean.afterPropertiesSet();
+        return factoryBean.getObject();
+    }
+
+    @Bean(initMethod = "init", destroyMethod = "close")
+    public UserTransactionManager userTransactionManager() {
+        UserTransactionManager userTransactionManager = new UserTransactionManager();
+        userTransactionManager.setForceShutdown(true);
+        return userTransactionManager;
+    }
+
+    @Bean
+    public JtaTransactionManager transactionManager() {
+        JtaTransactionManager transactionManager = new JtaTransactionManager();
+        transactionManager.setTransactionManager(userTransactionManager());
+        transactionManager.setUserTransaction(userTransactionManager());
+        return transactionManager;
+    }
 
 
 }

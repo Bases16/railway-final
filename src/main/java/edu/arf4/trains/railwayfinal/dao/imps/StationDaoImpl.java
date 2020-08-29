@@ -26,7 +26,7 @@ public class StationDaoImpl implements StationDao {
     public Long addStation(Station station) {
 //        EntityManager em = emf.createEntityManager();
         em.persist(station);
-        em.close();
+//        em.close();
         return station.getId();
     }
 
@@ -39,7 +39,7 @@ public class StationDaoImpl implements StationDao {
         } else {
             station = em.find(Station.class, id);
         }
-        em.close();
+//        em.close();
         return station;
     }
 

@@ -23,7 +23,6 @@ import java.util.List;
 
 //@Profile("main")
 @Repository
-//@Transactional
 public class GenericTrainDaoImpl implements GenericTrainDao {
 
 //    @Autowired
@@ -38,10 +37,18 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 
 
     @Override
-    public Long addGenericTrain(GenericTrain genericTrain) {
+    public Long addGenericTrain(GenericTrain genericTrain)  {
 //        EntityManager em = emf.createEntityManager();
         em.persist(genericTrain);
-        em.close();
+
+//        try {
+//            em.flush();
+//        } catch (RuntimeException e) {
+//            System.out.println("CAUGHT THAT SHIT");
+//            e.printStackTrace();
+//            throw e;
+//        }
+
         return genericTrain.getId();
     }
 
@@ -52,7 +59,7 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 //        EntityManager em = emf.createEntityManager();
         GenericTrain genericTrain = em.find(GenericTrain.class, id);
 //        Hibernate.initialize(genericTrain.getRoutePoints());
-        em.close();
+//        em.close();
         return genericTrain;
     }
 

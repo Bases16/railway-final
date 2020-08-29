@@ -40,7 +40,6 @@ public class RoutePoint {
 
     private Integer daysFromTrainDepartToArrivalHere;
 
-    // getters/setters
     public Long getId() {
         return id;
     }

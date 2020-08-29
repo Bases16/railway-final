@@ -22,11 +22,11 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 //@Profile("alter")
-@Configuration
-@EnableTransactionManagement
-@PropertySource(value = "classpath:test_database.properties")
-
-@ComponentScan("edu.arf4.trains.railwayfinal") //for testing
+//@Configuration
+//@EnableTransactionManagement
+//@PropertySource(value = "classpath:test_database.properties")
+//
+//@ComponentScan("edu.arf4.trains.railwayfinal") //for testing
 
 public class AlterDatabaseConfig {
 
@@ -62,6 +62,8 @@ public class AlterDatabaseConfig {
         properties.put("hibernate.hbm2ddl.import_files", env.getRequiredProperty("hibernate.hbm2ddl.import_files"));
         properties.put("hibernate.hbm2ddl.import_files_sql_extractor", env.getRequiredProperty("hibernate.hbm2ddl.import_files_sql_extractor"));
         properties.put("javax.persistence.validation.mode", env.getRequiredProperty("javax.persistence.validation.mode"));
+
+//        properties.put("javax.persistence.transactionType", env.getRequiredProperty("javax.persistence.transactionType"));
 
         return properties;
     }

@@ -164,14 +164,7 @@ public class TestingAllTrainServicesTests {
         assertEquals(ex.getMyInt(), 5);
     }
 
-    @Test
-    @Ignore
-    public void Temple() {
 
-        GenericTrainServiceTest test = new GenericTrainServiceTest();
-        test.createGenericTrain();
-
-    }
 
 
 

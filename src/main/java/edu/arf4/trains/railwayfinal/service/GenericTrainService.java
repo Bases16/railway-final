@@ -9,10 +9,14 @@ import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
+import net.bytebuddy.description.type.TypeDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,8 +50,16 @@ public class GenericTrainService {
         Set<RoutePoint> routePointSet = convertRoutePointDtoSetToRoutePointSet(dto.getRoutePointDtoSet(), genericTrain);
         genericTrain.setRoutePoints(routePointSet);
 
-        return this.genericTrainDao.addGenericTrain(genericTrain);
+        Long newGeTrainId;
+        try {
+            newGeTrainId = this.genericTrainDao.addGenericTrain(genericTrain);
+        } catch (RuntimeException e) {
+            throw e;
+        }
+
+        return newGeTrainId;
     }
+
 
     private Schedule convertScheduleDtoToSchedule(ScheduleDto dto) {
         Schedule schedule = new Schedule();
@@ -61,6 +73,7 @@ public class GenericTrainService {
         schedule.setSunday(dto.getSunday());
         return schedule;
     }
+
     private Set<RoutePoint> convertRoutePointDtoSetToRoutePointSet(Set<RoutePointDto> dtoSet, GenericTrain genericTrain) {
         Set<RoutePoint> set = new HashSet<>();
         if (dtoSet != null) {
@@ -81,9 +94,11 @@ public class GenericTrainService {
         return point;
     }
 
-
-
-
+    @Transactional(readOnly = true)
+    public GenericTrainDto getGenericTrainDtoById(Long id) {
+        GenericTrain genericTrain = this.genericTrainDao.getGenericTrainById(id);
+        return convertGenTrainToGenTrainDto(genericTrain);
+    }
 
     @Transactional(readOnly = true)
     public List<GenericTrainDto> getAllGenericTrains() {
@@ -102,15 +117,16 @@ public class GenericTrainService {
     }
 
     private GenericTrainDto convertGenTrainToGenTrainDto(GenericTrain gt) {
+        if (gt == null) return null;
         GenericTrainDto trainDto = new GenericTrainDto();
         trainDto.setNumber(gt.getNumber());
         trainDto.setRoute(gt.getRoute());
         trainDto.setNumOfPlazkartCars(gt.getNumOfPlazkartCars());
         trainDto.setNumOfSeatsInPlazkartCar(gt.getNumOfSeatsInPlazkartCar());
-        trainDto.setNumOfCoopeCars(gt.getNumOfSeatsInCoopeCar());
+        trainDto.setNumOfCoopeCars(gt.getNumOfCoopeCars());
         trainDto.setNumOfSeatsInCoopeCar(gt.getNumOfSeatsInCoopeCar());
         trainDto.setNumOfSwCars(gt.getNumOfSwCars());
-        trainDto.setNumOfSeatsInSwcar(gt.getNumOfSeatsInCoopeCar());
+        trainDto.setNumOfSeatsInSwcar(gt.getNumOfSeatsInSwCar());
 
         ScheduleDto scheduleDto = new ScheduleDto();
         Schedule schedule = gt.getSchedule();
@@ -125,7 +141,7 @@ public class GenericTrainService {
         trainDto.setSchedule(scheduleDto);
 
         Set<RoutePointDto> rpDtoSet = new HashSet<>();
-        for(RoutePoint rp : gt.getRoutePoints()) {
+        for(RoutePoint rp : gt.getRoutePoints()) {              // SUBSELECT OPTIMIZATION HERE
             RoutePointDto rpDto = new RoutePointDto();
             rpDto.setStationId(rp.getStation().getId());
             rpDto.setOrderOfStation(rp.getOrderOfStation());
