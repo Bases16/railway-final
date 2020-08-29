@@ -1,6 +1,5 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.AlterDatabaseConfig;
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
@@ -9,10 +8,7 @@ import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
 import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.Example;
-import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Train;
-import edu.arf4.trains.railwayfinal.service.GenericTrainService;
-import edu.arf4.trains.railwayfinal.service.TrainService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -125,7 +121,7 @@ public class TestingAllTrainServicesTests {
         assertEquals(trainDtoList.size(), 12);
 
         System.out.println(" BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-        List<GenericTrainDto> genericTrainDtos = genericTrainService.getAllGenericTrains();
+        List<GenericTrainDto> genericTrainDtos = genericTrainService.getAllGenericTrainDTOs();
         assertEquals(genericTrainDtos.size(), 3);
 
         for(GenericTrainDto dto : genericTrainDtos) {

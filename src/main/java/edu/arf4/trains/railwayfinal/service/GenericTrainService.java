@@ -1,7 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
-import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
 import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
@@ -9,14 +8,9 @@ import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
-import net.bytebuddy.description.type.TypeDescription;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,10 +22,17 @@ import java.util.Set;
 //@Transactional
 public class GenericTrainService {
 
+//    @Autowired
+    private final GenericTrainDao genericTrainDao;
+//    @Autowired
+    private final SimpleServices simpleServices;
+
     @Autowired
-    GenericTrainDao genericTrainDao;
-    @Autowired
-    StationDao stationDao;
+    public GenericTrainService(GenericTrainDao genericTrainDao, SimpleServices simpleServices) {
+        this.genericTrainDao = genericTrainDao;
+        this.simpleServices = simpleServices;
+    }
+
 
     @Transactional
     public Long createGenericTrain(GenericTrainDto dto) {
@@ -84,7 +85,7 @@ public class GenericTrainService {
 
     private RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
         RoutePoint point = new RoutePoint();
-        point.setStation(this.stationDao.getStationById(dto.getStationId(), true));
+        point.setStation(this.simpleServices.getStationById(dto.getStationId(), true));
         point.setOrderOfStation(dto.getOrderOfStation());
         point.setDaysFromTrainDepartToArrivalHere(dto.getDaysFromTrainDepartToArrivalHere());
         point.setDaysFromTrainDepartToDepartFromHere(dto.getDaysFromTrainDepartToDepartFromHere());
@@ -94,6 +95,8 @@ public class GenericTrainService {
         return point;
     }
 
+
+
     @Transactional(readOnly = true)
     public GenericTrainDto getGenericTrainDtoById(Long id) {
         GenericTrain genericTrain = this.genericTrainDao.getGenericTrainById(id);
@@ -101,7 +104,7 @@ public class GenericTrainService {
     }
 
     @Transactional(readOnly = true)
-    public List<GenericTrainDto> getAllGenericTrains() {
+    public List<GenericTrainDto> getAllGenericTrainDTOs() {
 
         List<GenericTrain> genericTrains = this.genericTrainDao.getAllGenericTrains();
 

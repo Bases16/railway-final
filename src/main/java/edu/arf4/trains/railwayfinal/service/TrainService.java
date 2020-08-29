@@ -34,9 +34,9 @@ import java.util.Set;
 public class TrainService {
 
     @Autowired
-    GenericTrainDao genericTrainDao;
+    private GenericTrainDao genericTrainDao;
     @Autowired
-    TrainDao trainDao;
+    private TrainDao trainDao;
 
 
     /**

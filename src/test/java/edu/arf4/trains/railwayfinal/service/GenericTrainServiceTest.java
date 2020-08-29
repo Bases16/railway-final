@@ -1,6 +1,5 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.AlterDatabaseConfig;
 import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
@@ -22,8 +21,6 @@ import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -74,7 +71,7 @@ public class GenericTrainServiceTest {
 
         RoutePointDto pointDto1 = new RoutePointDto();
 
-        pointDto1.setStationId(13); //New-York
+        pointDto1.setStationId(13);      //New-York
         pointDto1.setOrderOfStation(1);
         pointDto1.setDepartTime("10:30");
         pointDto1.setArrivalTime(null);
@@ -82,7 +79,7 @@ public class GenericTrainServiceTest {
         pointDto1.setDaysFromTrainDepartToArrivalHere(null);
 
         RoutePointDto pointDto2 = new RoutePointDto();
-        pointDto2.setStationId(15); //Myshkin
+        pointDto2.setStationId(15);      //Myshkin
         pointDto2.setOrderOfStation(2);
         pointDto2.setDepartTime(null);
         pointDto2.setArrivalTime("15:45");
@@ -166,19 +163,37 @@ public class GenericTrainServiceTest {
 
     @Test
     public void getAllGenericTrainsTest() {
-        List<GenericTrainDto> list = genericTrainService.getAllGenericTrains(); //USING SUBSELECT
+        List<GenericTrainDto> list = genericTrainService.getAllGenericTrainDTOs(); //USING SUBSELECT
         assertNotNull(list);
         assertEquals(list.size(), 2);
     }
 
+    @Test
+    @Transactional
+//    @Rollback(false)
+//    @Ignore
+    public void BeanValidationViolation() {
+
+        GenericTrainDto genTrainDto = createTestGenTrainDto();
+        Iterator<RoutePointDto> iterator = genTrainDto.getRoutePointDtoSet().iterator();
+        iterator.next();
+        iterator.remove();
+
+        genericTrainService.createGenericTrain(genTrainDto);
+
+        System.out.println("3232323");
+    }
 
     @Test
-    @Ignore
-    public void constrainViolationTest() {
-//        assertThrows(RuntimeException.class, () -> genericTrainService.createGenericTrain(genericTrainDto));
-//        Long newGenTrainId2 = genericTrainService.createGenericTrain(genericTrainDto);
+//    @Ignore
+    @Transactional
+    @Rollback(value = false)
+    public void constraintViolationTest() {
 
-        // less than 2 RP
+        GenericTrainDto genTrainDto = createTestGenTrainDto();
+        genericTrainService.createGenericTrain(genTrainDto);
+        assertThrows(RuntimeException.class, () -> genericTrainService.createGenericTrain(genTrainDto));
+
     }
 
 

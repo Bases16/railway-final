@@ -34,7 +34,7 @@ public class StationDaoImpl implements StationDao {
     public Station getStationById(Long id, boolean getProxy) {
 //        EntityManager em = emf.createEntityManager();
         Station station = null;
-        if(getProxy) {
+        if (getProxy) {
             station = em.getReference(Station.class, id);
         } else {
             station = em.find(Station.class, id);

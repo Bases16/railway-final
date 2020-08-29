@@ -41,14 +41,17 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 //        EntityManager em = emf.createEntityManager();
         em.persist(genericTrain);
 
-//        try {
-//            em.flush();
-//        } catch (RuntimeException e) {
-//            System.out.println("CAUGHT THAT SHIT");
-//            e.printStackTrace();
-//            throw e;
-//        }
 
+        // using flush() is okay 'cause this method is at the end of tx
+        try {
+            em.flush();
+        } catch (RuntimeException e) {
+            System.out.println("CAUGHT THAT SHIT");
+            e.printStackTrace();
+            throw e;
+        }
+
+//        em.flush();
         return genericTrain.getId();
     }
 
