@@ -10,14 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SimpleServices {
 
-    @Autowired
-    private StationDao stationDao;
-//    private final StationDao stationDao;
+    private final StationDao stationDao;
 
-//    @Autowired
-//    public SimpleServices(StationDao stationDao) {
-//        this.stationDao = stationDao;
-//    }
+    @Autowired
+    public SimpleServices(StationDao stationDao) {
+        this.stationDao = stationDao;
+    }
 
     @Transactional
     public Long createStation(Station station) {

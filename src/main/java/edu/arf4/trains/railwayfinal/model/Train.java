@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -24,6 +26,10 @@ public class Train {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private GenericTrain genericTrain;
+
     @Column(nullable = false)
     private LocalDate departDate;
 
@@ -34,9 +40,22 @@ public class Train {
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
     private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
 
+    protected Train() {}
+
+    public Train(GenericTrain genericTrain) {
+        this.genericTrain = genericTrain;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public GenericTrain getGenericTrain() {
+        return genericTrain;
+    }
+
+    public void setGenericTrain(GenericTrain genericTrain) {
+        this.genericTrain = genericTrain;
     }
 
     public LocalDate getDepartDate() {

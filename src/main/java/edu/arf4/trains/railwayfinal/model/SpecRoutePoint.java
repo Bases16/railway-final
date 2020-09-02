@@ -3,7 +3,6 @@ package edu.arf4.trains.railwayfinal.model;
 import edu.arf4.trains.railwayfinal.util.Constants;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

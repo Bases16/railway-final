@@ -6,13 +6,15 @@ import org.hibernate.validator.constraints.UniqueElements;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Station {
 
     @Id
-    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
+//    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)

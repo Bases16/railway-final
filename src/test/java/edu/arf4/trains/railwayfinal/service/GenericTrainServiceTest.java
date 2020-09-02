@@ -17,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 //@ContextConfiguration(classes = AlterDatabaseConfig.class)
 @ContextConfiguration(classes = DatabaseConfig.class)
@@ -162,7 +164,7 @@ public class GenericTrainServiceTest {
     }
 
     @Test
-    public void getAllGenericTrainsTest() {
+    public void getAllGenericTrainDTOsTest() {
         List<GenericTrainDto> list = genericTrainService.getAllGenericTrainDTOs(); //USING SUBSELECT
         assertNotNull(list);
         assertEquals(list.size(), 2);
@@ -170,8 +172,8 @@ public class GenericTrainServiceTest {
 
     @Test
     @Transactional
-//    @Rollback(false)
-//    @Ignore
+    @Rollback(false)
+    @Ignore
     public void BeanValidationViolation() {
 
         GenericTrainDto genTrainDto = createTestGenTrainDto();
@@ -183,9 +185,8 @@ public class GenericTrainServiceTest {
 
         System.out.println("3232323");
     }
-
     @Test
-//    @Ignore
+    @Ignore
     @Transactional
     @Rollback(value = false)
     public void constraintViolationTest() {
@@ -210,10 +211,5 @@ public class GenericTrainServiceTest {
 //        assertEquals(2, 3);
     }
 
-
-    @BeforeTestMethod
-    public void beforeTestMethod() {
-        System.out.println(" @BeforeTestMethod is running ");
-    }
 
 }

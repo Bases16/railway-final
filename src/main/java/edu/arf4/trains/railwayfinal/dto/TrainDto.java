@@ -11,20 +11,19 @@ public class TrainDto {
     private String localDstArrivalDateTime;
 
 
+    public TrainDto() {}
+
     @Override
     public String toString() {
         return "TrainDto{" +
                 "number='" + number + '\'' +
-                ", globalRoute='" + globalRoute + '\'' +
-                ", localRoute='" + localRoute + '\'' +
-                ", localSrcArrivalDateTime='" + localSrcArrivalDateTime + '\'' +
-                ", localSrcDepartDateTime='" + localSrcDepartDateTime + '\'' +
-                ", localDstArrivalDateTime='" + localDstArrivalDateTime + '\'' +
+                "\n globalRoute='" + globalRoute + '\'' +
+                "\n localRoute='" + localRoute + '\'' +
+                "\n localSrcArrivalDateTime='" + localSrcArrivalDateTime + '\'' +
+                "\n localSrcDepartDateTime='" + localSrcDepartDateTime + '\'' +
+                "\n localDstArrivalDateTime='" + localDstArrivalDateTime + '\'' +
                 '}';
     }
-
-    public TrainDto() {}
-
 
     public Long getId() {
         return id;

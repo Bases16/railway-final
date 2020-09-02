@@ -3,7 +3,6 @@ package edu.arf4.trains.railwayfinal.service;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
-import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
@@ -14,7 +13,6 @@ import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.util.Converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,16 +31,20 @@ import java.util.Set;
 //@Transactional
 public class TrainService {
 
+    private final GenericTrainDao genericTrainDao;
+    private final TrainDao trainDao;
+
     @Autowired
-    private GenericTrainDao genericTrainDao;
-    @Autowired
-    private TrainDao trainDao;
+    public TrainService(GenericTrainDao genericTrainDao, TrainDao trainDao) {
+        this.genericTrainDao = genericTrainDao;
+        this.trainDao = trainDao;
+    }
 
 
     /**
      *
      * @param startDate always must be monday
-     * @param endDate   always must be sunday
+     * @param endDate   always must be later monday
      */
     @Transactional
     public void registerTrainByGivenDatesAndGenTrain(Long genTrainId, LocalDate startDate, LocalDate endDate) {
@@ -56,17 +58,16 @@ public class TrainService {
                 registerTrainOnDate(genericTrain, date);
             }
 
-            this.trainDao.addExample(new Example(9));
-
         } else throw new RuntimeException("This train doesn't go these days"); //todo runtime exc
     }
 
-    public void registerTrainOnDate(GenericTrain genericTrain, LocalDate date) {
 
-        Train train = new Train();
+
+
+    private void registerTrainOnDate(GenericTrain genericTrain, LocalDate date) {
+
+        Train train = new Train(genericTrain);
         train.setDepartDate(date);
-
-//        Set<TrainCar> trainCarSet = train.getTrainCars();
 
         int orderOfCar = 1;
         int numOfPlazkartCars = genericTrain.getNumOfPlazkartCars();
@@ -111,8 +112,8 @@ public class TrainService {
         this.trainDao.addTrain(train);
     }
 
-    public int addTrainCarsOfSpecTypeInGivenTrain(int orderOfCar, Train train, TrainCarType type,
-                                                  int numOfTypeCars, int numOfSeatsInTypeCar)      {
+    private int addTrainCarsOfSpecTypeInGivenTrain(int orderOfCar, Train train, TrainCarType type,
+                                                   int numOfTypeCars, int numOfSeatsInTypeCar)      {
 
         Set<TrainCar> trainCarSet = train.getTrainCars();
         for(int i = 1; i <= numOfTypeCars; i++) {
@@ -130,18 +131,13 @@ public class TrainService {
         return orderOfCar;
     }
 
-    /**
-     *
-     * @param startDate always must be monday
-     * @param endDate   always must be sunday
-     */
-    public List<LocalDate> calcDepartDatesFromScheduleByDates(Schedule schedule, LocalDate startDate, LocalDate endDate) {
+    private List<LocalDate> calcDepartDatesFromScheduleByDates(Schedule schedule, LocalDate startDate, LocalDate endDate) {
 
         List<LocalDate> resultList = new ArrayList<>();
         int weekPeriodicity = schedule.getWeekPeriodicity();
         List<DayOfWeek> departDaysOfWeek = Converter.getDaysOfWeekFromSchedule(schedule);
 
-        long period = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+        long period = ChronoUnit.DAYS.between(startDate, endDate);
 
         for (int i = 1; i <= period; i++) {
             LocalDate date = startDate.plusDays(i - 1);
@@ -169,11 +165,13 @@ public class TrainService {
 
 
 
+
+
     @Transactional(readOnly = true)
     public List<TrainDto> getTrainDtoListByStation(Long stationId, LocalDate start, LocalDate end) {
 
         LocalDateTime st = LocalDateTime.of(start, LocalTime.MIN);
-        LocalDateTime en = LocalDateTime.of(end, LocalTime.MIN).plusDays(1);
+        LocalDateTime en = LocalDateTime.of(end, LocalTime.MIN);
 
         List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationId, st, en);
 
@@ -198,8 +196,9 @@ public class TrainService {
     public List<TrainDto> getTrainDtoListBy2StationsAndDateRange(Long stationFromId, Long stationToId,
                                                                        LocalDate start, LocalDate end) {
         LocalDateTime st = LocalDateTime.of(start, LocalTime.MIN);
-        LocalDateTime en = LocalDateTime.of(end, LocalTime.MIN).plusDays(1);
+        LocalDateTime en = LocalDateTime.of(end, LocalTime.MIN);
 
+        // could optimize search not looking for srp among "arriving at" stations
         List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationFromId, st, en);
 
         if(srpList == null || srpList.isEmpty()) {

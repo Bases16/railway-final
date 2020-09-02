@@ -10,9 +10,16 @@
     <packaging>war</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <hibernate.version>5.4.17.Final</hibernate.version>
         <spring.version>5.2.8.RELEASE</spring.version>
+        <hibernate.version>5.4.17.Final</hibernate.version>
+        <postgresql>42.2.13</postgresql>
+        <atomikos.transactions-hibernate4>5.0.7</atomikos.transactions-hibernate4>
+
+        <hibernate.validator>6.1.5.Final</hibernate.validator>
+        <org.glassfish.jakarta.el>3.0.3</org.glassfish.jakarta.el>
+        <hibernate-types-52>2.9.12</hibernate-types-52>
     </properties>
 
     <dependencies>
@@ -49,7 +56,7 @@
             <version>6.1.5.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish</groupId>  <!-- jakarta expression language for bean validation -->
+            <groupId>org.glassfish</groupId>  <!-- jakarta expression language for hiber-validator -->
             <artifactId>jakarta.el</artifactId>
             <version>3.0.3</version>
         </dependency>
@@ -98,11 +105,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
-<!--                <configuration>-->
-<!--                    <includes>-->
-<!--                        <include>MySimpleTests.java</include>-->
-<!--                    </includes>-->
-<!--                </configuration>-->
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
             </plugin>
 
             <plugin>

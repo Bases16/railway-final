@@ -26,6 +26,7 @@ public class StationDaoImpl implements StationDao {
     public Long addStation(Station station) {
 //        EntityManager em = emf.createEntityManager();
         em.persist(station);
+        System.out.println("AFTER PERSIST");
 //        em.close();
         return station.getId();
     }

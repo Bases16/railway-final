@@ -26,9 +26,9 @@ INSERT INTO route_point(id, generic_train_id, station_id, order_of_station, arri
 (102, 1, 14, 3, '11:10',  2  , '11:58',  2   ),
 (103, 1, 20, 4, '22:00',  4  ,  null  , null );
 
-INSERT INTO train(id, depart_date) VALUES
-(1, '2020-12-01'),
-(2, '2020-12-06');
+INSERT INTO train(id, generic_train_id, depart_date) VALUES
+(1, 1, '2020-12-01'),
+(2, 1, '2020-12-06');
 
 INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (1, 1, 1, 'PLAZKART'),
@@ -77,9 +77,9 @@ INSERT INTO route_point(id, generic_train_id, station_id, order_of_station, arri
 (106, 2, 17, 3, '11:10',  2  , '11:30',  2   ),
 (107, 2, 19, 4, '22:00',  3  ,  null  , null );
 
-INSERT INTO train(id, depart_date) VALUES
-(3, '2020-11-30'),
-(4, '2020-12-04');
+INSERT INTO train(id, generic_train_id, depart_date) VALUES
+(3, 2, '2020-11-30'),
+(4, 2, '2020-12-04');
 
 INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (7, 3, 1, 'PLAZKART'),
@@ -91,7 +91,7 @@ INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (12, 4, 3, 'SW');
 
 INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
-(7, 1, false), (7, 2, false), (7, 3, false),
+(7, 1, false), (7, 2, false ), (7, 3, false),
 (8, 1, false), (8, 2, false),
 (9, 1, false),
 

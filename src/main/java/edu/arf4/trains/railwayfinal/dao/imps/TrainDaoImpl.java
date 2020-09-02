@@ -1,20 +1,15 @@
 package edu.arf4.trains.railwayfinal.dao.imps;
 
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
-import edu.arf4.trains.railwayfinal.model.Example;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Train;
 import org.hibernate.Hibernate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Status;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,22 +34,40 @@ public class TrainDaoImpl implements TrainDao {
         return train.getId();
     }
     @Override
-    public Train findTrainById(Long id) {
+    public Train getTrainById(Long id) {
         System.out.println("findTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 //        EntityManager em = emf.createEntityManager();
         Train train = em.find(Train.class, id);
-        Hibernate.initialize(train.getTrainCars());
+//        Hibernate.initialize(train.getTrainCars());
 //        em.close();
         return train;
     }
 
+    @Override
+    public List<Train> getTrainsByGenTrainIdAndDates(Long genTrainId, LocalDate start, LocalDate end) {
 
+        String query = "SELECT tr FROM Train tr WHERE tr.genericTrain.id =:id " +
+                       "AND (tr.departDate >= :start AND tr.departDate < :end) order by tr.departDate ASC";
+
+        List<Train> trains = null;
+
+        trains = em.createQuery(query, Train.class)
+                .setParameter("id", genTrainId)
+                .setParameter("start", start)
+                .setParameter("end", end)
+                .getResultList();
+
+        return trains;
+    }
+
+    // COUNT ALL TRAINS DEPARTING FROM OR ARRIVING AT THE STATION IN DATE RANGE
     @Override
     public List<SpecRoutePoint> getSrpListByStationId(Long id, LocalDateTime start, LocalDateTime end) {
 
         String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
-                "WHERE srp.routePoint.station.id =:id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )" +
-                                                     " OR   (srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
+                "WHERE srp.routePoint.station.id =:id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )"  +
+                                                                                         " OR "                              +
+                                                           "(srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
 
 //        EntityManager em = emf.createEntityManager();
         List<SpecRoutePoint> srpList = null;
@@ -69,21 +82,7 @@ public class TrainDaoImpl implements TrainDao {
         return srpList;
     }
 
-    @Transactional
-    @Override
-    public Long addExample(Example ex) {
-//        EntityManager em = emf.createEntityManager();
-        em.persist(ex);
-        em.close();
-        return ex.getId();
-    }
-    @Override
-    public Example findExample(Long id) {
-//        EntityManager em = emf.createEntityManager();
-        Example ex = em.find(Example.class, id);
-//        em.close();
-        return ex;
-    }
+
 
 
 

@@ -22,9 +22,7 @@ import java.util.Set;
 //@Transactional
 public class GenericTrainService {
 
-//    @Autowired
     private final GenericTrainDao genericTrainDao;
-//    @Autowired
     private final SimpleServices simpleServices;
 
     @Autowired

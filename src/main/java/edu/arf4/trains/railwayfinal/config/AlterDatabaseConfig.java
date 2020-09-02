@@ -37,18 +37,6 @@ public class AlterDatabaseConfig {
         this.env = environment;
     }
 
-
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getRequiredProperty("datasource.driverClassName"));
-        dataSource.setUrl(env.getRequiredProperty("datasource.url"));
-        dataSource.setUsername(env.getRequiredProperty("datasource.username"));
-        dataSource.setPassword(env.getRequiredProperty("datasource.password"));
-        return dataSource;
-    }
-
-
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
@@ -66,6 +54,16 @@ public class AlterDatabaseConfig {
 //        properties.put("javax.persistence.transactionType", env.getRequiredProperty("javax.persistence.transactionType"));
 
         return properties;
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getRequiredProperty("datasource.driverClassName"));
+        dataSource.setUrl(env.getRequiredProperty("datasource.url"));
+        dataSource.setUsername(env.getRequiredProperty("datasource.username"));
+        dataSource.setPassword(env.getRequiredProperty("datasource.password"));
+        return dataSource;
     }
 
     @Bean
