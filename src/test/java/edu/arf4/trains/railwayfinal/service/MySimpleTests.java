@@ -24,10 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 public class MySimpleTests {
 
-
-
-
-
     @Test
     @Ignore
     public void testDatesAndContains() {
@@ -46,18 +42,14 @@ public class MySimpleTests {
     }
 
 
-
-
     @Ignore
     @Test
     public void WTF() {
 
-        LocalDate dateBefore = LocalDate.of(2019, Month.FEBRUARY, 27);
-        LocalDate dateAfter = LocalDate.of(2020, Month.MARCH, 2);
-        long noOfDaysBetween = ChronoUnit.DAYS.between(dateBefore, dateAfter);
-        System.out.println(noOfDaysBetween);
+        String route = "moscow - vrn";
+        String[] a = route.split(" ");
+        System.out.println(a[0] + " " + a[2]);
 
-//        int y = 1/0;
 
     }
 

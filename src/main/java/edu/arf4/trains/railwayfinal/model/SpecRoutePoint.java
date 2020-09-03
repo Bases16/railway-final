@@ -25,7 +25,6 @@ public class SpecRoutePoint {
 
     @Future
     private LocalDateTime departDatetime;
-
     @Future
     private LocalDateTime arrivalDatetime;
 

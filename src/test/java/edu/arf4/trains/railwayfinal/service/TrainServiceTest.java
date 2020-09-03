@@ -171,9 +171,9 @@ public class TrainServiceTest {
         assertEquals(dto.getGlobalRoute(), "Liski - Genoa");
         assertEquals(dto.getId(), new Long(4));
         assertEquals(dto.getLocalSrcArrivalDateTime(), "2020-12-07 at 22:00");
-        assertEquals(dto.getLocalSrcDepartDateTime(), null);
+        assertNull(dto.getLocalSrcDepartDateTime()); // specific case
 
-        assertNull(dto.getLocalRoute());
+        assertNull(dto.getLocalRoute());                             //TODO  LOCAL ROUTE ???
         assertNull(dto.getLocalDstArrivalDateTime());
 
         System.out.println(dto);
@@ -230,8 +230,7 @@ public class TrainServiceTest {
         assertEquals(dto.getLocalSrcArrivalDateTime(), "2020-12-03 at 11:10");
         assertEquals(dto.getLocalSrcDepartDateTime(), "2020-12-03 at 11:58");
         assertEquals(dto.getLocalDstArrivalDateTime(), "2020-12-05 at 22:00");
-
-        assertNull(dto.getLocalRoute());
+        assertEquals(dto.getLocalRoute(), "Astana - Hong-Kong");
     }
 
 

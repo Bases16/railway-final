@@ -44,6 +44,17 @@ public class StationDaoImpl implements StationDao {
         return station;
     }
 
+    @Override
+    public Station getStationByName(String name) {
+//        EntityManager em = emf.createEntityManager();
+
+        String query = "SELECT st FROM Station st WHERE st.name = :name";
+
+        Station station = em.createQuery(query, Station.class).setParameter("name", name).getSingleResult();
+
+//        em.close();
+        return station;
+    }
 
 
 }

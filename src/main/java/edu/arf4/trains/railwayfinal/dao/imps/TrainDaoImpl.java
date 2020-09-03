@@ -65,7 +65,7 @@ public class TrainDaoImpl implements TrainDao {
     public List<SpecRoutePoint> getSrpListByStationId(Long id, LocalDateTime start, LocalDateTime end) {
 
         String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
-                "WHERE srp.routePoint.station.id =:id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )"  +
+               "WHERE srp.routePoint.station.id = :id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )"  +
                                                                                          " OR "                              +
                                                            "(srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
 

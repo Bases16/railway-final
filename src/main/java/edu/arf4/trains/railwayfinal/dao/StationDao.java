@@ -13,4 +13,5 @@ public interface StationDao {
     Long addStation(Station station);
 
 
+    Station getStationByName(String name);
 }

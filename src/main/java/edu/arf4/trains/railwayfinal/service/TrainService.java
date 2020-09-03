@@ -1,12 +1,14 @@
 package edu.arf4.trains.railwayfinal.service;
 
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
+import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
+import edu.arf4.trains.railwayfinal.model.Station;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
@@ -33,11 +35,13 @@ public class TrainService {
 
     private final GenericTrainDao genericTrainDao;
     private final TrainDao trainDao;
+    private final StationDao stationDao;
 
     @Autowired
-    public TrainService(GenericTrainDao genericTrainDao, TrainDao trainDao) {
+    public TrainService(GenericTrainDao genericTrainDao, TrainDao trainDao, StationDao stationDao) {
         this.genericTrainDao = genericTrainDao;
         this.trainDao = trainDao;
+        this.stationDao = stationDao;
     }
 
 
@@ -204,6 +208,11 @@ public class TrainService {
         if(srpList == null || srpList.isEmpty()) {
             return null;                            // todo  ???????
         }
+
+        //STATIONS WILL NOT BE NULL 'CAUSE THEY ARE GET FROM VALID IDs
+        Station from = this.stationDao.getStationById(stationFromId, false);
+        Station to = this.stationDao.getStationById(stationToId, false);
+
         List<TrainDto> trainDtoList = new ArrayList<>();
 
         for(SpecRoutePoint srp : srpList) {
@@ -218,10 +227,11 @@ public class TrainService {
                     dto.setNumber(rp.getGenericTrain().getNumber());
                     dto.setLocalSrcDepartDateTime(Converter.convertLocalDateTimeToString(srp.getDepartDatetime()));
                     dto.setLocalSrcArrivalDateTime(Converter.convertLocalDateTimeToString(srp.getArrivalDatetime()));
+                    dto.setLocalRoute(from.getName() + " - " + to.getName());
 
                     LocalDate d = srp.getDepartDatetime().toLocalDate();
                     LocalDate requiredDate = d.plusDays(rp.getDaysFromTrainDepartToArrivalHere() -
-                            thisRP.getDaysFromTrainDepartToDepartFromHere());
+                                             thisRP.getDaysFromTrainDepartToDepartFromHere());
                     dto.setLocalDstArrivalDateTime(Converter.convertLocalDateTimeToString(
                             LocalDateTime.of(requiredDate, rp.getArrivalTime())));
 
@@ -234,25 +244,6 @@ public class TrainService {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

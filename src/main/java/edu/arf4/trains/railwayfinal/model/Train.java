@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -37,8 +36,12 @@ public class Train {
     private Set<TrainCar> trainCars = new HashSet<>();
 
     @Size(min = 2)
-    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
+
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
+    private Set<Ticket> tickets = new HashSet<>();
+
 
     protected Train() {}
 
@@ -81,5 +84,12 @@ public class Train {
     public void setSpecRoutePoints(Set<SpecRoutePoint> specRoutePoints) {
         this.specRoutePoints = specRoutePoints;
     }
-}
 
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+}
