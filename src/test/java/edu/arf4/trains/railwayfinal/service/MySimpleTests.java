@@ -1,19 +1,9 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
-import edu.arf4.trains.railwayfinal.model.Schedule;
-import edu.arf4.trains.railwayfinal.model.Train;
-import edu.arf4.trains.railwayfinal.model.TrainCarType;
-import edu.arf4.trains.railwayfinal.service.TrainService;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +40,8 @@ public class MySimpleTests {
         String[] a = route.split(" ");
         System.out.println(a[0] + " " + a[2]);
 
+
+        List<String> list = new ArrayList<>();
 
     }
 

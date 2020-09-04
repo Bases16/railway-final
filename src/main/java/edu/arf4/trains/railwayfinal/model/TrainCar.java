@@ -11,12 +11,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotEmpty;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 public class TrainCar {
@@ -33,7 +38,6 @@ public class TrainCar {
     private TrainCarType type;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(nullable = false)
     private Train train;
 
     @NotEmpty
@@ -42,7 +46,15 @@ public class TrainCar {
     @MapKeyColumn(name = "seat_number")
     @Column(name = "is_reserved", nullable = false)
     @org.hibernate.annotations.OrderBy(clause = "seat_number ASC")
-    private Map<Integer,Boolean> seats = new LinkedHashMap<>(); // alt.: @SortNatural, TreeMap
+    private Map<Integer,Boolean> seats = new HashMap<>(); // alt.: @SortNatural, TreeMap .   WAS LinkedHashMap
+
+
+//    @NotEmpty
+    @OneToMany(mappedBy = "trainCar", fetch = FetchType.LAZY)
+    @OrderColumn(name = "order_of_station", nullable = false)
+    private List<SeatsStateAtPoint> seatsStateAtPoints = new ArrayList<>();
+
+
 
     protected TrainCar() {}
 

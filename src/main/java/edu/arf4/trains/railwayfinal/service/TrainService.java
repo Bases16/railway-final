@@ -177,7 +177,7 @@ public class TrainService {
         LocalDateTime st = LocalDateTime.of(start, LocalTime.MIN);
         LocalDateTime en = LocalDateTime.of(end, LocalTime.MIN);
 
-        List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationId, st, en);
+        List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationId, false, st, en);
 
         if(srpList == null || srpList.isEmpty()) {
             return null;                            // todo  ???????
@@ -202,8 +202,7 @@ public class TrainService {
         LocalDateTime st = LocalDateTime.of(start, LocalTime.MIN);
         LocalDateTime en = LocalDateTime.of(end, LocalTime.MIN);
 
-        // could optimize search not looking for srp among "arriving at" stations
-        List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationFromId, st, en);
+        List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationFromId, true, st, en);
 
         if(srpList == null || srpList.isEmpty()) {
             return null;                            // todo  ???????

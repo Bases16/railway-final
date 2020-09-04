@@ -41,7 +41,7 @@ public class GenericTrain {
     @Size(min = 2)
     @org.hibernate.annotations.OrderBy(clause = "order_of_station DESC")
     @org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
+    @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<RoutePoint> routePoints = new HashSet<>();
 
 

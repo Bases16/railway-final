@@ -13,8 +13,8 @@ import javax.persistence.Id;
 public class Station {
 
     @Id
-//    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)

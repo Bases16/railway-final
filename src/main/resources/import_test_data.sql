@@ -27,26 +27,66 @@ INSERT INTO route_point(id, generic_train_id, station_id, order_of_station, arri
 (103, 1, 20, 4, '22:00',  4  ,  null  , null );
 
 INSERT INTO train(id, generic_train_id, depart_date) VALUES
-(1, 1, '2020-12-01'),
-(2, 1, '2020-12-06');
+(1, 1, '2020-12-01'), --  #1 train
+(2, 1, '2020-12-06'); --  #2 train
 
 INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
+--  #1 train
 (1, 1, 1, 'PLAZKART'),
 (2, 1, 2, 'COOPE'),
 (3, 1, 3, 'SW'),
-
+--  #2 train
 (4, 2, 1, 'PLAZKART'),
 (5, 2, 2, 'COOPE'),
 (6, 2, 3, 'SW');
 
 INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
-(1, 1, false), (1, 2, false), (1, 3, false),
-(2, 1, false), (2, 2, false),
-(3, 1, false),
+--  #1 train
+(1, 1, false), (1, 2, false), (1, 3, false), -- plazkart
+(2, 1, false), (2, 2, false),                -- coope
+(3, 1, false),                               -- sw
+--  #2 train
+(4, 1, false), (4, 2, false), (4, 3, false), -- plazkart
+(5, 1, false), (5, 2, false),                -- coope
+(6, 1, false);                               -- sw
 
-(4, 1, false), (4, 2, false), (4, 3, false),
-(5, 1, false), (5, 2, false),
-(6, 1, false);
+INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
+--  #1 train
+(1, 1, 1), (2, 1, 2), (3, 1, 3),    -- #1 traincar
+(4, 2, 1), (5, 2, 2), (6, 2, 3),    -- #2 traincar
+(7, 3, 1), (8, 3, 2), (9, 2, 3),    -- #3 traincar
+--  #2 train
+(10, 4, 1), (11, 4, 2), (12, 4, 3), -- #1 traincar
+(13, 5, 1), (14, 5, 2), (15, 5, 3), -- #2 traincar
+(16, 3, 1), (17, 3, 2), (18, 2, 3); -- #3 traincar
+
+INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
+-- #1 TRAIN --
+-- #1 traincar - plazkart
+(1, false, 0), (1, false, 1), (1, false, 2),
+(2, false, 0), (2, false, 1), (2, false, 2),
+(3, false, 0), (3, false, 1), (3, false, 2),
+-- #2 traincar - coope
+(4, false, 0), (4, false, 1),
+(5, false, 0), (5, false, 1),
+(6, false, 0), (6, false, 1),
+-- #3 traincar - sw
+(7, false, 0),
+(8, false, 0),
+(9, false, 0),
+-- #2 TRAIN --
+-- #1 traincar - plazkart
+(10, false, 0), (10, false, 1), (10, false, 2),
+(11, false, 0), (11, false, 1), (11, false, 2),
+(12, false, 0), (12, false, 1), (12, false, 2),
+-- #2 traincar - coope
+(13, false, 0), (13, false, 1),
+(14, false, 0), (14, false, 1),
+(15, false, 0), (15, false, 1),
+-- #3 traincar - sw
+(16, false, 0),
+(17, false, 0),
+(18, false, 0);
 
 INSERT INTO spec_route_point(id, train_id, route_point_id, tickets_left, arrival_datetime, depart_datetime) VALUES
 (1, 1, 100, 6,       null        , '2020-12-01 15:30'),

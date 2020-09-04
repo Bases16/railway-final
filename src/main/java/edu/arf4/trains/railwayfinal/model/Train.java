@@ -25,8 +25,7 @@ public class Train {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private GenericTrain genericTrain;
 
     @Column(nullable = false)

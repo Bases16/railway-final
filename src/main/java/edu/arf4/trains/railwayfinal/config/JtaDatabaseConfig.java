@@ -20,10 +20,10 @@ import java.util.Properties;
 //@Profile("main")
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value = "classpath:database.properties")
+@PropertySource(value = "classpath:jta_database.properties")
 
 @ComponentScan("edu.arf4.trains.railwayfinal") //for testing
-public class DatabaseConfig {
+public class JtaDatabaseConfig {
 
     private Environment env;
 

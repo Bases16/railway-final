@@ -15,7 +15,7 @@ public interface TrainDao {
 
     List<Train> getTrainsByGenTrainIdAndDates(Long genTrainId, LocalDate start, LocalDate end);
 
-    List<SpecRoutePoint> getSrpListByStationId(Long id, LocalDateTime start, LocalDateTime end);
+    List<SpecRoutePoint> getSrpListByStationId(Long id, boolean isFor2Stations, LocalDateTime start, LocalDateTime end);
 
 
 }

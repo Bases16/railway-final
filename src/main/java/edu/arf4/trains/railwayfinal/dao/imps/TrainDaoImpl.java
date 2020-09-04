@@ -50,7 +50,6 @@ public class TrainDaoImpl implements TrainDao {
                        "AND (tr.departDate >= :start AND tr.departDate < :end) order by tr.departDate ASC";
 
         List<Train> trains = null;
-
         trains = em.createQuery(query, Train.class)
                 .setParameter("id", genTrainId)
                 .setParameter("start", start)
@@ -62,17 +61,22 @@ public class TrainDaoImpl implements TrainDao {
 
     // COUNT ALL TRAINS DEPARTING FROM OR ARRIVING AT THE STATION IN DATE RANGE
     @Override
-    public List<SpecRoutePoint> getSrpListByStationId(Long id, LocalDateTime start, LocalDateTime end) {
+    public List<SpecRoutePoint> getSrpListByStationId(Long id, boolean isFor2Stations, LocalDateTime start, LocalDateTime end) {
 
         String query = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
                "WHERE srp.routePoint.station.id = :id AND ( (srp.departDatetime >= :start AND srp.departDatetime < :end  )"  +
                                                                                          " OR "                              +
                                                            "(srp.arrivalDatetime >= :start AND srp.arrivalDatetime < :end) )";
 
+        String query2 = "SELECT srp FROM SpecRoutePoint srp JOIN FETCH srp.routePoint " +
+               "WHERE srp.routePoint.station.id = :id AND (srp.departDatetime >= :start AND srp.departDatetime < :end)";
+
+        String finalQuery = isFor2Stations ? query2 : query;
+
 //        EntityManager em = emf.createEntityManager();
         List<SpecRoutePoint> srpList = null;
 
-        srpList = em.createQuery(query, SpecRoutePoint.class)
+        srpList = em.createQuery(finalQuery, SpecRoutePoint.class)
                 .setParameter("id", id)
                 .setParameter("start", start)
                 .setParameter("end", end)
@@ -81,6 +85,7 @@ public class TrainDaoImpl implements TrainDao {
 //        em.close();
         return srpList;
     }
+
 
 
 

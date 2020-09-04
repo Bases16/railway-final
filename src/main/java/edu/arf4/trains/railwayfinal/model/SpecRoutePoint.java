@@ -19,8 +19,7 @@ public class SpecRoutePoint {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Train train;
 
     @Future
@@ -31,8 +30,7 @@ public class SpecRoutePoint {
     @Column(nullable = false)
     private Integer ticketsLeft;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RoutePoint routePoint;
 
     protected SpecRoutePoint() {}

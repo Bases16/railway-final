@@ -24,7 +24,7 @@ import java.util.Properties;
 //@Profile("alter")
 //@Configuration
 //@EnableTransactionManagement
-//@PropertySource(value = "classpath:test_database.properties")
+//@PropertySource(value = "classpath:alter_database.properties")
 //
 //@ComponentScan("edu.arf4.trains.railwayfinal") //for testing
 

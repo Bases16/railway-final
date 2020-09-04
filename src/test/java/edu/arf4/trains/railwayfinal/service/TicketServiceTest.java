@@ -1,6 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
+import edu.arf4.trains.railwayfinal.config.JtaDatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
@@ -15,10 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
-import static org.junit.Assert.*;
-
 //@ContextConfiguration(classes = AlterDatabaseConfig.class)
-@ContextConfiguration(classes = DatabaseConfig.class)
+@ContextConfiguration(classes = JtaDatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TicketServiceTest {
 

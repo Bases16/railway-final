@@ -1,6 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
+import edu.arf4.trains.railwayfinal.config.JtaDatabaseConfig;
 import edu.arf4.trains.railwayfinal.model.Station;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 
-@ContextConfiguration(classes = DatabaseConfig.class)
+@ContextConfiguration(classes = JtaDatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SimpleServicesTest {
 
