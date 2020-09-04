@@ -51,7 +51,7 @@ public class GenericTrainService {
 
         Long newGeTrainId;
         try {
-            newGeTrainId = this.genericTrainDao.addGenericTrain(genericTrain);
+            newGeTrainId = this.genericTrainDao.addGenericTrain(genericTrain); //TODO EXCEPTION?
         } catch (RuntimeException e) {
             throw e;
         }

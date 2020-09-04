@@ -7,6 +7,7 @@ import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
+import edu.arf4.trains.railwayfinal.model.SeatsStateAtPoint;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import edu.arf4.trains.railwayfinal.model.Train;
@@ -81,11 +82,14 @@ public class TrainService {
         int numOfSwCars = genericTrain.getNumOfSwCars();
         int numOfSeatsInSwCar = genericTrain.getNumOfSeatsInSwCar();
 
+        int numberOfRoutePoints = genericTrain.getRoutePoints().size();
+
         orderOfCar = addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.PLATZKART,
-                                                                     numOfPlazkartCars, numOfSeatsInPlazkartCar  );
+                                            numOfPlazkartCars, numOfSeatsInPlazkartCar, numberOfRoutePoints);
         orderOfCar = addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.COOPE,
-                                                                     numOfCoopeCars, numOfSeatsInCoopeCar  );
-        addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.SW, numOfSwCars, numOfSeatsInSwCar  );
+                                            numOfCoopeCars, numOfSeatsInCoopeCar, numberOfRoutePoints);
+        addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.SW, numOfSwCars, numOfSeatsInSwCar,
+                                            numberOfRoutePoints);
 
         Set<SpecRoutePoint> specRoutePoints = train.getSpecRoutePoints();
 
@@ -117,23 +121,44 @@ public class TrainService {
     }
 
     private int addTrainCarsOfSpecTypeInGivenTrain(int orderOfCar, Train train, TrainCarType type,
-                                                   int numOfTypeCars, int numOfSeatsInTypeCar)      {
+                                                   int numOfTypeCars, int numOfSeatsInTypeCar, int numberOfRoutePoints) {
 
         Set<TrainCar> trainCarSet = train.getTrainCars();
         for(int i = 1; i <= numOfTypeCars; i++) {
-            TrainCar trainCar = new TrainCar(orderOfCar, type);
-            Map<Integer, Boolean> seats = trainCar.getSeats();
 
-            for(int j = 1; j <= numOfSeatsInTypeCar; j++) {
-                seats.put(j, false);
+            TrainCar trainCar = new TrainCar(orderOfCar, type);
+            List<SeatsStateAtPoint> seatsAtPoints = trainCar.getSeatsStateAtPoints();
+
+            for (int k = 1; k < numberOfRoutePoints; k++) {
+                SeatsStateAtPoint seatsAtPoint = new SeatsStateAtPoint(numOfSeatsInTypeCar);
+                seatsAtPoint.setTrainCar(trainCar);
+                seatsAtPoints.add(seatsAtPoint);
             }
-            trainCar.setSeats(seats);
             trainCar.setTrain(train);
             trainCarSet.add(trainCar);
             orderOfCar++;
         }
         return orderOfCar;
     }
+
+//    private int addTrainCarsOfSpecTypeInGivenTrain(int orderOfCar, Train train, TrainCarType type,
+//                                                   int numOfTypeCars, int numOfSeatsInTypeCar, int numberOfRoutePoints) {
+//
+//        Set<TrainCar> trainCarSet = train.getTrainCars();
+//        for(int i = 1; i <= numOfTypeCars; i++) {
+//            TrainCar trainCar = new TrainCar(orderOfCar, type);
+//            Map<Integer, Boolean> seats = trainCar.getSeats();
+//
+//            for(int j = 1; j <= numOfSeatsInTypeCar; j++) {
+//                seats.put(j, false);
+//            }
+//            trainCar.setSeats(seats);
+//            trainCar.setTrain(train);
+//            trainCarSet.add(trainCar);
+//            orderOfCar++;
+//        }
+//        return orderOfCar;
+//    }
 
     private List<LocalDate> calcDepartDatesFromScheduleByDates(Schedule schedule, LocalDate startDate, LocalDate endDate) {
 

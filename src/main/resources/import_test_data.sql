@@ -40,25 +40,25 @@ INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (5, 2, 2, 'COOPE'),
 (6, 2, 3, 'SW');
 
-INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
---  #1 train
-(1, 1, false), (1, 2, false), (1, 3, false), -- plazkart
-(2, 1, false), (2, 2, false),                -- coope
-(3, 1, false),                               -- sw
---  #2 train
-(4, 1, false), (4, 2, false), (4, 3, false), -- plazkart
-(5, 1, false), (5, 2, false),                -- coope
-(6, 1, false);                               -- sw
+-- INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
+-- --  #1 train
+-- (1, 1, false), (1, 2, false), (1, 3, false), -- plazkart
+-- (2, 1, false), (2, 2, false),                -- coope
+-- (3, 1, false),                               -- sw
+-- --  #2 train
+-- (4, 1, false), (4, 2, false), (4, 3, false), -- plazkart
+-- (5, 1, false), (5, 2, false),                -- coope
+-- (6, 1, false);                               -- sw
 
 INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 --  #1 train
 (1, 1, 1), (2, 1, 2), (3, 1, 3),    -- #1 traincar
 (4, 2, 1), (5, 2, 2), (6, 2, 3),    -- #2 traincar
-(7, 3, 1), (8, 3, 2), (9, 2, 3),    -- #3 traincar
+(7, 3, 1), (8, 3, 2), (9, 3, 3),    -- #3 traincar
 --  #2 train
 (10, 4, 1), (11, 4, 2), (12, 4, 3), -- #1 traincar
 (13, 5, 1), (14, 5, 2), (15, 5, 3), -- #2 traincar
-(16, 3, 1), (17, 3, 2), (18, 2, 3); -- #3 traincar
+(16, 6, 1), (17, 6, 2), (18, 6, 3); -- #3 traincar
 
 INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 -- #1 TRAIN --
@@ -130,14 +130,53 @@ INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (11, 4, 2, 'COOPE'),
 (12, 4, 3, 'SW');
 
-INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
-(7, 1, false), (7, 2, false ), (7, 3, false),
-(8, 1, false), (8, 2, false),
-(9, 1, false),
+-- INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
+-- (7, 1, false), (7, 2, false ), (7, 3, false),
+-- (8, 1, false), (8, 2, false),
+-- (9, 1, false),
+--
+-- (10, 1, false), (10, 2, false), (10, 3, false),
+-- (11, 1, false), (11, 2, false),
+-- (12, 1, false);
 
-(10, 1, false), (10, 2, false), (10, 3, false),
-(11, 1, false), (11, 2, false),
-(12, 1, false);
+INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
+--  #1 train
+(19, 7, 1), (20, 7, 2), (21, 7, 3),    -- #1 traincar
+(22, 8, 1), (23, 8, 2), (24, 8, 3),    -- #2 traincar
+(25, 9, 1), (26, 9, 2), (27, 9, 3),    -- #3 traincar
+--  #2 train
+(28, 10, 1), (29, 10, 2), (30, 10, 3), -- #1 traincar
+(31, 11, 1), (32, 11, 2), (33, 11, 3), -- #2 traincar
+(34, 12, 1), (35, 12, 2), (36, 12, 3); -- #3 traincar
+
+INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
+-- #1 TRAIN --
+-- #1 traincar - plazkart
+(19, false, 0), (19, false, 1), (19, false, 2),
+(20, false, 0), (20, false, 1), (20, false, 2),
+(21, false, 0), (21, false, 1), (21, false, 2),
+-- #2 traincar - coope
+(22, false, 0), (22, false, 1),
+(23, false, 0), (23, false, 1),
+(24, false, 0), (24, false, 1),
+-- #3 traincar - sw
+(25, false, 0),
+(26, false, 0),
+(27, false, 0),
+-- #2 TRAIN --
+-- #1 traincar - plazkart
+(28, false, 0), (28, false, 1), (28, false, 2),
+(29, false, 0), (29, false, 1), (29, false, 2),
+(30, false, 0), (30, false, 1), (30, false, 2),
+-- #2 traincar - coope
+(31, false, 0), (31, false, 1),
+(32, false, 0), (32, false, 1),
+(33, false, 0), (33, false, 1),
+-- #3 traincar - sw
+(34, false, 0),
+(35, false, 0),
+(36, false, 0);
+
 
 INSERT INTO spec_route_point(id, train_id, route_point_id, tickets_left, arrival_datetime, depart_datetime) VALUES
 (9,  3, 104, 6,       null        , '2020-11-30 19:30'),

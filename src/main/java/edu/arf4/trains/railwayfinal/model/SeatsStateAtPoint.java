@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ public class SeatsStateAtPoint {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "train_car_id", updatable = false, insertable = false)
     private TrainCar trainCar;
 
 //    @Column(nullable = false)
@@ -34,6 +37,31 @@ public class SeatsStateAtPoint {
     @Column(name = "seat_state", nullable = false)
     private List<Boolean> seatStates = new ArrayList<>();
 
+    public SeatsStateAtPoint(int numOfSeatsInCar) {
+        for (int i = 1; i <= numOfSeatsInCar; i++) {
+            this.seatStates.add(Boolean.FALSE);
+        }
+    }
 
+    protected SeatsStateAtPoint() {}
 
+    public Long getId() {
+        return id;
+    }
+
+    public TrainCar getTrainCar() {
+        return trainCar;
+    }
+
+    public void setTrainCar(TrainCar trainCar) {
+        this.trainCar = trainCar;
+    }
+
+    public List<Boolean> getSeatStates() {
+        return seatStates;
+    }
+//
+//    public void setSeatStates(List<Boolean> seatStates) {
+//        this.seatStates = seatStates;
+//    }
 }

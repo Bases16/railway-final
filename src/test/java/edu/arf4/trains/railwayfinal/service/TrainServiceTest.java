@@ -10,6 +10,7 @@ import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ public class TrainServiceTest {
 
     @Test
     @Transactional
+    @Rollback(value = false)
     public void registerTrainByGivenDatesAndGenTrainTest() {
 
         //CASE 1
@@ -91,13 +93,29 @@ public class TrainServiceTest {
         assertEquals(coope.getOrderOfCar(), new Integer(2));
         assertEquals(sw.getOrderOfCar(), new Integer(3));
 
-        assertEquals(plazkart.getSeats().size(), 3);
-        assertEquals(coope.getSeats().size(), 2);
-        assertEquals(sw.getSeats().size(), 1);
+        assertEquals(plazkart.getSeatsStateAtPoints().size(), 3);
+        assertEquals(coope.getSeatsStateAtPoints().size(), 3);
+        assertEquals(sw.getSeatsStateAtPoints().size(), 3);
 
-        assertEquals(plazkart.getSeats().get(3), false);
-        assertEquals(coope.getSeats().get(2), false);
-        assertEquals(sw.getSeats().get(1), false);
+        assertEquals(plazkart.getSeatsStateAtPoints().get(0).getSeatStates().size(), 3);
+        assertEquals(coope.getSeatsStateAtPoints().get(0).getSeatStates().size(), 2);
+        assertEquals(sw.getSeatsStateAtPoints().get(0).getSeatStates().size(), 1);
+
+        assertEquals(plazkart.getSeatsStateAtPoints().get(0).getSeatStates().get(2), false);
+        assertEquals(coope.getSeatsStateAtPoints().get(0).getSeatStates().get(1), false);
+        assertEquals(sw.getSeatsStateAtPoints().get(0).getSeatStates().get(0), false);
+
+        final TrainCar swFinal = sw;
+        assertThrows(IndexOutOfBoundsException.class, () -> swFinal.getSeatsStateAtPoints().get(0).getSeatStates().get(1));
+
+
+//        assertEquals(plazkart.getSeats().size(), 3);
+//        assertEquals(coope.getSeats().size(), 2);
+//        assertEquals(sw.getSeats().size(), 1);
+//
+//        assertEquals(plazkart.getSeats().get(3), false);
+//        assertEquals(coope.getSeats().get(2), false);
+//        assertEquals(sw.getSeats().get(1), false);
 
         //SRP CHECKING
         assertNotNull(srPoints);
