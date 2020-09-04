@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public class Train {
 
     @Size(min = 2)
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @org.hibernate.annotations.OrderBy(clause = "depart_datetime")
     private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
 
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
