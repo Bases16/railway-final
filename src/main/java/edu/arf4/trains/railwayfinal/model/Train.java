@@ -74,23 +74,8 @@ public class Train {
         return trainCars;
     }
 
-    public void setTrainCars(Set<TrainCar> trainCars) {
-        this.trainCars = trainCars;
-    }
-
     public Set<SpecRoutePoint> getSpecRoutePoints() {
         return specRoutePoints;
     }
 
-    public void setSpecRoutePoints(Set<SpecRoutePoint> specRoutePoints) {
-        this.specRoutePoints = specRoutePoints;
-    }
-
-    public Set<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
 }

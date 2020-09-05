@@ -1,8 +1,10 @@
 package edu.arf4.trains.railwayfinal.service;
 
+import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
+import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import edu.arf4.trains.railwayfinal.model.Train;
@@ -17,11 +19,13 @@ import java.util.Set;
 @Service
 public class TicketService {
 
+    private final GenericTrainDao genericTrainDao;
     private final TrainDao trainDao;
     private final StationDao stationDao;
 
     @Autowired
-    public TicketService(TrainDao trainDao, StationDao stationDao) {
+    public TicketService(GenericTrainDao genericTrainDao, TrainDao trainDao, StationDao stationDao) {
+        this.genericTrainDao = genericTrainDao;
         this.trainDao = trainDao;
         this.stationDao = stationDao;
     }
@@ -44,10 +48,25 @@ public class TicketService {
         Station to = this.stationDao.getStationByName(toName);
 
         Train train = this.trainDao.getTrainById(trainDto.getId());
+        GenericTrain genTrain = this.genericTrainDao.getGenericTrainById(trainDto.getId());
+
+
         Set<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
+
+
+        for (SpecRoutePoint point : srPoints) {
+
+
+
+        }
+
+        int orderOfStationFrom = -1;
 
         for (SpecRoutePoint point : srPoints) {
             if (point.getRoutePoint().getStation() == from) {
+
+                orderOfStationFrom = point.getRoutePoint().getOrderOfStation();
+
                 if (point.getTicketsLeft() == 0) {
                     throw new RuntimeException("THERE'S NO TICKETS LEFT"); //todo  CREATE CUSTOM EXCEPTION ??
                 }
