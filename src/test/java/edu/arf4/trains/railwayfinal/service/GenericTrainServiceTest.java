@@ -9,19 +9,15 @@ import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -69,7 +65,7 @@ public class GenericTrainServiceTest {
 
         genTrainDto.setSchedule(scheduleDto);
 
-        Set<RoutePointDto> routePointDtoSet = new HashSet<>(2);
+        List<RoutePointDto> routePointDtoList = new LinkedList<>();
 
         RoutePointDto pointDto1 = new RoutePointDto();
 
@@ -88,10 +84,10 @@ public class GenericTrainServiceTest {
         pointDto2.setDaysFromTrainDepartToDepartFromHere(null);
         pointDto2.setDaysFromTrainDepartToArrivalHere(2);
 
-        routePointDtoSet.add(pointDto1);
-        routePointDtoSet.add(pointDto2);
+        routePointDtoList.add(pointDto1);
+        routePointDtoList.add(pointDto2);
 
-        genTrainDto.setRoutePointDtoSet(routePointDtoSet);
+        genTrainDto.setRoutePointDtoList(routePointDtoList);
 
         return genTrainDto;
     }
@@ -99,7 +95,7 @@ public class GenericTrainServiceTest {
 
         ScheduleDto scheduleDto = genTrainDto.getSchedule();
 
-        assertEquals(genTrain.getRoutePoints().size(), genTrainDto.getRoutePointDtoSet().size());
+        assertEquals(genTrain.getRoutePoints().size(), genTrainDto.getRoutePointDtoList().size());
 
         assertEquals(genTrain.getNumber(), genTrainDto.getNumber());
         assertEquals(genTrain.getRoute(), genTrainDto.getRoute());
@@ -121,7 +117,7 @@ public class GenericTrainServiceTest {
         assertEquals(schedule.getSunday(), scheduleDto.getSunday());
 
         RoutePointDto rpDto = new RoutePointDto();
-        for (RoutePointDto routePointDto : genTrainDto.getRoutePointDtoSet()) {
+        for (RoutePointDto routePointDto : genTrainDto.getRoutePointDtoList()) {
             if (routePointDto.getOrderOfStation() == 2) {
                 rpDto = routePointDto;
                 break;
@@ -141,7 +137,6 @@ public class GenericTrainServiceTest {
 
     @Test
     @Transactional
-//    @Rollback(false)
     public void createGenericTrainTest() {
 
         GenericTrainDto genTrainDto = createTestGenTrainDto();
@@ -152,7 +147,7 @@ public class GenericTrainServiceTest {
     }
 
     @Test
-    @Transactional
+    @Transactional(readOnly = true)
     public void getGenericTrainDtoByIdTest() {
 
         GenericTrainDto unexistingTrain = genericTrainService.getGenericTrainDtoById(88888L);
@@ -164,52 +159,58 @@ public class GenericTrainServiceTest {
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void getAllGenericTrainDTOsTest() {
         List<GenericTrainDto> list = genericTrainService.getAllGenericTrainDTOs(); //USING SUBSELECT
         assertNotNull(list);
         assertEquals(list.size(), 2);
     }
 
-    @Test
-    @Transactional
-    @Rollback(false)
-    @Ignore
-    public void BeanValidationViolation() {
-
-        GenericTrainDto genTrainDto = createTestGenTrainDto();
-        Iterator<RoutePointDto> iterator = genTrainDto.getRoutePointDtoSet().iterator();
-        iterator.next();
-        iterator.remove();
-
-        genericTrainService.createGenericTrain(genTrainDto);
-
-        System.out.println("3232323");
-    }
-    @Test
-    @Ignore
-    @Transactional
-    @Rollback(value = false)
-    public void constraintViolationTest() {
-
-        GenericTrainDto genTrainDto = createTestGenTrainDto();
-        genericTrainService.createGenericTrain(genTrainDto);
-        assertThrows(RuntimeException.class, () -> genericTrainService.createGenericTrain(genTrainDto));
-
-    }
 
 
 
-    @BeforeClass
-    public static void beforeClass() {
-        System.out.println(" @BeforeClass is running ");
-//        assertEquals(2, 3);
-    }
 
-    @Before
-    public void before() {
-        System.out.println(" @Before is running ");
-//        assertEquals(2, 3);
-    }
+
+//    @Test
+//    @Transactional
+//    @Rollback(false)
+//    @Ignore
+//    public void BeanValidationViolation() {
+//
+//        GenericTrainDto genTrainDto = createTestGenTrainDto();
+//        Iterator<RoutePointDto> iterator = genTrainDto.getRoutePointDtoSet().iterator();
+//        iterator.next();
+//        iterator.remove();
+//
+//        genericTrainService.createGenericTrain(genTrainDto);
+//
+//        System.out.println("3232323");
+//    }
+//    @Test
+//    @Ignore
+//    @Transactional
+//    @Rollback(value = false)
+//    public void constraintViolationTest() {
+//
+//        GenericTrainDto genTrainDto = createTestGenTrainDto();
+//        genericTrainService.createGenericTrain(genTrainDto);
+//        assertThrows(RuntimeException.class, () -> genericTrainService.createGenericTrain(genTrainDto));
+//
+//    }
+//
+//
+//
+//    @BeforeClass
+//    public static void beforeClass() {
+//        System.out.println(" @BeforeClass is running ");
+////        assertEquals(2, 3);
+//    }
+//
+//    @Before
+//    public void before() {
+//        System.out.println(" @Before is running ");
+////        assertEquals(2, 3);
+//    }
 
 
 }

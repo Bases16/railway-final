@@ -109,14 +109,6 @@ public class TrainServiceTest {
         assertThrows(IndexOutOfBoundsException.class, () -> swFinal.getSeatsStateAtPoints().get(0).getSeatStates().get(1));
 
 
-//        assertEquals(plazkart.getSeats().size(), 3);
-//        assertEquals(coope.getSeats().size(), 2);
-//        assertEquals(sw.getSeats().size(), 1);
-//
-//        assertEquals(plazkart.getSeats().get(3), false);
-//        assertEquals(coope.getSeats().get(2), false);
-//        assertEquals(sw.getSeats().get(1), false);
-
         //SRP CHECKING
         assertNotNull(srPoints);
         assertEquals(srPoints.size(), 4);
@@ -135,6 +127,7 @@ public class TrainServiceTest {
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void getTrainDtoListByStationTest() {
 
         final Long MYSHKIN_ID = 15L;
@@ -193,11 +186,10 @@ public class TrainServiceTest {
 
         assertNull(dto.getLocalRoute());                             //TODO  LOCAL ROUTE ???
         assertNull(dto.getLocalDstArrivalDateTime());
-
-        System.out.println(dto);
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void getTrainDtoListBy2StationsAndDateRangeTest() {
 
         final Long MYSHKIN_ID = 15L;

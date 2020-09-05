@@ -141,24 +141,6 @@ public class TrainService {
         return orderOfCar;
     }
 
-//    private int addTrainCarsOfSpecTypeInGivenTrain(int orderOfCar, Train train, TrainCarType type,
-//                                                   int numOfTypeCars, int numOfSeatsInTypeCar, int numberOfRoutePoints) {
-//
-//        Set<TrainCar> trainCarSet = train.getTrainCars();
-//        for(int i = 1; i <= numOfTypeCars; i++) {
-//            TrainCar trainCar = new TrainCar(orderOfCar, type);
-//            Map<Integer, Boolean> seats = trainCar.getSeats();
-//
-//            for(int j = 1; j <= numOfSeatsInTypeCar; j++) {
-//                seats.put(j, false);
-//            }
-//            trainCar.setSeats(seats);
-//            trainCar.setTrain(train);
-//            trainCarSet.add(trainCar);
-//            orderOfCar++;
-//        }
-//        return orderOfCar;
-//    }
 
     private List<LocalDate> calcDepartDatesFromScheduleByDates(Schedule schedule, LocalDate startDate, LocalDate endDate) {
 

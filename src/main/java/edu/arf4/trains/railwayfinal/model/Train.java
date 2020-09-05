@@ -37,7 +37,7 @@ public class Train {
 
     @Size(min = 2)
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @org.hibernate.annotations.OrderBy(clause = "depart_datetime")
+//    @org.hibernate.annotations.OrderBy(clause = "depart_datetime")
     private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
 
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)

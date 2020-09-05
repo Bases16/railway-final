@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class GenericTrainService {
         genericTrain.setNumOfSwCars(dto.getNumOfSwCars());
         genericTrain.setNumOfSeatsInSwCar(dto.getNumOfSeatsInSwcar());
 
-        Set<RoutePoint> routePointSet = convertRoutePointDtoSetToRoutePointSet(dto.getRoutePointDtoSet(), genericTrain);
+        Set<RoutePoint> routePointSet = convertRoutePointDtoListToRoutePointSet(dto.getRoutePointDtoList(), genericTrain);
         genericTrain.setRoutePoints(routePointSet);
 
         Long newGeTrainId;
@@ -73,10 +74,10 @@ public class GenericTrainService {
         return schedule;
     }
 
-    private Set<RoutePoint> convertRoutePointDtoSetToRoutePointSet(Set<RoutePointDto> dtoSet, GenericTrain genericTrain) {
+    private Set<RoutePoint> convertRoutePointDtoListToRoutePointSet(List<RoutePointDto> dtoList, GenericTrain genericTrain) {
         Set<RoutePoint> set = new HashSet<>();
-        if (dtoSet != null) {
-            for(RoutePointDto dto : dtoSet) { set.add(convertRoutePointDtoToRoutePoint(dto, genericTrain)); }
+        if (dtoList != null) {
+            for(RoutePointDto dto : dtoList) { set.add(convertRoutePointDtoToRoutePoint(dto, genericTrain)); }
         }
         return set;
     }
@@ -141,7 +142,7 @@ public class GenericTrainService {
         scheduleDto.setSunday(schedule.getSunday());
         trainDto.setSchedule(scheduleDto);
 
-        Set<RoutePointDto> rpDtoSet = new HashSet<>();
+        LinkedList<RoutePointDto> rpDtoList = new LinkedList<>();
         for(RoutePoint rp : gt.getRoutePoints()) {              // SUBSELECT OPTIMIZATION HERE
             RoutePointDto rpDto = new RoutePointDto();
             rpDto.setStationId(rp.getStation().getId());
@@ -150,9 +151,9 @@ public class GenericTrainService {
             rpDto.setDepartTime(Converter.convertLocalTimeToString(rp.getDepartTime()));
             rpDto.setDaysFromTrainDepartToArrivalHere(rp.getDaysFromTrainDepartToArrivalHere());
             rpDto.setDaysFromTrainDepartToDepartFromHere(rp.getDaysFromTrainDepartToDepartFromHere());
-            rpDtoSet.add(rpDto);
+            rpDtoList.addFirst(rpDto); // assuming gt.getRoutePoints() returns DESC order of RP
         }
-        trainDto.setRoutePointDtoSet(rpDtoSet);
+        trainDto.setRoutePointDtoList(rpDtoList);
 
         return trainDto;
     }

@@ -1,12 +1,13 @@
 package edu.arf4.trains.railwayfinal.dto;
 
+import java.util.List;
 import java.util.Set;
 
 public class GenericTrainDto {
 
     private String number;
     private String route;
-    private Set<RoutePointDto> routePointDtoSet;
+    private List<RoutePointDto> routePointDtoList;
     private ScheduleDto schedule;
 
     //TODO       get rid of constant trainCar properties !!!!!!!!
@@ -23,7 +24,7 @@ public class GenericTrainDto {
         return "GenericTrainDto{" +
                 "number='" + number + '\'' +
                 ", route='" + route + '\'' +
-                ", routePointDtoSet=" + routePointDtoSet +
+                ", routePointDtoSet=" + routePointDtoList +
                 ", schedule=" + schedule +
                 ", numOfPlazkartCars=" + numOfPlazkartCars +
                 ", numOfSeatsInPlazkartCar=" + numOfSeatsInPlazkartCar +
@@ -46,10 +47,6 @@ public class GenericTrainDto {
         this.route = route;
     }
 
-    public Set<RoutePointDto> getRoutePointDtoSet() {
-        return routePointDtoSet;
-    }
-
     public ScheduleDto getSchedule() {
         return schedule;
     }
@@ -58,8 +55,12 @@ public class GenericTrainDto {
         this.number = number;
     }
 
-    public void setRoutePointDtoSet(Set<RoutePointDto> routePointDtoSet) {
-        this.routePointDtoSet = routePointDtoSet;
+    public List<RoutePointDto> getRoutePointDtoList() {
+        return routePointDtoList;
+    }
+
+    public void setRoutePointDtoList(List<RoutePointDto> routePointDtoList) {
+        this.routePointDtoList = routePointDtoList;
     }
 
     public void setSchedule(ScheduleDto schedule) {
