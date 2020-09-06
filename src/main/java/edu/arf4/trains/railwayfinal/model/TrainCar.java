@@ -51,7 +51,7 @@ public class TrainCar {
 //    private Map<Integer,Boolean> seats = new HashMap<>(); // alt.: @SortNatural, TreeMap .   WAS LinkedHashMap
 
     @NotEmpty
-    @OneToMany(/*mappedBy = "trainCar",*/ fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_car_id", nullable = false)
     @OrderColumn(name = "order_of_station", nullable = false)
     private List<SeatsStateAtPoint> seatsStateAtPoints = new ArrayList<>();

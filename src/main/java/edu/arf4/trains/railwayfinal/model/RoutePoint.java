@@ -22,13 +22,11 @@ public class RoutePoint {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "generic_train_id", updatable = false, insertable = false)
     private GenericTrain genericTrain;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Station station;
-
-    @Column(nullable = false)
-    private Integer orderOfStation;
 
     private LocalTime departTime;
 
@@ -56,14 +54,6 @@ public class RoutePoint {
 
     public void setStation(Station station) {
         this.station = station;
-    }
-
-    public Integer getOrderOfStation() {
-        return orderOfStation;
-    }
-
-    public void setOrderOfStation(Integer orderOfStation) {
-        this.orderOfStation = orderOfStation;
     }
 
     public LocalTime getDepartTime() {

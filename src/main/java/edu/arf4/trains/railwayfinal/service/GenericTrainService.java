@@ -47,8 +47,8 @@ public class GenericTrainService {
         genericTrain.setNumOfSwCars(dto.getNumOfSwCars());
         genericTrain.setNumOfSeatsInSwCar(dto.getNumOfSeatsInSwcar());
 
-        Set<RoutePoint> routePointSet = convertRoutePointDtoListToRoutePointSet(dto.getRoutePointDtoList(), genericTrain);
-        genericTrain.setRoutePoints(routePointSet);
+        List<RoutePoint> routePointList = convertRoutePointDtoListToRoutePointList(dto.getRoutePointDtoList(), genericTrain);
+        genericTrain.setRoutePoints(routePointList);
 
         Long newGeTrainId;
         try {
@@ -74,18 +74,17 @@ public class GenericTrainService {
         return schedule;
     }
 
-    private Set<RoutePoint> convertRoutePointDtoListToRoutePointSet(List<RoutePointDto> dtoList, GenericTrain genericTrain) {
-        Set<RoutePoint> set = new HashSet<>();
+    private List<RoutePoint> convertRoutePointDtoListToRoutePointList(List<RoutePointDto> dtoList, GenericTrain genericTrain) {
+        List<RoutePoint> list = new ArrayList<>();
         if (dtoList != null) {
-            for(RoutePointDto dto : dtoList) { set.add(convertRoutePointDtoToRoutePoint(dto, genericTrain)); }
+            for(RoutePointDto dto : dtoList) { list.add(convertRoutePointDtoToRoutePoint(dto, genericTrain)); }
         }
-        return set;
+        return list;
     }
 
     private RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
         RoutePoint point = new RoutePoint();
         point.setStation(this.simpleServices.getStationById(dto.getStationId(), true));
-        point.setOrderOfStation(dto.getOrderOfStation());
         point.setDaysFromTrainDepartToArrivalHere(dto.getDaysFromTrainDepartToArrivalHere());
         point.setDaysFromTrainDepartToDepartFromHere(dto.getDaysFromTrainDepartToDepartFromHere());
         point.setDepartTime(Converter.convertStringToLocalTime(dto.getDepartTime()));
@@ -142,16 +141,15 @@ public class GenericTrainService {
         scheduleDto.setSunday(schedule.getSunday());
         trainDto.setSchedule(scheduleDto);
 
-        LinkedList<RoutePointDto> rpDtoList = new LinkedList<>();
+        List<RoutePointDto> rpDtoList = new ArrayList<>();
         for(RoutePoint rp : gt.getRoutePoints()) {              // SUBSELECT OPTIMIZATION HERE
             RoutePointDto rpDto = new RoutePointDto();
             rpDto.setStationId(rp.getStation().getId());
-            rpDto.setOrderOfStation(rp.getOrderOfStation());
             rpDto.setArrivalTime(Converter.convertLocalTimeToString(rp.getArrivalTime()));
             rpDto.setDepartTime(Converter.convertLocalTimeToString(rp.getDepartTime()));
             rpDto.setDaysFromTrainDepartToArrivalHere(rp.getDaysFromTrainDepartToArrivalHere());
             rpDto.setDaysFromTrainDepartToDepartFromHere(rp.getDaysFromTrainDepartToDepartFromHere());
-            rpDtoList.addFirst(rpDto); // assuming gt.getRoutePoints() returns DESC order of RP
+            rpDtoList.add(rpDto);
         }
         trainDto.setRoutePointDtoList(rpDtoList);
 

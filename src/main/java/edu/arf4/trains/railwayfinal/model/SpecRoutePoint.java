@@ -20,6 +20,7 @@ public class SpecRoutePoint {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "train_id", updatable = false, insertable = false)
     private Train train;
 
     @Future

@@ -9,9 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,12 +42,20 @@ public class GenericTrain {
     @Embedded
     private Schedule schedule;
 
-    @Size(min = 2)
+//    @Size(min = 2)
 //    @org.hibernate.annotations.OrderBy(clause = "days_from_train_depart_to_depart_from_here, depart_time")
-    @org.hibernate.annotations.OrderBy(clause = "order_of_station DESC")
+//    @org.hibernate.annotations.OrderBy(clause = "order_of_station DESC")
+//    @org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
+//    @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    private Set<RoutePoint> routePoints = new HashSet<>();
+
+    @Size(min = 2)
     @org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
-    @OneToMany(mappedBy = "genericTrain", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Set<RoutePoint> routePoints = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "generic_train_id", nullable = false)
+    @OrderColumn(name = "order_of_route_point", nullable = false)
+    private List<RoutePoint> routePoints = new ArrayList<>();
+
 
 
     protected GenericTrain() {}
@@ -70,9 +82,13 @@ public class GenericTrain {
 
     public void setSchedule(Schedule schedule) { this.schedule = schedule; }
 
-    public Set<RoutePoint> getRoutePoints() { return routePoints; }
+    public List<RoutePoint> getRoutePoints() {
+        return routePoints;
+    }
 
-    public void setRoutePoints(Set<RoutePoint> routePoints) { this.routePoints = routePoints; }
+    public void setRoutePoints(List<RoutePoint> routePoints) {
+        this.routePoints = routePoints;
+    }
 
     public Integer getNumOfPlazkartCars() {
         return numOfPlazkartCars;

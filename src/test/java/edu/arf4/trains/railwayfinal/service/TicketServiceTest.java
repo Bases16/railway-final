@@ -9,6 +9,7 @@ import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import edu.arf4.trains.railwayfinal.model.Train;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 //@ContextConfiguration(classes = AlterDatabaseConfig.class)
@@ -33,12 +35,13 @@ public class TicketServiceTest {
 
     @Test
     @Transactional
+    @Ignore
     public void test() {  // THE SCOPE OF GUARANTEED IDENTITY
 
         Train train = trainDao.getTrainById(1L);
         Station station = stationDao.getStationByName("Moscow");
 
-        Set<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
+        List<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
 
         for (SpecRoutePoint point : srPoints) {
 
@@ -54,7 +57,7 @@ public class TicketServiceTest {
         System.out.println("NEXT");
 
         GenericTrain genericTrain = genericTrainDao.getGenericTrainById(2L);
-        Set<RoutePoint> routePoints = genericTrain.getRoutePoints();
+        List<RoutePoint> routePoints = genericTrain.getRoutePoints();
         for (RoutePoint point : routePoints) {
             System.out.println(point.getStation().getName());
         }

@@ -34,12 +34,12 @@ public class SimpleServicesTest {
 
 
 
-    @Test
-    @Ignore
-    public void createDuplicateStation() {
-
-        simpleServices.createStation(new Station("Moscow"));
-
-        System.out.println("fdfdfdfdfd");
-    }
+//    @Test
+//    @Ignore
+//    public void createDuplicateStation() {
+//
+//        simpleServices.createStation(new Station("Moscow"));
+//
+//        System.out.println("fdfdfdfdfd");
+//    }
 }

@@ -34,7 +34,7 @@ public class TrainServiceTest {
 
     @Test
     @Transactional
-    @Rollback(value = false)
+//    @Rollback(value = false)
     public void registerTrainByGivenDatesAndGenTrainTest() {
 
         //CASE 1
@@ -68,7 +68,6 @@ public class TrainServiceTest {
 
         Train train = list.get(0);
         Set<TrainCar> cars = train.getTrainCars();
-        Set<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
 
         //TRAIN CHECKING
         assertEquals(train.getDepartDate(), start); // monday is true
@@ -110,15 +109,18 @@ public class TrainServiceTest {
 
 
         //SRP CHECKING
+        List<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
         assertNotNull(srPoints);
         assertEquals(srPoints.size(), 4);
 
         SpecRoutePoint srp = null;
+        int i = 1;
         for (SpecRoutePoint point : srPoints) {
-            if (point.getRoutePoint().getOrderOfStation().equals(2)) {
+            if (i == 2) {
                 srp = point;
                 break;
             }
+            i++;
         }
         assertNotNull(srp);
         assertEquals(srp.getTicketsLeft(), new Integer(6));

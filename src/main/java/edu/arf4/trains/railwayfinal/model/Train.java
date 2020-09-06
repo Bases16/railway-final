@@ -14,9 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.OrderColumn;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,10 +39,17 @@ public class Train {
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<TrainCar> trainCars = new HashSet<>();
 
-    @Size(min = 2)
-    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+//    @Size(min = 2)
+//    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
 //    @org.hibernate.annotations.OrderBy(clause = "depart_datetime")
-    private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
+//    private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
+
+    @Size(min = 2)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "train_id", nullable = false)
+    @OrderColumn(name = "order_of_spec_route_point", nullable = false)
+    private List<SpecRoutePoint> specRoutePoints = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
     private Set<Ticket> tickets = new HashSet<>();
@@ -74,8 +85,11 @@ public class Train {
         return trainCars;
     }
 
-    public Set<SpecRoutePoint> getSpecRoutePoints() {
-        return specRoutePoints;
+    public void setSpecRoutePoints(List<SpecRoutePoint> specRoutePoints) {
+        this.specRoutePoints = specRoutePoints;
     }
 
+    public List<SpecRoutePoint> getSpecRoutePoints() {
+        return specRoutePoints;
+    }
 }

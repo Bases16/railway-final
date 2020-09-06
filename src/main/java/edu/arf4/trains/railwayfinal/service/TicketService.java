@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -51,7 +52,7 @@ public class TicketService {
         GenericTrain genTrain = this.genericTrainDao.getGenericTrainById(trainDto.getId());
 
 
-        Set<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
+        List<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
 
 
         for (SpecRoutePoint point : srPoints) {
@@ -65,7 +66,6 @@ public class TicketService {
         for (SpecRoutePoint point : srPoints) {
             if (point.getRoutePoint().getStation() == from) {
 
-                orderOfStationFrom = point.getRoutePoint().getOrderOfStation();
 
                 if (point.getTicketsLeft() == 0) {
                     throw new RuntimeException("THERE'S NO TICKETS LEFT"); //todo  CREATE CUSTOM EXCEPTION ??

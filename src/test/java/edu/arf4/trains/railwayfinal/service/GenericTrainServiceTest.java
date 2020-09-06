@@ -123,16 +123,22 @@ public class GenericTrainServiceTest {
                 break;
             }
         }
-        for (RoutePoint rp : genTrain.getRoutePoints()) {
-            if (rp.getOrderOfStation().equals(2)) {
+        List<RoutePoint> routePoints = genTrain.getRoutePoints();
+        RoutePoint rp = routePoints.get(1);
+
+
+//        for (RoutePoint rp : genTrain.getRoutePoints()) {
+//            int i = 1;
+//            if (i == 2) {
                 assertEquals(rp.getArrivalTime(), Converter.convertStringToLocalTime(rpDto.getArrivalTime()));
                 assertEquals(rp.getDepartTime(), Converter.convertStringToLocalTime(rpDto.getDepartTime()));
                 assertEquals(rp.getDaysFromTrainDepartToArrivalHere(), rpDto.getDaysFromTrainDepartToArrivalHere());
                 assertEquals(rp.getDaysFromTrainDepartToDepartFromHere(), rpDto.getDaysFromTrainDepartToDepartFromHere());
                 assertEquals(rp.getStation().getId(), (Long) rpDto.getStationId());
-                break;
-            }
-        }
+//                break;
+//            }
+//            i++;
+//        }
     }
 
     @Test

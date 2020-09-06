@@ -91,7 +91,7 @@ public class TrainService {
         addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.SW, numOfSwCars, numOfSeatsInSwCar,
                                             numberOfRoutePoints);
 
-        Set<SpecRoutePoint> specRoutePoints = train.getSpecRoutePoints();
+        List<SpecRoutePoint> specRoutePoints = train.getSpecRoutePoints();
 
 
         for (RoutePoint rp : genericTrain.getRoutePoints()) {
@@ -223,10 +223,15 @@ public class TrainService {
 
         for(SpecRoutePoint srp : srpList) {
             RoutePoint thisRP = srp.getRoutePoint();
-            Set<RoutePoint> rpList = thisRP.getGenericTrain().getRoutePoints();// batch and subselect executes here
+            List<RoutePoint> rpList = thisRP.getGenericTrain().getRoutePoints(); // batch and subselect executes here
 
-            for (RoutePoint rp : rpList) {
-                if (rp.getStation().getId().equals(stationToId) && rp.getOrderOfStation() > thisRP.getOrderOfStation()) {
+
+            for (int i = rpList.size() - 1;  ; i--) {
+
+                RoutePoint rp = rpList.get(i);
+                if (rp.getStation().getId().equals(stationFromId)) break;
+
+                if (rp.getStation().getId().equals(stationToId)) {
                     TrainDto dto = new TrainDto();
                     dto.setId(srp.getTrain().getId());
                     dto.setGlobalRoute(rp.getGenericTrain().getRoute());
@@ -237,13 +242,14 @@ public class TrainService {
 
                     LocalDate d = srp.getDepartDatetime().toLocalDate();
                     LocalDate requiredDate = d.plusDays(rp.getDaysFromTrainDepartToArrivalHere() -
-                                             thisRP.getDaysFromTrainDepartToDepartFromHere());
+                            thisRP.getDaysFromTrainDepartToDepartFromHere());
                     dto.setLocalDstArrivalDateTime(Converter.convertLocalDateTimeToString(
                             LocalDateTime.of(requiredDate, rp.getArrivalTime())));
 
                     trainDtoList.add(dto);
                     break;
                 }
+
             }
         }
         return trainDtoList;
