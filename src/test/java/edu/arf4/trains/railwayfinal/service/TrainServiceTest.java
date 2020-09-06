@@ -46,7 +46,7 @@ public class TrainServiceTest {
         List<Train> list = trainDao.getTrainsByGenTrainIdAndDates(1L, start, end);
 
         assertNotNull(list);
-        assertEquals(list.size(), 4);
+        assertEquals(4, list.size());
 
         //CASE 2
         trainService.registerTrainByGivenDatesAndGenTrain(2L, start, end);
@@ -54,7 +54,7 @@ public class TrainServiceTest {
         list = trainDao.getTrainsByGenTrainIdAndDates(2L, start, end);
 
         assertNotNull(list);
-        assertEquals(list.size(), 4);
+        assertEquals(4, list.size());
 
         //CASE 3 - FULL CHECKING
         start = LocalDate.of(2023, 5, 8);
@@ -64,18 +64,18 @@ public class TrainServiceTest {
         list = trainDao.getTrainsByGenTrainIdAndDates(2L, start, end);
 
         assertNotNull(list);
-        assertEquals(list.size(), 2);
+        assertEquals(2, list.size());
 
         Train train = list.get(0);
         Set<TrainCar> cars = train.getTrainCars();
 
         //TRAIN CHECKING
-        assertEquals(train.getDepartDate(), start); // monday is true
-        assertEquals(train.getGenericTrain().getId(), new Long(2));
+        assertEquals(start, train.getDepartDate()); // monday is true
+        assertEquals(new Long(2), train.getGenericTrain().getId());
 
         // TRAIN CARS CHECKING
         assertNotNull(cars);
-        assertEquals(cars.size(), 3);
+        assertEquals(3, cars.size());
 
         TrainCar plazkart = null, coope = null, sw = null;
 
@@ -88,21 +88,21 @@ public class TrainServiceTest {
         assertNotNull(coope);
         assertNotNull(sw);
 
-        assertEquals(plazkart.getOrderOfCar(), new Integer(1));
-        assertEquals(coope.getOrderOfCar(), new Integer(2));
-        assertEquals(sw.getOrderOfCar(), new Integer(3));
+        assertEquals(new Integer(1), plazkart.getOrderOfCar());
+        assertEquals(new Integer(2), coope.getOrderOfCar());
+        assertEquals(new Integer(3), sw.getOrderOfCar());
 
-        assertEquals(plazkart.getSeatsStateAtPoints().size(), 3);
-        assertEquals(coope.getSeatsStateAtPoints().size(), 3);
-        assertEquals(sw.getSeatsStateAtPoints().size(), 3);
+        assertEquals(3, plazkart.getSeatsStateAtPoints().size());
+        assertEquals(3, coope.getSeatsStateAtPoints().size());
+        assertEquals(3, sw.getSeatsStateAtPoints().size());
 
-        assertEquals(plazkart.getSeatsStateAtPoints().get(0).getSeatStates().size(), 3);
-        assertEquals(coope.getSeatsStateAtPoints().get(0).getSeatStates().size(), 2);
-        assertEquals(sw.getSeatsStateAtPoints().get(0).getSeatStates().size(), 1);
+        assertEquals(3, plazkart.getSeatsStateAtPoints().get(0).getSeatStates().size());
+        assertEquals(2, coope.getSeatsStateAtPoints().get(0).getSeatStates().size());
+        assertEquals(1, sw.getSeatsStateAtPoints().get(0).getSeatStates().size());
 
-        assertEquals(plazkart.getSeatsStateAtPoints().get(0).getSeatStates().get(2), false);
-        assertEquals(coope.getSeatsStateAtPoints().get(0).getSeatStates().get(1), false);
-        assertEquals(sw.getSeatsStateAtPoints().get(0).getSeatStates().get(0), false);
+        assertEquals(false, plazkart.getSeatsStateAtPoints().get(0).getSeatStates().get(2));
+        assertEquals(false, coope.getSeatsStateAtPoints().get(0).getSeatStates().get(1));
+        assertEquals(false, sw.getSeatsStateAtPoints().get(0).getSeatStates().get(0));
 
         final TrainCar swFinal = sw;
         assertThrows(IndexOutOfBoundsException.class, () -> swFinal.getSeatsStateAtPoints().get(0).getSeatStates().get(1));
@@ -111,7 +111,7 @@ public class TrainServiceTest {
         //SRP CHECKING
         List<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
         assertNotNull(srPoints);
-        assertEquals(srPoints.size(), 4);
+        assertEquals(4, srPoints.size());
 
         SpecRoutePoint srp = null;
         int i = 1;
@@ -123,9 +123,9 @@ public class TrainServiceTest {
             i++;
         }
         assertNotNull(srp);
-        assertEquals(srp.getTicketsLeft(), new Integer(6));
-        assertEquals(srp.getArrivalDatetime(), LocalDateTime.of(2023,5,8,23,55));
-        assertEquals(srp.getDepartDatetime(), LocalDateTime.of(2023,5,9,1,0));
+        assertEquals(new Integer(6), srp.getTicketsLeft());
+        assertEquals(LocalDateTime.of(2023,5,8,23,55), srp.getArrivalDatetime());
+        assertEquals(LocalDateTime.of(2023,5,9,1,0), srp.getDepartDatetime());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class TrainServiceTest {
 
         List<TrainDto> dtoListByStation = trainService.getTrainDtoListByStation(MYSHKIN_ID, start, end);
         assertNotNull(dtoListByStation);
-        assertEquals(dtoListByStation.size(), 2);
+        assertEquals(2, dtoListByStation.size());
 
         //CASE 2
         start = LocalDate.of(2020, 12, 1);
@@ -149,7 +149,7 @@ public class TrainServiceTest {
 
         dtoListByStation = trainService.getTrainDtoListByStation(MYSHKIN_ID, start, end);
         assertNotNull(dtoListByStation);
-        assertEquals(dtoListByStation.size(), 4);
+        assertEquals(4, dtoListByStation.size());
 
         //CASE 3 - FULL CHECKING
         start = LocalDate.of(2020, 11, 30);
@@ -157,7 +157,7 @@ public class TrainServiceTest {
 
         dtoListByStation = trainService.getTrainDtoListByStation(MYSHKIN_ID, start, end);
         assertNotNull(dtoListByStation);
-        assertEquals(dtoListByStation.size(), 1);
+        assertEquals(1, dtoListByStation.size());
 
         TrainDto dto = dtoListByStation.get(0);
 
@@ -176,14 +176,14 @@ public class TrainServiceTest {
 
         dtoListByStation = trainService.getTrainDtoListByStation(GENOA_ID, start, end);
         assertNotNull(dtoListByStation);
-        assertEquals(dtoListByStation.size(), 1);
+        assertEquals(1, dtoListByStation.size());
 
         dto = dtoListByStation.get(0);
 
-        assertEquals(dto.getNumber(), "1488HH");
-        assertEquals(dto.getGlobalRoute(), "Liski - Genoa");
-        assertEquals(dto.getId(), new Long(4));
-        assertEquals(dto.getLocalSrcArrivalDateTime(), "2020-12-07 at 22:00");
+        assertEquals("1488HH", dto.getNumber());
+        assertEquals("Liski - Genoa", dto.getGlobalRoute());
+        assertEquals(new Long(4), dto.getId());
+        assertEquals("2020-12-07 at 22:00", dto.getLocalSrcArrivalDateTime());
         assertNull(dto.getLocalSrcDepartDateTime()); // specific case
 
         assertNull(dto.getLocalRoute());                             //TODO  LOCAL ROUTE ???
@@ -206,7 +206,7 @@ public class TrainServiceTest {
         List<TrainDto> dtoListByStation = trainService
                 .getTrainDtoListBy2StationsAndDateRange(MYSHKIN_ID, ASTANA_ID, start, end);
         assertNotNull(dtoListByStation);
-        assertEquals(dtoListByStation.size(), 2);
+        assertEquals(2, dtoListByStation.size());
 
         //CASE 2
         start = LocalDate.of(2020, 12, 1);
@@ -215,7 +215,7 @@ public class TrainServiceTest {
         dtoListByStation = trainService
                 .getTrainDtoListBy2StationsAndDateRange(MOSCOW_ID, HONG_KONG_ID, start, end);
         assertNotNull(dtoListByStation);
-        assertEquals(dtoListByStation.size(), 1);
+        assertEquals(1, dtoListByStation.size());
 
         //CASE 3
         start = LocalDate.of(2020, 12, 5);
@@ -232,17 +232,17 @@ public class TrainServiceTest {
         dtoListByStation = trainService
                 .getTrainDtoListBy2StationsAndDateRange(ASTANA_ID, HONG_KONG_ID, start, end);
         assertNotNull(dtoListByStation);
-        assertEquals(dtoListByStation.size(), 1);
+        assertEquals(1, dtoListByStation.size());
 
         TrainDto dto = dtoListByStation.get(0);
 
-        assertEquals(dto.getNumber(), "МШМ228");
-        assertEquals(dto.getGlobalRoute(), "Moscow - Hong-Kong");
-        assertEquals(dto.getId(), new Long(1));
-        assertEquals(dto.getLocalSrcArrivalDateTime(), "2020-12-03 at 11:10");
-        assertEquals(dto.getLocalSrcDepartDateTime(), "2020-12-03 at 11:58");
-        assertEquals(dto.getLocalDstArrivalDateTime(), "2020-12-05 at 22:00");
-        assertEquals(dto.getLocalRoute(), "Astana - Hong-Kong");
+        assertEquals("МШМ228", dto.getNumber());
+        assertEquals("Moscow - Hong-Kong", dto.getGlobalRoute());
+        assertEquals(new Long(1), dto.getId());
+        assertEquals("2020-12-03 at 11:10", dto.getLocalSrcArrivalDateTime());
+        assertEquals("2020-12-03 at 11:58", dto.getLocalSrcDepartDateTime());
+        assertEquals("2020-12-05 at 22:00", dto.getLocalDstArrivalDateTime());
+        assertEquals("Astana - Hong-Kong", dto.getLocalRoute());
     }
 
 

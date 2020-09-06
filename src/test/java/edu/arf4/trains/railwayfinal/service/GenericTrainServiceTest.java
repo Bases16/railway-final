@@ -70,7 +70,6 @@ public class GenericTrainServiceTest {
         RoutePointDto pointDto1 = new RoutePointDto();
 
         pointDto1.setStationId(13);      //New-York
-        pointDto1.setOrderOfStation(1);
         pointDto1.setDepartTime("10:30");
         pointDto1.setArrivalTime(null);
         pointDto1.setDaysFromTrainDepartToDepartFromHere(0);
@@ -78,7 +77,6 @@ public class GenericTrainServiceTest {
 
         RoutePointDto pointDto2 = new RoutePointDto();
         pointDto2.setStationId(15);      //Myshkin
-        pointDto2.setOrderOfStation(2);
         pointDto2.setDepartTime(null);
         pointDto2.setArrivalTime("15:45");
         pointDto2.setDaysFromTrainDepartToDepartFromHere(null);
@@ -116,29 +114,14 @@ public class GenericTrainServiceTest {
         assertEquals(schedule.getSaturday(), scheduleDto.getSaturday());
         assertEquals(schedule.getSunday(), scheduleDto.getSunday());
 
-        RoutePointDto rpDto = new RoutePointDto();
-        for (RoutePointDto routePointDto : genTrainDto.getRoutePointDtoList()) {
-            if (routePointDto.getOrderOfStation() == 2) {
-                rpDto = routePointDto;
-                break;
-            }
-        }
-        List<RoutePoint> routePoints = genTrain.getRoutePoints();
-        RoutePoint rp = routePoints.get(1);
+        RoutePointDto rpDto = genTrainDto.getRoutePointDtoList().get(1);
+        RoutePoint rp = genTrain.getRoutePoints().get(1);
 
-
-//        for (RoutePoint rp : genTrain.getRoutePoints()) {
-//            int i = 1;
-//            if (i == 2) {
-                assertEquals(rp.getArrivalTime(), Converter.convertStringToLocalTime(rpDto.getArrivalTime()));
-                assertEquals(rp.getDepartTime(), Converter.convertStringToLocalTime(rpDto.getDepartTime()));
-                assertEquals(rp.getDaysFromTrainDepartToArrivalHere(), rpDto.getDaysFromTrainDepartToArrivalHere());
-                assertEquals(rp.getDaysFromTrainDepartToDepartFromHere(), rpDto.getDaysFromTrainDepartToDepartFromHere());
-                assertEquals(rp.getStation().getId(), (Long) rpDto.getStationId());
-//                break;
-//            }
-//            i++;
-//        }
+        assertEquals(Converter.convertStringToLocalTime(rpDto.getArrivalTime()), rp.getArrivalTime());
+        assertEquals(Converter.convertStringToLocalTime(rpDto.getDepartTime()), rp.getDepartTime());
+        assertEquals(rpDto.getDaysFromTrainDepartToArrivalHere(), rp.getDaysFromTrainDepartToArrivalHere());
+        assertEquals(rpDto.getDaysFromTrainDepartToDepartFromHere(), rp.getDaysFromTrainDepartToDepartFromHere());
+        assertEquals((Long) rpDto.getStationId(), rp.getStation().getId());
     }
 
     @Test
@@ -169,7 +152,7 @@ public class GenericTrainServiceTest {
     public void getAllGenericTrainDTOsTest() {
         List<GenericTrainDto> list = genericTrainService.getAllGenericTrainDTOs(); //USING SUBSELECT
         assertNotNull(list);
-        assertEquals(list.size(), 2);
+        assertEquals(2, list.size());
     }
 
 

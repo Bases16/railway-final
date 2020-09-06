@@ -29,7 +29,7 @@ public class SimpleServicesTest {
         Long newStationId = simpleServices.createStation(station);
 
         Station newStationFromDB = simpleServices.getStationById(newStationId, false);
-        assertEquals(newStationFromDB.getName(), NEW_STATION_NAME);
+        assertEquals(NEW_STATION_NAME, newStationFromDB.getName());
     }
 
 

@@ -19,12 +19,12 @@ num_of_seats_in_plazkart_car, num_of_sw_cars, num_of_seats_in_sw_car,
 week_periodicity, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
 VALUES (1, 'МШМ228', 'Moscow - Hong-Kong', 1, 2, 1, 3, 1, 1, 2, false , true , false , false , false , false , true);
 
-INSERT INTO route_point(id, generic_train_id, station_id, order_of_station, arrival_time, days_from_train_depart_to_arrival_here,
+INSERT INTO route_point(id, generic_train_id, station_id, order_of_route_point, arrival_time, days_from_train_depart_to_arrival_here,
                         depart_time, days_from_train_depart_to_depart_from_here) VALUES
-(100, 1, 16, 1,   null , null, '15:30',  0   ),
-(101, 1, 15, 2, '23:55',  0  , '02:00',  1   ),
-(102, 1, 14, 3, '11:10',  2  , '11:58',  2   ),
-(103, 1, 20, 4, '22:00',  4  ,  null  , null );
+(100, 1, 16, 0,   null , null, '15:30',  0   ),
+(101, 1, 15, 1, '23:55',  0  , '02:00',  1   ),
+(102, 1, 14, 2, '11:10',  2  , '11:58',  2   ),
+(103, 1, 20, 3, '22:00',  4  ,  null  , null );
 
 INSERT INTO train(id, generic_train_id, depart_date) VALUES
 (1, 1, '2020-12-01'), --  #1 train
@@ -39,16 +39,6 @@ INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (4, 2, 1, 'PLAZKART'),
 (5, 2, 2, 'COOPE'),
 (6, 2, 3, 'SW');
-
--- INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
--- --  #1 train
--- (1, 1, false), (1, 2, false), (1, 3, false), -- plazkart
--- (2, 1, false), (2, 2, false),                -- coope
--- (3, 1, false),                               -- sw
--- --  #2 train
--- (4, 1, false), (4, 2, false), (4, 3, false), -- plazkart
--- (5, 1, false), (5, 2, false),                -- coope
--- (6, 1, false);                               -- sw
 
 INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 --  #1 train
@@ -88,16 +78,16 @@ INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 (17, false, 0),
 (18, false, 0);
 
-INSERT INTO spec_route_point(id, train_id, route_point_id, tickets_left, arrival_datetime, depart_datetime) VALUES
-(1, 1, 100, 6,       null        , '2020-12-01 15:30'),
-(2, 1, 101, 6, '2020-12-01 23:55', '2020-12-02 02:00'),
-(3, 1, 102, 6, '2020-12-03 11:10', '2020-12-03 11:58'),
-(4, 1, 103, 6, '2020-12-05 22:00',        null       ),
+INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_point, tickets_left, arrival_datetime, depart_datetime) VALUES
+(1, 1, 100, 0, 6,       null        , '2020-12-01 15:30'),
+(2, 1, 101, 1, 6, '2020-12-01 23:55', '2020-12-02 02:00'),
+(3, 1, 102, 2, 6, '2020-12-03 11:10', '2020-12-03 11:58'),
+(4, 1, 103, 3, 6, '2020-12-05 22:00',        null       ),
 
-(5, 2, 100, 6,       null        , '2020-12-06 15:30'),
-(6, 2, 101, 6, '2020-12-06 23:55', '2020-12-07 02:00'),
-(7, 2, 102, 6, '2020-12-08 11:10', '2020-12-08 11:58'),
-(8, 2, 103, 6, '2020-12-10 22:00',        null       );
+(5, 2, 100, 0, 6,       null        , '2020-12-06 15:30'),
+(6, 2, 101, 1, 6, '2020-12-06 23:55', '2020-12-07 02:00'),
+(7, 2, 102, 2, 6, '2020-12-08 11:10', '2020-12-08 11:58'),
+(8, 2, 103, 3, 6, '2020-12-10 22:00',        null       );
 -- ===========================================================================
 
 -- 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000 --
@@ -110,12 +100,12 @@ num_of_seats_in_plazkart_car, num_of_sw_cars, num_of_seats_in_sw_car,
 week_periodicity, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
 VALUES (2, '1488HH', 'Liski - Genoa', 1, 2, 1, 3, 1, 1, 3, true, false , false, false, true, false, false);
 
-INSERT INTO route_point(id, generic_train_id, station_id, order_of_station, arrival_time, days_from_train_depart_to_arrival_here,
+INSERT INTO route_point(id, generic_train_id, station_id, order_of_route_point, arrival_time, days_from_train_depart_to_arrival_here,
                         depart_time, days_from_train_depart_to_depart_from_here) VALUES
-(104, 2, 18, 1,   null , null, '19:30',  0   ),
-(105, 2, 15, 2, '23:55',  0  , '01:00',  1   ),
-(106, 2, 17, 3, '11:10',  2  , '11:30',  2   ),
-(107, 2, 19, 4, '22:00',  3  ,  null  , null );
+(104, 2, 18, 0,   null , null, '19:30',  0   ),
+(105, 2, 15, 1, '23:55',  0  , '01:00',  1   ),
+(106, 2, 17, 2, '11:10',  2  , '11:30',  2   ),
+(107, 2, 19, 3, '22:00',  3  ,  null  , null );
 
 INSERT INTO train(id, generic_train_id, depart_date) VALUES
 (3, 2, '2020-11-30'),
@@ -129,15 +119,6 @@ INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (10, 4, 1, 'PLAZKART'),
 (11, 4, 2, 'COOPE'),
 (12, 4, 3, 'SW');
-
--- INSERT INTO train_car_seats(train_car_id, seat_number, is_reserved) VALUES
--- (7, 1, false), (7, 2, false ), (7, 3, false),
--- (8, 1, false), (8, 2, false),
--- (9, 1, false),
---
--- (10, 1, false), (10, 2, false), (10, 3, false),
--- (11, 1, false), (11, 2, false),
--- (12, 1, false);
 
 INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 --  #1 train
@@ -178,14 +159,14 @@ INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 (36, false, 0);
 
 
-INSERT INTO spec_route_point(id, train_id, route_point_id, tickets_left, arrival_datetime, depart_datetime) VALUES
-(9,  3, 104, 6,       null        , '2020-11-30 19:30'),
-(10, 3, 105, 6, '2020-11-30 23:55', '2020-12-01 01:00'),
-(11, 3, 106, 6, '2020-12-02 11:10', '2020-12-02 11:30'),
-(12, 3, 107, 6, '2020-12-03 22:00',        null       ),
+INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_point, tickets_left, arrival_datetime, depart_datetime) VALUES
+(9,  3, 104, 0, 6,       null        , '2020-11-30 19:30'),
+(10, 3, 105, 1, 6, '2020-11-30 23:55', '2020-12-01 01:00'),
+(11, 3, 106, 2, 6, '2020-12-02 11:10', '2020-12-02 11:30'),
+(12, 3, 107, 3, 6, '2020-12-03 22:00',        null       ),
 
-(13, 4, 104, 6,       null        , '2020-12-04 19:30'),
-(14, 4, 105, 6, '2020-12-04 23:55', '2020-12-05 01:00'),
-(15, 4, 106, 6, '2020-12-06 11:10', '2020-12-06 11:30'),
-(16, 4, 107, 6, '2020-12-07 22:00',        null       );
+(13, 4, 104, 0, 6,       null        , '2020-12-04 19:30'),
+(14, 4, 105, 1, 6, '2020-12-04 23:55', '2020-12-05 01:00'),
+(15, 4, 106, 2, 6, '2020-12-06 11:10', '2020-12-06 11:30'),
+(16, 4, 107, 3, 6, '2020-12-07 22:00',        null       );
 -- =====================================================================================
