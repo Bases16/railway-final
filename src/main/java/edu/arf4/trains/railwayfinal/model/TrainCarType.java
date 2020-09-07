@@ -1,7 +1,7 @@
 package edu.arf4.trains.railwayfinal.model;
 
 public enum TrainCarType {
-    PLATZKART,
+    PLAZKART,
     COOPE,
     SW
 }

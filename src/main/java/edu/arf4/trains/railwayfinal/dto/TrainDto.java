@@ -10,6 +10,10 @@ public class TrainDto {
     private String localSrcDepartDateTime;
     private String localDstArrivalDateTime;
 
+    private Integer plazkartTicketsLeft;
+    private Integer coopeTicketsLeft;
+    private Integer swTicketsLeft;
+
 
     public TrainDto() {}
 
@@ -79,5 +83,18 @@ public class TrainDto {
 
     public void setLocalDstArrivalDateTime(String localDstArrivalDateTime) {
         this.localDstArrivalDateTime = localDstArrivalDateTime;
+    }
+
+
+    public void setPlazkartTicketsLeft(Integer plazkartTicketsLeft) {
+        this.plazkartTicketsLeft = plazkartTicketsLeft;
+    }
+
+    public void setCoopeTicketsLeft(Integer coopeTicketsLeft) {
+        this.coopeTicketsLeft = coopeTicketsLeft;
+    }
+
+    public void setSwTicketsLeft(Integer swTicketsLeft) {
+        this.swTicketsLeft = swTicketsLeft;
     }
 }

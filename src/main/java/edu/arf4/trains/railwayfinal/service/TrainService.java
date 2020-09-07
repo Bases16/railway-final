@@ -26,8 +26,6 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 //@Profile({"main", "alter"})
 @Service
@@ -84,7 +82,7 @@ public class TrainService {
         int numberOfRoutePoints = genericTrain.getRoutePoints().size();
 
         addTrainCarsOfSpecTypeInGivenTrain(
-                train, TrainCarType.PLATZKART, numOfPlazkartCars, numOfSeatsInPlazkartCar, numberOfRoutePoints
+                train, TrainCarType.PLAZKART, numOfPlazkartCars, numOfSeatsInPlazkartCar, numberOfRoutePoints
         );
         addTrainCarsOfSpecTypeInGivenTrain(
                 train, TrainCarType.COOPE, numOfCoopeCars, numOfSeatsInCoopeCar, numberOfRoutePoints
@@ -93,18 +91,12 @@ public class TrainService {
                 train, TrainCarType.SW, numOfSwCars, numOfSeatsInSwCar, numberOfRoutePoints
         );
 
-
-
         List<SpecRoutePoint> specRoutePoints = train.getSpecRoutePoints();
-
 
         for (RoutePoint rp : genericTrain.getRoutePoints()) {
 
             SpecRoutePoint specRP = new SpecRoutePoint(train);
             specRP.setRoutePoint(rp);
-            int numberOfSeatsInTrain = (numOfPlazkartCars * numOfSeatsInPlazkartCar) + (numOfCoopeCars * numOfSeatsInCoopeCar)
-                                                                 + (numOfSwCars * numOfSeatsInSwCar);
-            specRP.setTicketsLeft(numberOfSeatsInTrain);
 
             LocalTime departTime = rp.getDepartTime();
             LocalTime arrivalTime = rp.getArrivalTime();
@@ -142,7 +134,6 @@ public class TrainService {
             trainCarList.add(trainCar);
         }
     }
-
 
     private List<LocalDate> calcDepartDatesFromScheduleByDates(Schedule schedule, LocalDate startDate, LocalDate endDate) {
 
@@ -224,17 +215,21 @@ public class TrainService {
         List<TrainDto> trainDtoList = new ArrayList<>();
 
         for(SpecRoutePoint srp : srpList) {
-            RoutePoint thisRP = srp.getRoutePoint();
-            List<RoutePoint> rpList = thisRP.getGenericTrain().getRoutePoints(); // batch and subselect executes here
+            RoutePoint rpFrom = srp.getRoutePoint();
+            List<RoutePoint> rpList = rpFrom.getGenericTrain().getRoutePoints(); // batch and subselect executes here
 
-
-            for (int i = rpList.size() - 1;  ; i--) {
+            for (int i = rpList.size() - 1;  ; i--) {   //start from the end to find stationTo faster
 
                 RoutePoint rp = rpList.get(i);
-                if (rp.getStation().getId().equals(stationFromId)) break;
+                if (rp.equals(rpFrom)) break;
 
                 if (rp.getStation().getId().equals(stationToId)) {
+
                     TrainDto dto = new TrainDto();
+
+                    int indexStationFrom = rpList.indexOf(rpFrom);
+                    setTicketsLeft(dto, srp.getTrain().getTrainCars(), indexStationFrom, i);
+
                     dto.setId(srp.getTrain().getId());
                     dto.setGlobalRoute(rp.getGenericTrain().getRoute());
                     dto.setNumber(rp.getGenericTrain().getNumber());
@@ -244,18 +239,47 @@ public class TrainService {
 
                     LocalDate d = srp.getDepartDatetime().toLocalDate();
                     LocalDate requiredDate = d.plusDays(rp.getDaysFromTrainDepartToArrivalHere() -
-                            thisRP.getDaysFromTrainDepartToDepartFromHere());
+                            rpFrom.getDaysFromTrainDepartToDepartFromHere());
                     dto.setLocalDstArrivalDateTime(Converter.convertLocalDateTimeToString(
                             LocalDateTime.of(requiredDate, rp.getArrivalTime())));
 
                     trainDtoList.add(dto);
                     break;
                 }
-
             }
         }
         return trainDtoList;
     }
+
+    private void setTicketsLeft(TrainDto dto, List<TrainCar> trainCars, int indStationFrom, int indStationTo) {
+
+        int plazkartTicketsLeft = 0, coopeTicketsLeft = 0, swTicketsLeft = 0;
+
+        for (TrainCar car : trainCars) {
+
+            TrainCarType currentCarType = car.getType();
+            List<SeatsStateAtPoint> seatsAtPoint = car.getSeatsStateAtPoints();
+            int commonCounter = Integer.MAX_VALUE;
+
+            for (int i = indStationFrom; i < indStationTo; i++) {
+                List<Boolean> seatStates = seatsAtPoint.get(i).getSeatStates();
+                int counter = 0;
+                for (Boolean seat : seatStates) {
+                    if (!seat) counter++;
+                }
+                if (counter < commonCounter) commonCounter = counter;
+            }
+            if (currentCarType == TrainCarType.PLAZKART) plazkartTicketsLeft += commonCounter;
+            if (currentCarType == TrainCarType.COOPE)     coopeTicketsLeft += commonCounter;
+            if (currentCarType == TrainCarType.SW)        swTicketsLeft += commonCounter;
+        }
+        dto.setPlazkartTicketsLeft(plazkartTicketsLeft);
+        dto.setCoopeTicketsLeft(coopeTicketsLeft);
+        dto.setSwTicketsLeft(swTicketsLeft);
+    }
+
+
+
 
 }
 

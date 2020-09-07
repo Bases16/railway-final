@@ -116,7 +116,6 @@ public class TrainServiceTest {
             i++;
         }
         assertNotNull(srp);
-        assertEquals(new Integer(6), srp.getTicketsLeft());
         assertEquals(LocalDateTime.of(2023,5,8,23,55), srp.getArrivalDatetime());
         assertEquals(LocalDateTime.of(2023,5,9,1,0), srp.getDepartDatetime());
     }

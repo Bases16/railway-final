@@ -85,7 +85,7 @@ public class TicketService {
                 if (srPoint.getRoutePoint().getStation() == to) break;
                 if (srPoint.getRoutePoint().getStation() == from) wasStationFromCaught = true;
                 if (wasStationFromCaught) {  //todo  CREATE CUSTOM EXCEPTION 2??
-                    if (srPoint.getTicketsLeft() == 0) throw new RuntimeException("THERE'S NO TICKETS LEFT");
+                    //if (srPoint.getTicketsLeft() == 0) throw new RuntimeException("THERE'S NO TICKETS LEFT");
                 }
             }
         }

@@ -28,9 +28,6 @@ public class SpecRoutePoint {
     @Future
     private LocalDateTime arrivalDatetime;
 
-    @Column(nullable = false)
-    private Integer ticketsLeft;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RoutePoint routePoint;
 
@@ -66,14 +63,6 @@ public class SpecRoutePoint {
 
     public void setArrivalDatetime(LocalDateTime arrivalDatetime) {
         this.arrivalDatetime = arrivalDatetime;
-    }
-
-    public Integer getTicketsLeft() {
-        return ticketsLeft;
-    }
-
-    public void setTicketsLeft(Integer ticketsLeft) {
-        this.ticketsLeft = ticketsLeft;
     }
 
     public RoutePoint getRoutePoint() {
