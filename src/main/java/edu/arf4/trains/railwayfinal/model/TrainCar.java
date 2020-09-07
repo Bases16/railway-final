@@ -32,23 +32,13 @@ public class TrainCar {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    @Column(nullable = false)
-    private Integer orderOfCar;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TrainCarType type;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "train_id", updatable = false, insertable = false)
     private Train train;
-
-//    @NotEmpty
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @CollectionTable(name = "train_car_seats")
-//    @MapKeyColumn(name = "seat_number")
-//    @Column(name = "is_reserved", nullable = false)
-//    @org.hibernate.annotations.OrderBy(clause = "seat_number ASC")
-//    private Map<Integer,Boolean> seats = new HashMap<>(); // alt.: @SortNatural, TreeMap .   WAS LinkedHashMap
 
     @NotEmpty
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -60,8 +50,7 @@ public class TrainCar {
 
     protected TrainCar() {}
 
-    public TrainCar(Integer orderOfCar, TrainCarType type) {
-        this.orderOfCar = orderOfCar;
+    public TrainCar(TrainCarType type) {
         this.type = type;
     }
 
@@ -75,10 +64,6 @@ public class TrainCar {
 
     public void setTrain(Train train) {
         this.train = train;
-    }
-
-    public Integer getOrderOfCar() {
-        return orderOfCar;
     }
 
     public List<SeatsStateAtPoint> getSeatsStateAtPoints() {

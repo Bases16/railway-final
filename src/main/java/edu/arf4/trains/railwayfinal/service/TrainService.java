@@ -74,7 +74,6 @@ public class TrainService {
         Train train = new Train(genericTrain);
         train.setDepartDate(date);
 
-        int orderOfCar = 1;
         int numOfPlazkartCars = genericTrain.getNumOfPlazkartCars();
         int numOfSeatsInPlazkartCar = genericTrain.getNumOfSeatsInPlazkartCar();
         int numOfCoopeCars = genericTrain.getNumOfCoopeCars();
@@ -84,12 +83,17 @@ public class TrainService {
 
         int numberOfRoutePoints = genericTrain.getRoutePoints().size();
 
-        orderOfCar = addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.PLATZKART,
-                                            numOfPlazkartCars, numOfSeatsInPlazkartCar, numberOfRoutePoints);
-        orderOfCar = addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.COOPE,
-                                            numOfCoopeCars, numOfSeatsInCoopeCar, numberOfRoutePoints);
-        addTrainCarsOfSpecTypeInGivenTrain(orderOfCar, train, TrainCarType.SW, numOfSwCars, numOfSeatsInSwCar,
-                                            numberOfRoutePoints);
+        addTrainCarsOfSpecTypeInGivenTrain(
+                train, TrainCarType.PLATZKART, numOfPlazkartCars, numOfSeatsInPlazkartCar, numberOfRoutePoints
+        );
+        addTrainCarsOfSpecTypeInGivenTrain(
+                train, TrainCarType.COOPE, numOfCoopeCars, numOfSeatsInCoopeCar, numberOfRoutePoints
+        );
+        addTrainCarsOfSpecTypeInGivenTrain(
+                train, TrainCarType.SW, numOfSwCars, numOfSeatsInSwCar, numberOfRoutePoints
+        );
+
+
 
         List<SpecRoutePoint> specRoutePoints = train.getSpecRoutePoints();
 
@@ -120,13 +124,13 @@ public class TrainService {
         this.trainDao.addTrain(train);
     }
 
-    private int addTrainCarsOfSpecTypeInGivenTrain(int orderOfCar, Train train, TrainCarType type,
+    private void addTrainCarsOfSpecTypeInGivenTrain(Train train, TrainCarType type,
                                                    int numOfTypeCars, int numOfSeatsInTypeCar, int numberOfRoutePoints) {
 
-        Set<TrainCar> trainCarSet = train.getTrainCars();
+        List<TrainCar> trainCarList = train.getTrainCars();
         for(int i = 1; i <= numOfTypeCars; i++) {
 
-            TrainCar trainCar = new TrainCar(orderOfCar, type);
+            TrainCar trainCar = new TrainCar(type);
             List<SeatsStateAtPoint> seatsAtPoints = trainCar.getSeatsStateAtPoints();
 
             for (int k = 1; k < numberOfRoutePoints; k++) {
@@ -135,10 +139,8 @@ public class TrainService {
                 seatsAtPoints.add(seatsAtPoint);
             }
             trainCar.setTrain(train);
-            trainCarSet.add(trainCar);
-            orderOfCar++;
+            trainCarList.add(trainCar);
         }
-        return orderOfCar;
     }
 
 

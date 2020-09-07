@@ -36,13 +36,11 @@ public class Train {
     @Column(nullable = false)
     private LocalDate departDate;
 
-    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private Set<TrainCar> trainCars = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "train_id", nullable = false)
+    @OrderColumn(name = "order_of_car", nullable = false)
+    private List<TrainCar> trainCars = new ArrayList<>();
 
-//    @Size(min = 2)
-//    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-//    @org.hibernate.annotations.OrderBy(clause = "depart_datetime")
-//    private Set<SpecRoutePoint> specRoutePoints = new HashSet<>();
 
     @Size(min = 2)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -81,10 +79,9 @@ public class Train {
         this.departDate = departDate;
     }
 
-    public Set<TrainCar> getTrainCars() {
+    public List<TrainCar> getTrainCars() {
         return trainCars;
     }
-
 
     public List<SpecRoutePoint> getSpecRoutePoints() {
         return specRoutePoints;

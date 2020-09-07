@@ -67,7 +67,7 @@ public class TrainServiceTest {
         assertEquals(2, list.size());
 
         Train train = list.get(0);
-        Set<TrainCar> cars = train.getTrainCars();
+        List<TrainCar> cars = train.getTrainCars();
 
         //TRAIN CHECKING
         assertEquals(start, train.getDepartDate()); // monday is true
@@ -77,20 +77,13 @@ public class TrainServiceTest {
         assertNotNull(cars);
         assertEquals(3, cars.size());
 
-        TrainCar plazkart = null, coope = null, sw = null;
+        TrainCar plazkart = cars.get(0);
+        TrainCar coope = cars.get(1);
+        TrainCar sw = cars.get(2);
 
-        for (TrainCar car : cars) {
-            if (car.getType().equals(TrainCarType.PLATZKART)) plazkart = car;
-            if (car.getType().equals(TrainCarType.COOPE)) coope = car;
-            if (car.getType().equals(TrainCarType.SW)) sw = car;
-        }
         assertNotNull(plazkart);
         assertNotNull(coope);
         assertNotNull(sw);
-
-        assertEquals(new Integer(1), plazkart.getOrderOfCar());
-        assertEquals(new Integer(2), coope.getOrderOfCar());
-        assertEquals(new Integer(3), sw.getOrderOfCar());
 
         assertEquals(3, plazkart.getSeatsStateAtPoints().size());
         assertEquals(3, coope.getSeatsStateAtPoints().size());

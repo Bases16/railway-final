@@ -32,13 +32,13 @@ INSERT INTO train(id, generic_train_id, depart_date) VALUES
 
 INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 --  #1 train
-(1, 1, 1, 'PLAZKART'),
-(2, 1, 2, 'COOPE'),
-(3, 1, 3, 'SW'),
+(1, 1, 0, 'PLAZKART'),
+(2, 1, 1, 'COOPE'),
+(3, 1, 2, 'SW'),
 --  #2 train
-(4, 2, 1, 'PLAZKART'),
-(5, 2, 2, 'COOPE'),
-(6, 2, 3, 'SW');
+(4, 2, 0, 'PLAZKART'),
+(5, 2, 1, 'COOPE'),
+(6, 2, 2, 'SW');
 
 INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 --  #1 train
@@ -112,13 +112,13 @@ INSERT INTO train(id, generic_train_id, depart_date) VALUES
 (4, 2, '2020-12-04');
 
 INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
-(7, 3, 1, 'PLAZKART'),
-(8, 3, 2, 'COOPE'),
-(9, 3, 3, 'SW'),
+(7, 3, 0, 'PLAZKART'),
+(8, 3, 1, 'COOPE'),
+(9, 3, 2, 'SW'),
 
-(10, 4, 1, 'PLAZKART'),
-(11, 4, 2, 'COOPE'),
-(12, 4, 3, 'SW');
+(10, 4, 0, 'PLAZKART'),
+(11, 4, 1, 'COOPE'),
+(12, 4, 2, 'SW');
 
 INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 --  #1 train
