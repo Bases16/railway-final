@@ -69,14 +69,6 @@ public class TrainCar {
         return type;
     }
 
-//    public Map<Integer, Boolean> getSeats() {
-//        return seats;
-//    }
-//
-//    public void setSeats(Map<Integer, Boolean> seats) {
-//        this.seats = seats;
-//    }
-
     public Train getTrain() {
         return train;
     }
@@ -92,8 +84,5 @@ public class TrainCar {
     public List<SeatsStateAtPoint> getSeatsStateAtPoints() {
         return seatsStateAtPoints;
     }
-//
-//    public void setSeatsStateAtPoints(List<SeatsStateAtPoint> seatsStateAtPoints) {
-//        this.seatsStateAtPoints = seatsStateAtPoints;
-//    }
+
 }

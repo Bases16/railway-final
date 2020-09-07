@@ -44,5 +44,63 @@ public class Ticket {
     private Float cost;
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
+
+    public Station getStationFrom() {
+        return stationFrom;
+    }
+
+    public void setStationFrom(Station stationFrom) {
+        this.stationFrom = stationFrom;
+    }
+
+    public Station getStationTo() {
+        return stationTo;
+    }
+
+    public void setStationTo(Station stationTo) {
+        this.stationTo = stationTo;
+    }
+
+    public LocalDateTime getDepartureDateTime() {
+        return departureDateTime;
+    }
+
+    public void setDepartureDateTime(LocalDateTime departureDateTime) {
+        this.departureDateTime = departureDateTime;
+    }
+
+    public LocalDateTime getArrivalDateTime() {
+        return arrivalDateTime;
+    }
+
+    public void setArrivalDateTime(LocalDateTime arrivalDateTime) {
+        this.arrivalDateTime = arrivalDateTime;
+    }
+
+    public Float getCost() {
+        return cost;
+    }
+
+    public void setCost(Float cost) {
+        this.cost = cost;
+    }
 }

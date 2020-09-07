@@ -15,6 +15,7 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
@@ -28,7 +29,7 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 //    @Autowired
 //    EntityManagerFactory emf;
 
-    @PersistenceContext(unitName = "entityManagerFactory")
+    @PersistenceContext(unitName = "entityManagerFactory", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
 

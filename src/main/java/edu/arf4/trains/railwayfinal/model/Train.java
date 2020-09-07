@@ -85,11 +85,12 @@ public class Train {
         return trainCars;
     }
 
-    public void setSpecRoutePoints(List<SpecRoutePoint> specRoutePoints) {
-        this.specRoutePoints = specRoutePoints;
-    }
 
     public List<SpecRoutePoint> getSpecRoutePoints() {
         return specRoutePoints;
+    }
+
+    public Set<Ticket> getTickets() {
+        return tickets;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.util.List;
 
 //@Profile("main")
@@ -19,7 +20,7 @@ public class StationDaoImpl implements StationDao {
 //    @Autowired
 //    private EntityManagerFactory emf;
 
-    @PersistenceContext(unitName = "entityManagerFactory")
+    @PersistenceContext(unitName = "entityManagerFactory", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
     @Override

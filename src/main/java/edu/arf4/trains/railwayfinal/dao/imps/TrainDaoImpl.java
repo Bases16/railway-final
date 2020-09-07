@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +22,7 @@ public class TrainDaoImpl implements TrainDao {
 //    @Autowired
 //    private EntityManagerFactory emf;
 
-    @PersistenceContext(unitName = "entityManagerFactory")
+    @PersistenceContext(unitName = "entityManagerFactory", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
 
@@ -46,7 +47,7 @@ public class TrainDaoImpl implements TrainDao {
     @Override
     public List<Train> getTrainsByGenTrainIdAndDates(Long genTrainId, LocalDate start, LocalDate end) {
 
-        String query = "SELECT tr FROM Train tr WHERE tr.genericTrain.id =:id " +
+        String query = "SELECT tr FROM Train tr WHERE tr.genericTrain.id = :id " +
                        "AND (tr.departDate >= :start AND tr.departDate < :end) order by tr.departDate ASC";
 
         List<Train> trains = null;
