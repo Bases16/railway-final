@@ -53,17 +53,17 @@ INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 -- #1 TRAIN --
 -- #1 traincar - plazkart
-(1, false, 0), (1, false, 1), (1, false, 2),
-(2, false, 0), (2, false, 1), (2, false, 2),
-(3, false, 0), (3, false, 1), (3, false, 2),
+(1, true,  0), (1, true, 1), (1, true,  2),    -- Moscow
+(2, true,  0), (2, true, 1), (2, false, 2),  -- Myshkin
+(3, false, 0), (3, true, 1), (3, false, 2),  -- Astana
 -- #2 traincar - coope
-(4, false, 0), (4, false, 1),
-(5, false, 0), (5, false, 1),
-(6, false, 0), (6, false, 1),
+(4, true,  0), (4, false, 1),  -- Moscow
+(5, false, 0), (5, true,  1),  -- Myshkin
+(6, false, 0), (6, true,  1),  -- Astana
 -- #3 traincar - sw
-(7, false, 0),
-(8, false, 0),
-(9, false, 0),
+(7, false, 0),  -- Moscow
+(8, true,  0),  -- Myshkin
+(9, false, 0),  -- Astana
 -- #2 TRAIN --
 -- #1 traincar - plazkart
 (10, false, 0), (10, false, 1), (10, false, 2),

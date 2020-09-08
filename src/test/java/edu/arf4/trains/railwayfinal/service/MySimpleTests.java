@@ -1,5 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
+import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -30,18 +31,18 @@ public class MySimpleTests {
 //
 //        assertTrue(localDateList.contains(date3));
 //    }
-//
-//
-//    @Ignore
+
+
+
 //    @Test
 //    public void WTF() {
 //
-//        String route = "moscow - vrn";
-//        String[] a = route.split(" ");
-//        System.out.println(a[0] + " " + a[2]);
+//        String type = "SW";
+//
+//        if (TrainCarType.valueOf(type) == TrainCarType.SW) System.out.println(" == - true ");
+//        if (TrainCarType.valueOf(type).equals(TrainCarType.SW)) System.out.println(" equals - true ");
 //
 //
-//        List<String> list = new ArrayList<>();
 //
 //    }
 

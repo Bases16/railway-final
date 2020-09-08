@@ -8,10 +8,13 @@ import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Passenger;
+import edu.arf4.trains.railwayfinal.model.SeatsStateAtPoint;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import edu.arf4.trains.railwayfinal.model.Ticket;
 import edu.arf4.trains.railwayfinal.model.Train;
+import edu.arf4.trains.railwayfinal.model.TrainCar;
+import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,12 +43,25 @@ public class TicketService {
     }
 
     @Transactional
-    public void buyTicket(TrainDto trainDto, Long passengerId) {
+    public void buyTicket(TrainDto trainDto, Long passengerId, String carType) {
 
         {
             LocalDateTime departTime = Converter.convertStringToLocalDateTime(trainDto.getLocalSrcDepartDateTime());
             if (LocalDateTime.now().isAfter(departTime.minusMinutes(10))) {
                 throw new RuntimeException("LESS THAN 10 MIN TO TRAIN DEPARTURE"); //todo  CREATE CUSTOM EXCEPTION 1??
+            }
+        }
+
+        Train train = this.trainDao.getTrainById(trainDto.getId());
+        {
+            Set<Ticket> trainTickets = train.getTickets();
+            for (Ticket ticket : trainTickets) {
+
+                if (ticket.getPassenger().getId().equals(passengerId)) {
+                    throw new RuntimeException("THE PASSENGER HAS ALREADY REGISTERED ON THIS TRAIN");
+                    //todo  CREATE CUSTOM EXCEPTION 3??
+                }
+
             }
         }
 
@@ -56,29 +72,9 @@ public class TicketService {
         Station from = this.stationDao.getStationByName(fromName);
         Station to = this.stationDao.getStationByName(toName);
 
-        Train train = this.trainDao.getTrainById(trainDto.getId());
-        GenericTrain genTrain = this.genericTrainDao.getGenericTrainById(trainDto.getId());
-
         {
             List<SpecRoutePoint> srPoints = train.getSpecRoutePoints();
-//        boolean wasStationFromCatched = false;
-//        for (SpecRoutePoint srPoint : srPoints) {
-//
-//            if (!wasStationFromCatched) {
-//                if (srPoint.getRoutePoint().getStation() == from) {
-//                    wasStationFromCatched = true;
-//                    if (srPoint.getTicketsLeft() == 0) {
-//                        throw new RuntimeException("THERE'S NO TICKETS LEFT"); //todo  CREATE CUSTOM EXCEPTION ??
-//                    }
-//                }
-//            } else {
-//                if (srPoint.getRoutePoint().getStation() == to) break;
-//
-//                if (srPoint.getTicketsLeft() == 0)
-//                    throw new RuntimeException("THERE'S NO TICKETS LEFT");
-//
-//            }
-//        }
+
             boolean wasStationFromCaught = false;
             for (SpecRoutePoint srPoint : srPoints) {
 
@@ -87,18 +83,6 @@ public class TicketService {
                 if (wasStationFromCaught) {  //todo  CREATE CUSTOM EXCEPTION 2??
                     //if (srPoint.getTicketsLeft() == 0) throw new RuntimeException("THERE'S NO TICKETS LEFT");
                 }
-            }
-        }
-
-        {
-            Set<Ticket> trainTickets = train.getTickets();
-            for (Ticket ticket : trainTickets) {
-
-                if (ticket.getPassenger().getId().equals(passengerId)) {
-                    throw new RuntimeException("THE PASSENGER HAS ALREADY REGISTERED ON THIS TRAIN");
-                    //todo  CREATE CUSTOM EXCEPTION 3??
-                }
-
             }
         }
 
@@ -114,6 +98,39 @@ public class TicketService {
         ticket.setArrivalDateTime(Converter.convertStringToLocalDateTime(trainDto.getLocalDstArrivalDateTime()));
 
 
+        List<TrainCar> trainCars = train.getTrainCars();
+
+        for (TrainCar car : trainCars) {
+
+            if (car.getType() != TrainCarType.valueOf(carType)) continue;
+
+            List<SeatsStateAtPoint> seatsAtPoint = car.getSeatsStateAtPoints();
+
+            int indexOfEmptySeat = -1;
+
+            for (int i = 0; i < seatsAtPoint.size(); i++) {
+
+
+                List<Boolean> seats = seatsAtPoint.get(i).getSeatStates();
+
+                for (int j = 0; j < seats.size(); j++) {
+
+                    Boolean seat = seats.get(j);
+                    if (!seat) {
+
+
+                    }
+
+                }
+
+
+
+
+            }
+
+
+
+        }
 
 
 
@@ -121,6 +138,9 @@ public class TicketService {
 
 
 
+
+
+        GenericTrain genTrain = this.genericTrainDao.getGenericTrainById(trainDto.getId());
 
 
 

@@ -201,6 +201,14 @@ public class TrainServiceTest {
         assertEquals(2, dtoListByStation.size());
 
         //CASE 2
+        start = LocalDate.of(2020, 12, 5);
+        end = LocalDate.of(2020, 12, 6);
+
+        dtoListByStation = trainService
+                .getTrainDtoListBy2StationsAndDateRange(ASTANA_ID, HONG_KONG_ID, start, end);
+        assertNull(dtoListByStation);
+
+        //CASE 3 - TICKETSLEFT CHECKING
         start = LocalDate.of(2020, 12, 1);
         end = LocalDate.of(2020, 12, 3);
 
@@ -209,13 +217,11 @@ public class TrainServiceTest {
         assertNotNull(dtoListByStation);
         assertEquals(1, dtoListByStation.size());
 
-        //CASE 3
-        start = LocalDate.of(2020, 12, 5);
-        end = LocalDate.of(2020, 12, 6);
+        TrainDto dto = dtoListByStation.get(0);
 
-        dtoListByStation = trainService
-                .getTrainDtoListBy2StationsAndDateRange(ASTANA_ID, HONG_KONG_ID, start, end);
-        assertNull(dtoListByStation);
+        assertEquals(new Integer(0), dto.getPlazkartTicketsLeft());
+        assertEquals(new Integer(1), dto.getCoopeTicketsLeft());
+        assertEquals(new Integer(0), dto.getSwTicketsLeft());
 
         //CASE 4 - FULL CHECKING
         start = LocalDate.of(2020, 12, 3);
@@ -226,7 +232,7 @@ public class TrainServiceTest {
         assertNotNull(dtoListByStation);
         assertEquals(1, dtoListByStation.size());
 
-        TrainDto dto = dtoListByStation.get(0);
+        dto = dtoListByStation.get(0);
 
         assertEquals("МШМ228", dto.getNumber());
         assertEquals("Moscow - Hong-Kong", dto.getGlobalRoute());
@@ -235,6 +241,10 @@ public class TrainServiceTest {
         assertEquals("2020-12-03 at 11:58", dto.getLocalSrcDepartDateTime());
         assertEquals("2020-12-05 at 22:00", dto.getLocalDstArrivalDateTime());
         assertEquals("Astana - Hong-Kong", dto.getLocalRoute());
+
+        assertEquals(new Integer(2), dto.getPlazkartTicketsLeft());
+        assertEquals(new Integer(1), dto.getCoopeTicketsLeft());
+        assertEquals(new Integer(1), dto.getSwTicketsLeft());
     }
 
 

@@ -97,4 +97,16 @@ public class TrainDto {
     public void setSwTicketsLeft(Integer swTicketsLeft) {
         this.swTicketsLeft = swTicketsLeft;
     }
+
+    public Integer getPlazkartTicketsLeft() {
+        return plazkartTicketsLeft;
+    }
+
+    public Integer getCoopeTicketsLeft() {
+        return coopeTicketsLeft;
+    }
+
+    public Integer getSwTicketsLeft() {
+        return swTicketsLeft;
+    }
 }
