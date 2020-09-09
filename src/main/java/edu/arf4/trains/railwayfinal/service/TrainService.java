@@ -123,7 +123,7 @@ public class TrainService {
         for(int i = 1; i <= numOfTypeCars; i++) {
 
             TrainCar trainCar = new TrainCar(type);
-            List<SeatsStateAtPoint> seatsAtPoints = trainCar.getSeatsStateAtPoints();
+            List<SeatsStateAtPoint> seatsAtPoints = trainCar.getSeatsStateAtCar();
 
             for (int k = 1; k < numberOfRoutePoints; k++) {
                 SeatsStateAtPoint seatsAtPoint = new SeatsStateAtPoint(numOfSeatsInTypeCar);
@@ -258,7 +258,7 @@ public class TrainService {
         for (TrainCar car : trainCars) {
 
             TrainCarType currentCarType = car.getType();
-            List<SeatsStateAtPoint> seatsAtPoint = car.getSeatsStateAtPoints();
+            List<SeatsStateAtPoint> seatsAtPoint = car.getSeatsStateAtCar();
             int commonCounter = Integer.MAX_VALUE;
 
             for (int i = indStationFrom; i < indStationTo; i++) {

@@ -3,9 +3,7 @@ package edu.arf4.trains.railwayfinal.model;
 import edu.arf4.trains.railwayfinal.util.Constants;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,16 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Entity
 public class TrainCar {
@@ -44,7 +37,7 @@ public class TrainCar {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_car_id", nullable = false)
     @OrderColumn(name = "order_of_station", nullable = false)
-    private List<SeatsStateAtPoint> seatsStateAtPoints = new ArrayList<>();
+    private List<SeatsStateAtPoint> seatsStateAtCar = new ArrayList<>();
 
 
 
@@ -66,8 +59,8 @@ public class TrainCar {
         this.train = train;
     }
 
-    public List<SeatsStateAtPoint> getSeatsStateAtPoints() {
-        return seatsStateAtPoints;
+    public List<SeatsStateAtPoint> getSeatsStateAtCar() {
+        return seatsStateAtCar;
     }
 
 }

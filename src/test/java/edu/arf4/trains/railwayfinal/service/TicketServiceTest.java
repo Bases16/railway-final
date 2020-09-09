@@ -33,6 +33,22 @@ public class TicketServiceTest {
     private GenericTrainDao genericTrainDao;
 
 
+
+
+
+    @Test
+    @Transactional
+    public void buyTicket() {
+
+
+
+
+
+    }
+
+
+
+
     @Test
     @Transactional
     @Ignore

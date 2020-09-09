@@ -28,9 +28,6 @@ public class SeatsStateAtPoint {
     @JoinColumn(name = "train_car_id", updatable = false, insertable = false)
     private TrainCar trainCar;
 
-//    @Column(nullable = false)
-//    private Integer orderOfStation;
-
     @ElementCollection
     @CollectionTable(name = "seat_state")
     @OrderColumn(name = "seat_number", nullable = false)
@@ -60,8 +57,5 @@ public class SeatsStateAtPoint {
     public List<Boolean> getSeatStates() {
         return seatStates;
     }
-//
-//    public void setSeatStates(List<Boolean> seatStates) {
-//        this.seatStates = seatStates;
-//    }
+
 }

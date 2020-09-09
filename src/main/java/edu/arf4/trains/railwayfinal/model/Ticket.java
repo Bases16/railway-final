@@ -41,6 +41,9 @@ public class Ticket {
     private LocalDateTime arrivalDateTime;
 
     @Column(nullable = false)
+    private Integer numberOfSeat;
+
+    @Column(nullable = true)
     private Float cost;
 
 
@@ -102,5 +105,13 @@ public class Ticket {
 
     public void setCost(Float cost) {
         this.cost = cost;
+    }
+
+    public Integer getNumberOfSeat() {
+        return numberOfSeat;
+    }
+
+    public void setNumberOfSeat(Integer numberOfSeat) {
+        this.numberOfSeat = numberOfSeat;
     }
 }

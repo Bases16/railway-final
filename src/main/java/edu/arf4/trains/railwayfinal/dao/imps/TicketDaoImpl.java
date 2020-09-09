@@ -15,6 +15,13 @@ public class TicketDaoImpl implements TicketDao {
     @PersistenceContext(unitName = "entityManagerFactory", type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
+    @Override
+    public Long addTicket(Ticket ticket) {
+
+        em.persist(ticket);
+        return ticket.getId();
+    }
+
 
 //    @Override
 //    public List<Ticket> getTicketsByTrainId(Long trainId) {

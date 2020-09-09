@@ -11,4 +11,6 @@ public interface TicketDao {
 //    List<Ticket> getTicketsByTrainId(Long id);
 
 
+    Long addTicket(Ticket ticket);
+
 }

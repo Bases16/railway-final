@@ -6,11 +6,9 @@ import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
-import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -85,20 +82,20 @@ public class TrainServiceTest {
         assertNotNull(coope);
         assertNotNull(sw);
 
-        assertEquals(3, plazkart.getSeatsStateAtPoints().size());
-        assertEquals(3, coope.getSeatsStateAtPoints().size());
-        assertEquals(3, sw.getSeatsStateAtPoints().size());
+        assertEquals(3, plazkart.getSeatsStateAtCar().size());
+        assertEquals(3, coope.getSeatsStateAtCar().size());
+        assertEquals(3, sw.getSeatsStateAtCar().size());
 
-        assertEquals(3, plazkart.getSeatsStateAtPoints().get(0).getSeatStates().size());
-        assertEquals(2, coope.getSeatsStateAtPoints().get(0).getSeatStates().size());
-        assertEquals(1, sw.getSeatsStateAtPoints().get(0).getSeatStates().size());
+        assertEquals(3, plazkart.getSeatsStateAtCar().get(0).getSeatStates().size());
+        assertEquals(2, coope.getSeatsStateAtCar().get(0).getSeatStates().size());
+        assertEquals(1, sw.getSeatsStateAtCar().get(0).getSeatStates().size());
 
-        assertEquals(false, plazkart.getSeatsStateAtPoints().get(0).getSeatStates().get(2));
-        assertEquals(false, coope.getSeatsStateAtPoints().get(0).getSeatStates().get(1));
-        assertEquals(false, sw.getSeatsStateAtPoints().get(0).getSeatStates().get(0));
+        assertEquals(false, plazkart.getSeatsStateAtCar().get(0).getSeatStates().get(2));
+        assertEquals(false, coope.getSeatsStateAtCar().get(0).getSeatStates().get(1));
+        assertEquals(false, sw.getSeatsStateAtCar().get(0).getSeatStates().get(0));
 
         final TrainCar swFinal = sw;
-        assertThrows(IndexOutOfBoundsException.class, () -> swFinal.getSeatsStateAtPoints().get(0).getSeatStates().get(1));
+        assertThrows(IndexOutOfBoundsException.class, () -> swFinal.getSeatsStateAtCar().get(0).getSeatStates().get(1));
 
 
         //SRP CHECKING
