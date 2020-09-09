@@ -9,7 +9,17 @@ INSERT INTO station(id, name) VALUES
 (18, 'Liski'),
 (19, 'Genoa'),
 (20, 'Hong-Kong');
--------------------------------------------------
+
+-- ---------------- PASSENGERS --------------------
+INSERT INTO passenger(id, first_name, last_name, date_of_birth) VALUES
+(1, 'f_name1', 'l_name1', '1990-12-01'),
+(2, 'f_name2', 'l_name2', '1990-12-01'),
+(3, 'f_name3', 'l_name3', '1990-12-01'),
+(4, 'f_name4', 'l_name4', '1990-12-01'),
+(5, 'f_name5', 'l_name5', '1990-12-01'),
+(6, 'f_name6', 'l_name6', '1990-12-01'),
+(7, 'f_name7', 'l_name7', '1990-12-01'),
+(8, 'f_name8', 'l_name8', '1990-12-01');
 
 -----------------------------------------------------------
 -- GenericTrain 1   Moscow - Myshkin - Astana - Hong-Kong
@@ -40,6 +50,20 @@ INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (5, 2, 1, 'COOPE'),
 (6, 2, 2, 'SW');
 
+INSERT INTO ticket(id, train_id, passenger_id, station_from_id, station_to_id, departure_date_time,
+                                               arrival_date_time, number_of_train_car, number_of_seat) VALUES
+-- #1 train  Moscow - Myshkin - Astana - Hong-Kong
+       -- PLAZKART --
+(1, 1, 1, 16, 20, '2020-12-01 15:30', '2020-12-05 22:00', 1, 1), -- Moscow - Hong-Kong
+(2, 1, 2, 16, 14, '2020-12-01 15:30', '2020-12-03 11:10', 1, 2), -- Moscow - Astana
+(3, 1, 3, 16, 15, '2020-12-01 15:30', '2020-12-01 23:55', 1, 3), -- Moscow - Myshkin
+       --  COOPE   --
+(4, 1, 4, 16, 15, '2020-12-01 15:30', '2020-12-01 23:55', 2, 1), -- Moscow - Myshkin
+(5, 1, 5, 15, 20, '2020-12-02 02:00', '2020-12-05 22:00', 2, 1), -- Myshkin - Hong-Kong
+       --    SW    --
+(6, 1, 6, 15, 14, '2020-12-02 02:00', '2020-12-03 11:10', 3, 1); -- Myshkin - Astana
+
+
 INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 --  #1 train
 (1, 1, 0), (2, 1, 1), (3, 1, 2),    -- #1 traincar
@@ -53,17 +77,18 @@ INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
 INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 -- #1 TRAIN --
 -- #1 traincar - plazkart
-(1, true,  0), (1, true, 1), (1, true,  2),    -- Moscow
+(1, true,  0), (1, true, 1), (1, true,  2),  -- Moscow
 (2, true,  0), (2, true, 1), (2, false, 2),  -- Myshkin
 (3, false, 0), (3, true, 1), (3, false, 2),  -- Astana
 -- #2 traincar - coope
-(4, true,  0), (4, false, 1),  -- Moscow
-(5, false, 0), (5, true,  1),  -- Myshkin
-(6, false, 0), (6, true,  1),  -- Astana
+(4, true, 0), (4, false, 1),  -- Moscow
+(5, true, 0), (5, false, 1),  -- Myshkin
+(6, true, 0), (6, false,  1),  -- Astana
 -- #3 traincar - sw
 (7, false, 0),  -- Moscow
 (8, true,  0),  -- Myshkin
 (9, false, 0),  -- Astana
+
 -- #2 TRAIN --
 -- #1 traincar - plazkart
 (10, false, 0), (10, false, 1), (10, false, 2),
@@ -79,15 +104,15 @@ INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 (18, false, 0);
 
 INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_point, arrival_datetime, depart_datetime) VALUES
-(1, 1, 100, 0,       null        , '2020-12-01 15:30'),
-(2, 1, 101, 1, '2020-12-01 23:55', '2020-12-02 02:00'),
-(3, 1, 102, 2, '2020-12-03 11:10', '2020-12-03 11:58'),
-(4, 1, 103, 3, '2020-12-05 22:00',        null       ),
+(1, 1, 100, 0,       null        , '2020-12-01 15:30'), -- Moscow
+(2, 1, 101, 1, '2020-12-01 23:55', '2020-12-02 02:00'), -- Myshkin
+(3, 1, 102, 2, '2020-12-03 11:10', '2020-12-03 11:58'), -- Astana
+(4, 1, 103, 3, '2020-12-05 22:00',        null       ), -- Hong-Kong
 
-(5, 2, 100, 0,       null        , '2020-12-06 15:30'),
-(6, 2, 101, 1, '2020-12-06 23:55', '2020-12-07 02:00'),
-(7, 2, 102, 2, '2020-12-08 11:10', '2020-12-08 11:58'),
-(8, 2, 103, 3, '2020-12-10 22:00',        null       );
+(5, 2, 100, 0,       null        , '2020-12-06 15:30'), -- Moscow
+(6, 2, 101, 1, '2020-12-06 23:55', '2020-12-07 02:00'), -- Myshkin
+(7, 2, 102, 2, '2020-12-08 11:10', '2020-12-08 11:58'), -- Astana
+(8, 2, 103, 3, '2020-12-10 22:00',        null       ); -- Hong-Kong
 -- ===========================================================================
 
 -- 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000 --

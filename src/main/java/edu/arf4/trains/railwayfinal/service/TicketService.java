@@ -6,12 +6,17 @@ import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TicketDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
+import edu.arf4.trains.railwayfinal.exceptions.AlreadyRegisteredException;
+import edu.arf4.trains.railwayfinal.exceptions.LessThan10MinuteToDepartException;
+import edu.arf4.trains.railwayfinal.exceptions.NoTicketsLeftException;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Passenger;
+import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.SeatsStateAtPoint;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import edu.arf4.trains.railwayfinal.model.Ticket;
+import edu.arf4.trains.railwayfinal.model.TicketDto;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
@@ -45,27 +50,39 @@ public class TicketService {
     }
 
     @Transactional
-    public void buyTicket(TrainDto trainDto, Long passengerId, String carType) {
+    public TicketDto buyTicket(TrainDto trainDto, Long passengerId, String carType)
+            throws LessThan10MinuteToDepartException, AlreadyRegisteredException, NoTicketsLeftException {
 
         LocalDateTime departTime = Converter.convertStringToLocalDateTime(trainDto.getLocalSrcDepartDateTime());
         if (LocalDateTime.now().isAfter(departTime.minusMinutes(10))) {
-            throw new RuntimeException("LESS THAN 10 MIN TO TRAIN DEPARTURE"); //todo  CREATE CUSTOM EXCEPTION 1??
+            throw new LessThan10MinuteToDepartException();
         }
 
         Train train = this.trainDao.getTrainById(trainDto.getId());
 
         Set<Ticket> trainTickets = train.getTickets();
         for (Ticket ticket : trainTickets) {
-
             if (ticket.getPassenger().getId().equals(passengerId)) {
-                throw new RuntimeException("THE PASSENGER HAS ALREADY REGISTERED ON THIS TRAIN");
-                //todo  CREATE CUSTOM EXCEPTION 2??
+                throw new AlreadyRegisteredException();
             }
-
         }
 
+        String[] ar = trainDto.getLocalRoute().split(" ");
+        String fromName = ar[0];
+        String toName = ar[2];
+
+        Station from = this.stationDao.getStationByName(fromName);
+        Station to = this.stationDao.getStationByName(toName);
+
+        int indStationFrom = -1, indStationTo = -1;
+        List<RoutePoint> routePoints = train.getGenericTrain().getRoutePoints();
+        for (RoutePoint rp : routePoints) {
+            if (rp.getStation() == from) indStationFrom = routePoints.indexOf(rp);
+            if (rp.getStation() == to) indStationTo = routePoints.indexOf(rp);
+        }
 
         List<TrainCar> trainCars = train.getTrainCars();
+        int numberOfTrainCar = -1;
         int numberOfEmptySeat = -1;
 
         for (TrainCar car : trainCars) {
@@ -73,21 +90,19 @@ public class TicketService {
             if (car.getType() != TrainCarType.valueOf(carType)) continue;
 
             List<SeatsStateAtPoint> seatsAtCar = car.getSeatsStateAtCar();
-
             List<Integer> availSeats = new ArrayList<>();
 
             // firstly we add in the list all available seats at the first station
-            List<Boolean> seatsAtFirstStation = seatsAtCar.get(0).getSeatStates();
+            List<Boolean> seatsAtFirstStation = seatsAtCar.get(indStationFrom).getSeatStates();
             for (int j = 0; j < seatsAtFirstStation.size(); j++) {
                 Boolean seat = seatsAtFirstStation.get(j);
                 if (!seat) availSeats.add(j);
             }
 
             // then we exclude from the list those seats which are not available at the following stations
-            for (int i = 1; i < seatsAtCar.size(); i++) {
+            for (int i = indStationFrom + 1; i < indStationTo; i++) {
 
                 List<Boolean> seats = seatsAtCar.get(i).getSeatStates();
-
                 for (int j = 0; j < seats.size(); j++) {
                     Boolean seat = seats.get(j);
                     if (seat) {
@@ -100,21 +115,23 @@ public class TicketService {
 
             Collections.sort(availSeats);
             numberOfEmptySeat = availSeats.get(0) + 1;
+            numberOfTrainCar = trainCars.indexOf(car) + 1;
             break;
         }
 
         if (numberOfEmptySeat == -1) {
-            throw new RuntimeException("THERE ARE NO TICKETS LEFT FOR THIS CAR TYPE");
-            //todo  CREATE CUSTOM EXCEPTION 3??
+            throw new NoTicketsLeftException();
         }
 
-        String[] ar = trainDto.getLocalRoute().split(" ");
-        String fromName = ar[0];
-        String toName = ar[2];
+        // mark seats in our car as reserved
+        TrainCar car = trainCars.get(numberOfTrainCar - 1);
+        List<SeatsStateAtPoint> seatsStateAtCar = car.getSeatsStateAtCar();
+        for (int i = indStationFrom; i < indStationTo; i++) {
+            SeatsStateAtPoint seats = seatsStateAtCar.get(i);
+            seats.getSeatStates().set(numberOfEmptySeat - 1, true);
+        }
 
-        Station from = this.stationDao.getStationByName(fromName);
-        Station to = this.stationDao.getStationByName(toName);
-
+        // adding our ticket in DB
         Passenger passenger = this.passengerDao.getPassengerById(passengerId);
 
         Ticket ticket = new Ticket();
@@ -125,19 +142,21 @@ public class TicketService {
         ticket.setDepartureDateTime(Converter.convertStringToLocalDateTime(trainDto.getLocalSrcDepartDateTime()));
         ticket.setArrivalDateTime(Converter.convertStringToLocalDateTime(trainDto.getLocalDstArrivalDateTime()));
         ticket.setNumberOfSeat(numberOfEmptySeat);
-
+        ticket.setNumberOfTrainCar(numberOfTrainCar);
 
         this.ticketDao.addTicket(ticket);
 
-
-
-
-
-
-
-
-
-
+        // creating ticketDto
+        TicketDto ticketDto = new TicketDto();
+        ticketDto.setPassengerFirstName(passenger.getFirstName());
+        ticketDto.setPassengerLastName(passenger.getLastName());
+        ticketDto.setStationFrom(fromName);
+        ticketDto.setStationTo(toName);
+        ticketDto.setDepartureDateTime(trainDto.getLocalSrcDepartDateTime());
+        ticketDto.setArrivalDateTime(trainDto.getLocalDstArrivalDateTime());
+        ticketDto.setTrainCarNumber(numberOfTrainCar);
+        ticketDto.setSeatNumber(numberOfEmptySeat);
+        return ticketDto;
     }
 
 

@@ -41,6 +41,9 @@ public class Ticket {
     private LocalDateTime arrivalDateTime;
 
     @Column(nullable = false)
+    private Integer numberOfTrainCar;
+
+    @Column(nullable = false)
     private Integer numberOfSeat;
 
     @Column(nullable = true)
@@ -113,5 +116,13 @@ public class Ticket {
 
     public void setNumberOfSeat(Integer numberOfSeat) {
         this.numberOfSeat = numberOfSeat;
+    }
+
+    public Integer getNumberOfTrainCar() {
+        return numberOfTrainCar;
+    }
+
+    public void setNumberOfTrainCar(Integer numberOfTrainCar) {
+        this.numberOfTrainCar = numberOfTrainCar;
     }
 }
