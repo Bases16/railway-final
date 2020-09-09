@@ -142,7 +142,7 @@ public class GenericTrainService {
         trainDto.setSchedule(scheduleDto);
 
         List<RoutePointDto> rpDtoList = new ArrayList<>();
-        for(RoutePoint rp : gt.getRoutePoints()) {              // SUBSELECT OPTIMIZATION HERE
+        for(RoutePoint rp : gt.getRoutePoints()) { // subselect optimization here (see "for(GenericTrain gt : genericTrains){" )
             RoutePointDto rpDto = new RoutePointDto();
             rpDto.setStationId(rp.getStation().getId());
             rpDto.setArrivalTime(Converter.convertLocalTimeToString(rp.getArrivalTime()));

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
+@org.hibernate.annotations.BatchSize(size = 11)
 public class Passenger {
 
     @Id

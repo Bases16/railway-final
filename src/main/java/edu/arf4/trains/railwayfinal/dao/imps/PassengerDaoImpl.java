@@ -22,4 +22,12 @@ public class PassengerDaoImpl implements PassengerDao {
 
         return passenger;
     }
+
+    @Override
+    public Long addPassenger(Passenger passenger) {
+
+        em.persist(passenger);
+
+        return passenger.getId();
+    }
 }

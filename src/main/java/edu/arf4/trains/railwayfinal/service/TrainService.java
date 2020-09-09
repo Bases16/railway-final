@@ -216,8 +216,8 @@ public class TrainService {
 
         for(SpecRoutePoint srp : srpList) {
             RoutePoint rpFrom = srp.getRoutePoint();
-            List<RoutePoint> rpList = rpFrom.getGenericTrain().getRoutePoints(); // batch and subselect executes here
-
+            List<RoutePoint> rpList = rpFrom.getGenericTrain().getRoutePoints(); // batch('cause of JOIN FETCH in query)
+                                                                                 // and subselect executes here
             for (int i = rpList.size() - 1;  ; i--) {   //start from the end to find stationTo faster
 
                 RoutePoint rp = rpList.get(i);

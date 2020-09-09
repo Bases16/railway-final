@@ -3,6 +3,7 @@ package edu.arf4.trains.railwayfinal.util;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,7 @@ public class Converter {
 
 
     private static final DateTimeFormatter DT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd' at 'HH:mm");
+    private static final DateTimeFormatter D_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter T_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
 
@@ -30,6 +32,14 @@ public class Converter {
 
     public static LocalTime convertStringToLocalTime(String time) {
         return time == null ? null : LocalTime.parse(time, T_FORMATTER);
+    }
+
+    public static LocalDate convertStringToLocalDate(String date) {
+        return date == null ? null : LocalDate.parse(date, D_FORMATTER);
+    }
+
+    public static String convertLocalDateToString(LocalDate date) {
+        return date == null ? null : date.format(D_FORMATTER);
     }
 
     public static List<DayOfWeek> getDaysOfWeekFromSchedule(Schedule schedule) {

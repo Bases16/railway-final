@@ -6,4 +6,6 @@ public interface PassengerDao {
 
     Passenger getPassengerById(Long id);
 
+    Long addPassenger(Passenger passenger);
+
 }

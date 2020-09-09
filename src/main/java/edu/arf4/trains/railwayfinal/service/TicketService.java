@@ -42,7 +42,7 @@ public class TicketService {
 
     @Autowired
     public TicketService(TicketDao ticketDao, TrainDao trainDao,
-                         StationDao stationDao, PassengerDao passengerDao    ) {
+                         StationDao stationDao, PassengerDao passengerDao) {
         this.ticketDao = ticketDao;
         this.trainDao = trainDao;
         this.stationDao = stationDao;
@@ -62,7 +62,7 @@ public class TicketService {
 
         Set<Ticket> trainTickets = train.getTickets();
         for (Ticket ticket : trainTickets) {
-            if (ticket.getPassenger().getId().equals(passengerId)) {
+            if (ticket.getPassenger().getId().equals(passengerId)) { // batch here
                 throw new AlreadyRegisteredException();
             }
         }

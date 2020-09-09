@@ -32,11 +32,17 @@ public class GenericTrain {
     @Column(nullable = false)
     private String route;
 
+    @Column(nullable = false)
     private Integer numOfPlazkartCars;
+    @Column(nullable = false)
     private Integer numOfSeatsInPlazkartCar;
+    @Column(nullable = false)
     private Integer numOfCoopeCars;
+    @Column(nullable = false)
     private Integer numOfSeatsInCoopeCar;
+    @Column(nullable = false)
     private Integer numOfSwCars;
+    @Column(nullable = false)
     private Integer numOfSeatsInSwCar;
 
     @Embedded
