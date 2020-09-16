@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,32 +19,36 @@ public class Ticket {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Train train;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Passenger passenger;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Station stationFrom;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Station stationTo;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDateTime departureDateTime;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDateTime arrivalDateTime;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer numberOfTrainCar;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer numberOfSeat;
 
     @Column(nullable = true)

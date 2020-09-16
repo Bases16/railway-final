@@ -36,7 +36,7 @@ public class TrainDaoImpl implements TrainDao {
     }
     @Override
     public Train getTrainById(Long id) {
-        System.out.println("findTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//        System.out.println("findTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 //        EntityManager em = emf.createEntityManager();
         Train train = em.find(Train.class, id);
 //        Hibernate.initialize(train.getTrainCars());

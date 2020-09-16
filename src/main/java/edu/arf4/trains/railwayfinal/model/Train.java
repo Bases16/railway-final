@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,19 +34,19 @@ public class Train {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private GenericTrain genericTrain;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDate departDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_id", nullable = false)
-    @OrderColumn(name = "order_of_car", nullable = false)
+    @OrderColumn(name = "order_of_car")
     private List<TrainCar> trainCars = new ArrayList<>();
 
 
     @Size(min = 2)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_id", nullable = false)
-    @OrderColumn(name = "order_of_spec_route_point", nullable = false)
+    @OrderColumn(name = "order_of_spec_route_point")
     private List<SpecRoutePoint> specRoutePoints = new ArrayList<>();
 
 

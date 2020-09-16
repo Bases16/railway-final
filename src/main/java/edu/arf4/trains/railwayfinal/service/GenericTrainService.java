@@ -10,6 +10,7 @@ import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class GenericTrainService {
 
     @Autowired
     public GenericTrainService(GenericTrainDao genericTrainDao, SimpleServices simpleServices) {
+        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
         this.genericTrainDao = genericTrainDao;
         this.simpleServices = simpleServices;
     }
@@ -93,15 +95,15 @@ public class GenericTrainService {
         return point;
     }
 
-
-
-    @Transactional(readOnly = true)
+    // this propagation 'cause not so frequently and important operations
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public GenericTrainDto getGenericTrainDtoById(Long id) {
         GenericTrain genericTrain = this.genericTrainDao.getGenericTrainById(id);
         return convertGenTrainToGenTrainDto(genericTrain);
     }
 
-    @Transactional(readOnly = true)
+    // this propagation 'cause not so frequently and important operations
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<GenericTrainDto> getAllGenericTrainDTOs() {
 
         List<GenericTrain> genericTrains = this.genericTrainDao.getAllGenericTrains();

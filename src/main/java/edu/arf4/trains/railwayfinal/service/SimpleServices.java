@@ -5,6 +5,7 @@ import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -17,6 +18,7 @@ public class SimpleServices {
 
     @Autowired
     public SimpleServices(StationDao stationDao) {
+        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
         this.stationDao = stationDao;
     }
 
@@ -25,7 +27,7 @@ public class SimpleServices {
         return this.stationDao.addStation(station);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Station getStationById(Long id, boolean getProxy) {
         return this.stationDao.getStationById(id, getProxy);
     }

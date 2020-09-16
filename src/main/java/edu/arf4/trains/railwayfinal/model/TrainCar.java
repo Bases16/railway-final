@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TrainCar {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull
     private TrainCarType type;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -36,7 +37,7 @@ public class TrainCar {
     @NotEmpty
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_car_id", nullable = false)
-    @OrderColumn(name = "order_of_station", nullable = false)
+    @OrderColumn(name = "order_of_station")
     private List<SeatsStateAtPoint> seatsStateAtCar = new ArrayList<>();
 
 

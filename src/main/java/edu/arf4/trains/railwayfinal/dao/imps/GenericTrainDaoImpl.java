@@ -33,7 +33,8 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
     private EntityManager em;
 
 
-//    @Autowired
+
+    //    @Autowired
 //    JtaTransactionManager jtaTxManager; //почему не бесцветный как в trainDao??
 
 
@@ -59,7 +60,7 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
 
     @Override
     public GenericTrain getGenericTrainById(Long id) {
-        System.out.println(" getGenericTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//        System.out.println(" getGenericTrainById aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 //        EntityManager em = emf.createEntityManager();
         GenericTrain genericTrain = em.find(GenericTrain.class, id);
 //        Hibernate.initialize(genericTrain.getRoutePoints());

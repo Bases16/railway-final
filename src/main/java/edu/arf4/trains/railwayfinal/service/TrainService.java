@@ -41,6 +41,7 @@ public class TrainService {
         this.genericTrainDao = genericTrainDao;
         this.trainDao = trainDao;
         this.stationDao = stationDao;
+        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
     }
 
 

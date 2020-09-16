@@ -31,7 +31,7 @@ public class SeatsStateAtPoint {
     @ElementCollection
     @CollectionTable(name = "seat_state")
     @OrderColumn(name = "seat_number", nullable = false)
-    @Column(name = "seat_state", nullable = false)
+    @Column(name = "seat_state")
     private List<Boolean> seatStates = new ArrayList<>();
 
     public SeatsStateAtPoint(int numOfSeatsInCar) {

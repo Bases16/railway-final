@@ -7,23 +7,13 @@ import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.exceptions.AlreadyRegisteredException;
 import edu.arf4.trains.railwayfinal.exceptions.NoTicketsLeftException;
-import edu.arf4.trains.railwayfinal.model.GenericTrain;
-import edu.arf4.trains.railwayfinal.model.RoutePoint;
-import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
-import edu.arf4.trains.railwayfinal.model.Station;
-import edu.arf4.trains.railwayfinal.model.TicketDto;
-import edu.arf4.trains.railwayfinal.model.Train;
-import org.junit.Ignore;
+import edu.arf4.trains.railwayfinal.dto.TicketDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

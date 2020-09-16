@@ -2,26 +2,27 @@ package edu.arf4.trains.railwayfinal.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Schedule {
 
-    @Column(nullable = false)
+    @NotNull
     private Integer weekPeriodicity;
 
-    @Column(nullable = false)
+    @NotNull
     private Boolean monday;
-    @Column(nullable = false)
+    @NotNull
     private Boolean tuesday;
-    @Column(nullable = false)
+    @NotNull
     private Boolean wednesday;
-    @Column(nullable = false)
+    @NotNull
     private Boolean thursday;
-    @Column(nullable = false)
+    @NotNull
     private Boolean friday;
-    @Column(nullable = false)
+    @NotNull
     private Boolean saturday;
-    @Column(nullable = false)
+    @NotNull
     private Boolean sunday;
 
 

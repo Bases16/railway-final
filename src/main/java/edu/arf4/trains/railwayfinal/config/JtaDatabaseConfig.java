@@ -22,7 +22,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:jta_database.properties")
 
-@ComponentScan("edu.arf4.trains.railwayfinal") //for testing
+@ComponentScan(value = "edu.arf4.trains.railwayfinal", lazyInit = true) //for testing
 public class JtaDatabaseConfig {
 
     private Environment env;
@@ -37,6 +37,7 @@ public class JtaDatabaseConfig {
         properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
+        properties.put("hibernate.use_sql_comments", env.getRequiredProperty("hibernate.use_sql_comments"));
         properties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.connection.CharSet", env.getRequiredProperty("hibernate.connection.CharSet"));
         properties.put("hibernate.connection.characterEncoding", env.getRequiredProperty("hibernate.connection.characterEncoding"));

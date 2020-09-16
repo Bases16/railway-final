@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,23 +27,24 @@ public class GenericTrain {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @Column(unique = true)
     private String number;
 
-    @Column(nullable = false)
+    @NotNull
     private String route;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer numOfPlazkartCars;
-    @Column(nullable = false)
+    @NotNull
     private Integer numOfSeatsInPlazkartCar;
-    @Column(nullable = false)
+    @NotNull
     private Integer numOfCoopeCars;
-    @Column(nullable = false)
+    @NotNull
     private Integer numOfSeatsInCoopeCar;
-    @Column(nullable = false)
+    @NotNull
     private Integer numOfSwCars;
-    @Column(nullable = false)
+    @NotNull
     private Integer numOfSeatsInSwCar;
 
     @Embedded

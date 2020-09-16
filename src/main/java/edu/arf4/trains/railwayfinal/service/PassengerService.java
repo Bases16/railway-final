@@ -9,6 +9,7 @@ import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class PassengerService {
 
     @Autowired
     public PassengerService(PassengerDao passengerDao, TrainDao trainDao) {
+        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
         this.passengerDao = passengerDao;
         this.trainDao = trainDao;
     }
@@ -39,8 +41,8 @@ public class PassengerService {
         return this.passengerDao.addPassenger(passenger);
     }
 
-
-    @Transactional(readOnly = true)
+    // this propagation 'cause not so frequently and important operations
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<PassengerDto> getPassengerDTOsByTrainId(Long trainId) {
 
         List<PassengerDto> dtoList = new ArrayList<>();

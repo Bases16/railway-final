@@ -1,6 +1,5 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.PassengerDao;
 import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TicketDao;
@@ -9,14 +8,12 @@ import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.exceptions.AlreadyRegisteredException;
 import edu.arf4.trains.railwayfinal.exceptions.LessThan10MinuteToDepartException;
 import edu.arf4.trains.railwayfinal.exceptions.NoTicketsLeftException;
-import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Passenger;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.SeatsStateAtPoint;
-import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
 import edu.arf4.trains.railwayfinal.model.Ticket;
-import edu.arf4.trains.railwayfinal.model.TicketDto;
+import edu.arf4.trains.railwayfinal.dto.TicketDto;
 import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
@@ -43,6 +40,7 @@ public class TicketService {
     @Autowired
     public TicketService(TicketDao ticketDao, TrainDao trainDao,
                          StationDao stationDao, PassengerDao passengerDao) {
+        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
         this.ticketDao = ticketDao;
         this.trainDao = trainDao;
         this.stationDao = stationDao;

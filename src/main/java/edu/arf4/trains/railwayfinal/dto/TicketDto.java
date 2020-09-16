@@ -1,4 +1,4 @@
-package edu.arf4.trains.railwayfinal.model;
+package edu.arf4.trains.railwayfinal.dto;
 
 public class TicketDto {
 

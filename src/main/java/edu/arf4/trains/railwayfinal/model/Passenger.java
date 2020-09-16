@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -16,13 +17,16 @@ public class Passenger {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-    @Column(nullable = false, updatable = false)
+    @NotNull
+    @Column(updatable = false)
     private String firstName;
 
-    @Column(nullable = false, updatable = false)
+    @NotNull
+    @Column(updatable = false)
     private String lastName;
 
-    @Column(nullable = false, updatable = false)
+    @NotNull
+    @Column(updatable = false)
     private LocalDate dateOfBirth;
 
 
