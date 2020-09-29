@@ -3,6 +3,8 @@ package edu.arf4.trains.railwayfinal.dao.imps;
 import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
 import edu.arf4.trains.railwayfinal.model.Station;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,8 @@ import java.util.List;
 @Repository
 public class StationDaoImpl implements StationDao {
 
+    public static final Logger log = LoggerFactory.getLogger(StationDaoImpl.class);
+
 //    @Autowired
 //    private EntityManagerFactory emf;
 
@@ -27,7 +31,7 @@ public class StationDaoImpl implements StationDao {
     public Long addStation(Station station) {
 //        EntityManager em = emf.createEntityManager();
         em.persist(station);
-        System.out.println("AFTER PERSIST");
+        log.debug("AFTER PERSIST");
 //        em.close();
         return station.getId();
     }

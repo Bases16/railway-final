@@ -1,6 +1,7 @@
 package edu.arf4.trains.railwayfinal.service;
 
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
+import edu.arf4.trains.railwayfinal.dao.imps.GenericTrainDaoImpl;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
 import edu.arf4.trains.railwayfinal.dto.ScheduleDto;
@@ -8,6 +9,8 @@ import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import edu.arf4.trains.railwayfinal.util.Converter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,12 +27,14 @@ import java.util.Set;
 //@Transactional
 public class GenericTrainService {
 
+    public static final Logger log = LoggerFactory.getLogger(GenericTrainService.class);
+
     private final GenericTrainDao genericTrainDao;
     private final SimpleServices simpleServices;
 
     @Autowired
     public GenericTrainService(GenericTrainDao genericTrainDao, SimpleServices simpleServices) {
-        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
+        log.debug("{} WAS CREATED", this.getClass());
         this.genericTrainDao = genericTrainDao;
         this.simpleServices = simpleServices;
     }
@@ -109,7 +114,7 @@ public class GenericTrainService {
         List<GenericTrain> genericTrains = this.genericTrainDao.getAllGenericTrains();
 
         if(genericTrains == null || genericTrains.isEmpty()) {
-            return null;  // todo  ?????????????????????????????????
+            return null;  // TODO  ?????????????????????????????????
         }
         List<GenericTrainDto> dtoList = new ArrayList<>();
         for(GenericTrain gt : genericTrains) {

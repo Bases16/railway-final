@@ -6,6 +6,8 @@ import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.Schedule;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -25,6 +27,8 @@ import java.util.List;
 //@Profile("main")
 @Repository
 public class GenericTrainDaoImpl implements GenericTrainDao {
+
+    public static final Logger log = LoggerFactory.getLogger(GenericTrainDaoImpl.class);
 
 //    @Autowired
 //    EntityManagerFactory emf;
@@ -48,8 +52,8 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
         try {
             em.flush();
         } catch (RuntimeException e) {
-            System.out.println("CAUGHT THAT SHIT");
-            e.printStackTrace();
+            log.debug("CAUGHT THAT SHIT", e);
+//            e.printStackTrace();
             throw e;
         }
 
@@ -74,6 +78,8 @@ public class GenericTrainDaoImpl implements GenericTrainDao {
         List<GenericTrain> genericTrains = new ArrayList<>();
 //        EntityManager em = emf.createEntityManager();
         genericTrains = em.createQuery("SELECT gt FROM GenericTrain gt", GenericTrain.class).getResultList();
+
+        // TODO getResultList throws exception if not found any. What to do???
 
         return genericTrains;
     }

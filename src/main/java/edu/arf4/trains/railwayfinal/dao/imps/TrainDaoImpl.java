@@ -84,6 +84,7 @@ public class TrainDaoImpl implements TrainDao {
                 .setParameter("end", end)
                 .getResultList();
 
+        // TODO getResultList throws exception if not found any. What to do???
 //        em.close();
         return srpList;
     }

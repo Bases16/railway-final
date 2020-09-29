@@ -4,6 +4,7 @@ import edu.arf4.trains.railwayfinal.dao.PassengerDao;
 import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TicketDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
+import edu.arf4.trains.railwayfinal.dao.imps.GenericTrainDaoImpl;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.exceptions.AlreadyRegisteredException;
 import edu.arf4.trains.railwayfinal.exceptions.LessThan10MinuteToDepartException;
@@ -18,6 +19,8 @@ import edu.arf4.trains.railwayfinal.model.Train;
 import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.util.Converter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +34,10 @@ import java.util.Set;
 @Service
 public class TicketService {
 
-//    private final GenericTrainDao genericTrainDao;
+    public static final Logger log = LoggerFactory.getLogger(TicketService.class);
+
+
+    //    private final GenericTrainDao genericTrainDao;
     private final TicketDao ticketDao;
     private final TrainDao trainDao;
     private final StationDao stationDao;
@@ -40,7 +46,7 @@ public class TicketService {
     @Autowired
     public TicketService(TicketDao ticketDao, TrainDao trainDao,
                          StationDao stationDao, PassengerDao passengerDao) {
-        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
+        log.debug("{} WAS CREATED", this.getClass());
         this.ticketDao = ticketDao;
         this.trainDao = trainDao;
         this.stationDao = stationDao;

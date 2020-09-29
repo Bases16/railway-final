@@ -10,8 +10,6 @@ public class GenericTrainDto {
     private List<RoutePointDto> routePointDtoList;
     private ScheduleDto schedule;
 
-    //TODO       get rid of constant trainCar properties !!!!!!!!
-
     private int numOfPlazkartCars;
     private int numOfSeatsInPlazkartCar;
     private int numOfCoopeCars;

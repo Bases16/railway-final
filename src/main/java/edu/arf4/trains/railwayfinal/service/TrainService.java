@@ -3,6 +3,7 @@ package edu.arf4.trains.railwayfinal.service;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
+import edu.arf4.trains.railwayfinal.dao.imps.GenericTrainDaoImpl;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.GenericTrain;
 import edu.arf4.trains.railwayfinal.model.RoutePoint;
@@ -15,6 +16,8 @@ import edu.arf4.trains.railwayfinal.model.TrainCar;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import edu.arf4.trains.railwayfinal.util.Converter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +35,8 @@ import java.util.List;
 //@Transactional
 public class TrainService {
 
+    public static final Logger log = LoggerFactory.getLogger(TrainService.class);
+
     private final GenericTrainDao genericTrainDao;
     private final TrainDao trainDao;
     private final StationDao stationDao;
@@ -41,7 +46,7 @@ public class TrainService {
         this.genericTrainDao = genericTrainDao;
         this.trainDao = trainDao;
         this.stationDao = stationDao;
-        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");
+        log.debug("{} WAS CREATED", this.getClass());
     }
 
 
