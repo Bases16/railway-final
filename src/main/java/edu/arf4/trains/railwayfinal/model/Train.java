@@ -39,14 +39,14 @@ public class Train {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_id", nullable = false)
-    @OrderColumn(name = "order_of_car")
+    @OrderColumn(name = "order_of_car", nullable = false)
     private List<TrainCar> trainCars = new ArrayList<>();
 
 
     @Size(min = 2)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_id", nullable = false)
-    @OrderColumn(name = "order_of_spec_route_point")
+    @OrderColumn(name = "order_of_spec_route_point", nullable = false)
     private List<SpecRoutePoint> specRoutePoints = new ArrayList<>();
 
 

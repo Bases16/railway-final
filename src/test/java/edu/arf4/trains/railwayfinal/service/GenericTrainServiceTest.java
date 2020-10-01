@@ -156,6 +156,11 @@ public class GenericTrainServiceTest {
     }
 
 
+    @Test
+    public void shit() {
+        System.out.println("YO!");
+    }
+
 
 
 

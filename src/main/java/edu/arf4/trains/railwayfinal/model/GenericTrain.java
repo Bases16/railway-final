@@ -35,6 +35,7 @@ public class GenericTrain {
     private String route;
 
     @NotNull
+//    @Column(nullable = false)
     private Integer numOfPlazkartCars;
     @NotNull
     private Integer numOfSeatsInPlazkartCar;

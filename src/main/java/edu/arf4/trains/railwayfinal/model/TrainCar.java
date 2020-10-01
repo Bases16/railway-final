@@ -37,7 +37,7 @@ public class TrainCar {
     @NotEmpty
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_car_id", nullable = false)
-    @OrderColumn(name = "order_of_station")
+    @OrderColumn(name = "order_of_station", nullable = false)
     private List<SeatsStateAtPoint> seatsStateAtCar = new ArrayList<>();
 
 
