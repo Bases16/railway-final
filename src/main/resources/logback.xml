@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss} %-5p %c{5.}:%L - %m%n</pattern>
+            <param name="ConversionPattern" value="%-5p - [%-80m] - at %c.%M(%F:%L)%n"/>
+        </encoder>
+    </appender>
+
+<!--    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>%d{dd-MM-yyyy HH:mm:ss} %-5p %c{1}:%L - %m%n</pattern>-->
+<!--            <param name="ConversionPattern" value="%-5p - [%-80m] - at %c.%M(%F:%L)%n"/>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+
+    <logger name="edu.arf4.trains.railwayfinal" level="all">
+<!--        <appender-ref ref="stdout"/>-->
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>
