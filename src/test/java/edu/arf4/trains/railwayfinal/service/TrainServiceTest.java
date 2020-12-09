@@ -1,6 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.JtaDatabaseConfig;
+import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
 import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.model.SpecRoutePoint;
@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@ContextConfiguration(classes = JtaDatabaseConfig.class)
+@ContextConfiguration(classes = DatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TrainServiceTest {
 

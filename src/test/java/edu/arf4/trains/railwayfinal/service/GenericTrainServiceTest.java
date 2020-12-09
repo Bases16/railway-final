@@ -1,6 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.JtaDatabaseConfig;
+import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dto.GenericTrainDto;
 import edu.arf4.trains.railwayfinal.dto.RoutePointDto;
@@ -16,17 +16,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 
-@ContextConfiguration(classes = JtaDatabaseConfig.class)
+@ContextConfiguration(classes = DatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GenericTrainServiceTest {
 

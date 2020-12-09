@@ -1,6 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.JtaDatabaseConfig;
+import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.GenericTrainDao;
 import edu.arf4.trains.railwayfinal.dao.StationDao;
 import edu.arf4.trains.railwayfinal.dao.TrainDao;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
 
-@ContextConfiguration(classes = JtaDatabaseConfig.class)
+@ContextConfiguration(classes = DatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TicketServiceTest {
 

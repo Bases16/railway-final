@@ -1,6 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
-import edu.arf4.trains.railwayfinal.config.JtaDatabaseConfig;
+import edu.arf4.trains.railwayfinal.config.DatabaseConfig;
 import edu.arf4.trains.railwayfinal.dao.PassengerDao;
 import edu.arf4.trains.railwayfinal.dto.PassengerDto;
 import edu.arf4.trains.railwayfinal.model.Passenger;
@@ -12,12 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-@ContextConfiguration(classes = JtaDatabaseConfig.class)
+@ContextConfiguration(classes = DatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PassengerServiceTest {
 
