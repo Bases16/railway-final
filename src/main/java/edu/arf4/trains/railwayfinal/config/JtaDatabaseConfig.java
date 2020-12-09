@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -17,7 +16,6 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Properties;
 
-//@Profile("main")
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = "classpath:jta_database.properties")

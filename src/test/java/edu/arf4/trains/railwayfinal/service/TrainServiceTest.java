@@ -19,7 +19,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-//@ContextConfiguration(classes = AlterDatabaseConfig.class)
 @ContextConfiguration(classes = JtaDatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TrainServiceTest {
@@ -125,24 +124,24 @@ public class TrainServiceTest {
         final Long GENOA_ID = 19L;
 
         //CASE 1
-        LocalDate start = LocalDate.of(2020, 12, 2);
-        LocalDate end = LocalDate.of(2020, 12, 6);
+        LocalDate start = LocalDate.of(2025, 12, 3);
+        LocalDate end = LocalDate.of(2025, 12, 7);
 
         List<TrainDto> dtoListByStation = trainService.getTrainDtoListByStation(MYSHKIN_ID, start, end);
         assertNotNull(dtoListByStation);
         assertEquals(2, dtoListByStation.size());
 
         //CASE 2
-        start = LocalDate.of(2020, 12, 1);
-        end = LocalDate.of(2020, 12, 7);
+        start = LocalDate.of(2025, 12, 2);
+        end = LocalDate.of(2025, 12, 8);
 
         dtoListByStation = trainService.getTrainDtoListByStation(MYSHKIN_ID, start, end);
         assertNotNull(dtoListByStation);
         assertEquals(4, dtoListByStation.size());
 
         //CASE 3 - FULL CHECKING
-        start = LocalDate.of(2020, 11, 30);
-        end = LocalDate.of(2020, 12, 1);
+        start = LocalDate.of(2025, 12, 1);
+        end = LocalDate.of(2025, 12, 2);
 
         dtoListByStation = trainService.getTrainDtoListByStation(MYSHKIN_ID, start, end);
         assertNotNull(dtoListByStation);
@@ -153,15 +152,15 @@ public class TrainServiceTest {
         assertEquals(dto.getNumber(), "1488HH");
         assertEquals(dto.getGlobalRoute(), "Liski - Genoa");
         assertEquals(dto.getId(), new Long(3));
-        assertEquals(dto.getLocalSrcArrivalDateTime(), "2020-11-30 at 23:55");
-        assertEquals(dto.getLocalSrcDepartDateTime(), "2020-12-01 at 01:00");
+        assertEquals(dto.getLocalSrcArrivalDateTime(), "2025-12-01 at 23:55");
+        assertEquals(dto.getLocalSrcDepartDateTime(), "2025-12-02 at 01:00");
 
         assertNull(dto.getLocalRoute());
         assertNull(dto.getLocalDstArrivalDateTime());
 
         //CASE 4 - FULL CHECKING
-        start = LocalDate.of(2020, 12, 7);
-        end = LocalDate.of(2020, 12, 8);
+        start = LocalDate.of(2025, 12, 8);
+        end = LocalDate.of(2025, 12, 9);
 
         dtoListByStation = trainService.getTrainDtoListByStation(GENOA_ID, start, end);
         assertNotNull(dtoListByStation);
@@ -172,7 +171,7 @@ public class TrainServiceTest {
         assertEquals("1488HH", dto.getNumber());
         assertEquals("Liski - Genoa", dto.getGlobalRoute());
         assertEquals(new Long(4), dto.getId());
-        assertEquals("2020-12-07 at 22:00", dto.getLocalSrcArrivalDateTime());
+        assertEquals("2025-12-08 at 22:00", dto.getLocalSrcArrivalDateTime());
         assertNull(dto.getLocalSrcDepartDateTime()); // specific case
 
         assertNull(dto.getLocalRoute());                             //TODO  LOCAL ROUTE ???
@@ -189,8 +188,8 @@ public class TrainServiceTest {
         final Long HONG_KONG_ID = 20L;
 
         //CASE 1
-        LocalDate start = LocalDate.of(2019, 12, 12);
-        LocalDate end = LocalDate.of(2021, 12, 13);
+        LocalDate start = LocalDate.of(2024, 12, 12);
+        LocalDate end = LocalDate.of(2026, 12, 13);
 
         List<TrainDto> dtoListByStation = trainService
                 .getTrainDtoListBy2StationsAndDateRange(MYSHKIN_ID, ASTANA_ID, start, end);
@@ -198,16 +197,16 @@ public class TrainServiceTest {
         assertEquals(2, dtoListByStation.size());
 
         //CASE 2
-        start = LocalDate.of(2020, 12, 5);
-        end = LocalDate.of(2020, 12, 6);
+        start = LocalDate.of(2025, 12, 6);
+        end = LocalDate.of(2025, 12, 7);
 
         dtoListByStation = trainService
                 .getTrainDtoListBy2StationsAndDateRange(ASTANA_ID, HONG_KONG_ID, start, end);
         assertNull(dtoListByStation);
 
         //CASE 3 - TICKETSLEFT CHECKING
-        start = LocalDate.of(2020, 12, 1);
-        end = LocalDate.of(2020, 12, 3);
+        start = LocalDate.of(2025, 12, 2);
+        end = LocalDate.of(2025, 12, 4);
 
         dtoListByStation = trainService
                 .getTrainDtoListBy2StationsAndDateRange(MOSCOW_ID, HONG_KONG_ID, start, end);
@@ -221,8 +220,8 @@ public class TrainServiceTest {
         assertEquals(new Integer(0), dto.getSwTicketsLeft());
 
         //CASE 4 - FULL CHECKING
-        start = LocalDate.of(2020, 12, 3);
-        end = LocalDate.of(2020, 12, 4);
+        start = LocalDate.of(2025, 12, 4);
+        end = LocalDate.of(2025, 12, 5);
 
         dtoListByStation = trainService
                 .getTrainDtoListBy2StationsAndDateRange(ASTANA_ID, HONG_KONG_ID, start, end);
@@ -234,9 +233,9 @@ public class TrainServiceTest {
         assertEquals("МШМ228", dto.getNumber());
         assertEquals("Moscow - Hong-Kong", dto.getGlobalRoute());
         assertEquals(new Long(1), dto.getId());
-        assertEquals("2020-12-03 at 11:10", dto.getLocalSrcArrivalDateTime());
-        assertEquals("2020-12-03 at 11:58", dto.getLocalSrcDepartDateTime());
-        assertEquals("2020-12-05 at 22:00", dto.getLocalDstArrivalDateTime());
+        assertEquals("2025-12-04 at 11:10", dto.getLocalSrcArrivalDateTime());
+        assertEquals("2025-12-04 at 11:58", dto.getLocalSrcDepartDateTime());
+        assertEquals("2025-12-06 at 22:00", dto.getLocalDstArrivalDateTime());
         assertEquals("Astana - Hong-Kong", dto.getLocalRoute());
 
         assertEquals(new Integer(2), dto.getPlazkartTicketsLeft());

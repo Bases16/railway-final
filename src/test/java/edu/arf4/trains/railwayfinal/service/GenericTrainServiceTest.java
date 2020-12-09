@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 
-//@ContextConfiguration(classes = AlterDatabaseConfig.class)
 @ContextConfiguration(classes = JtaDatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GenericTrainServiceTest {
@@ -89,6 +88,7 @@ public class GenericTrainServiceTest {
 
         return genTrainDto;
     }
+
     private void checkEntityAndDtoForAccordance(GenericTrain genTrain, GenericTrainDto genTrainDto) {
 
         ScheduleDto scheduleDto = genTrainDto.getSchedule();

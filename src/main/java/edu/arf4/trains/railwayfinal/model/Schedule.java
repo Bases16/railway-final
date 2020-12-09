@@ -1,6 +1,5 @@
 package edu.arf4.trains.railwayfinal.model;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 

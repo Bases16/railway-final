@@ -186,7 +186,7 @@ public class TrainService {
         List<SpecRoutePoint> srpList = this.trainDao.getSrpListByStationId(stationId, false, st, en);
 
         if(srpList == null || srpList.isEmpty()) {
-            return null;                            // todo  ???????
+            return new ArrayList<>();                            // todo  ???????   was return NULL;
         }
         List<TrainDto> trainDtoList = new ArrayList<>();
         for(SpecRoutePoint srp : srpList) {

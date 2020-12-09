@@ -37,8 +37,8 @@ INSERT INTO route_point(id, generic_train_id, station_id, order_of_route_point, 
 (103, 1, 20, 3, '22:00',  4  ,  null  , null );
 
 INSERT INTO train(id, generic_train_id, depart_date) VALUES
-(1, 1, '2020-12-01'), --  #1 train
-(2, 1, '2020-12-06'); --  #2 train
+(1, 1, '2025-12-02'), --  #1 train
+(2, 1, '2025-12-07'); --  #2 train
 
 INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 --  #1 train
@@ -54,14 +54,14 @@ INSERT INTO ticket(id, train_id, passenger_id, station_from_id, station_to_id, d
                                                arrival_date_time, number_of_train_car, number_of_seat) VALUES
 -- #1 train  Moscow - Myshkin - Astana - Hong-Kong
        -- PLAZKART --
-(1, 1, 1, 16, 20, '2020-12-01 15:30', '2020-12-05 22:00', 1, 1), -- Moscow - Hong-Kong
-(2, 1, 2, 16, 14, '2020-12-01 15:30', '2020-12-03 11:10', 1, 2), -- Moscow - Astana
-(3, 1, 3, 16, 15, '2020-12-01 15:30', '2020-12-01 23:55', 1, 3), -- Moscow - Myshkin
+(1, 1, 1, 16, 20, '2025-12-02 15:30', '2025-12-06 22:00', 1, 1), -- Moscow - Hong-Kong
+(2, 1, 2, 16, 14, '2025-12-02 15:30', '2025-12-04 11:10', 1, 2), -- Moscow - Astana
+(3, 1, 3, 16, 15, '2025-12-02 15:30', '2025-12-02 23:55', 1, 3), -- Moscow - Myshkin
        --  COOPE   --
-(4, 1, 4, 16, 15, '2020-12-01 15:30', '2020-12-01 23:55', 2, 1), -- Moscow - Myshkin
-(5, 1, 5, 15, 20, '2020-12-02 02:00', '2020-12-05 22:00', 2, 1), -- Myshkin - Hong-Kong
+(4, 1, 4, 16, 15, '2025-12-02 15:30', '2025-12-02 23:55', 2, 1), -- Moscow - Myshkin
+(5, 1, 5, 15, 20, '2025-12-03 02:00', '2025-12-06 22:00', 2, 1), -- Myshkin - Hong-Kong
        --    SW    --
-(6, 1, 6, 15, 14, '2020-12-02 02:00', '2020-12-03 11:10', 3, 1); -- Myshkin - Astana
+(6, 1, 6, 15, 14, '2025-12-03 02:00', '2025-12-04 11:10', 3, 1); -- Myshkin - Astana
 
 
 INSERT INTO seats_state_at_point(id, train_car_id, order_of_station) VALUES
@@ -104,15 +104,15 @@ INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 (18, false, 0);
 
 INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_point, arrival_datetime, depart_datetime) VALUES
-(1, 1, 100, 0,       null        , '2020-12-01 15:30'), -- Moscow
-(2, 1, 101, 1, '2020-12-01 23:55', '2020-12-02 02:00'), -- Myshkin
-(3, 1, 102, 2, '2020-12-03 11:10', '2020-12-03 11:58'), -- Astana
-(4, 1, 103, 3, '2020-12-05 22:00',        null       ), -- Hong-Kong
+(1, 1, 100, 0,       null        , '2025-12-02 15:30'), -- Moscow
+(2, 1, 101, 1, '2025-12-02 23:55', '2025-12-03 02:00'), -- Myshkin
+(3, 1, 102, 2, '2025-12-04 11:10', '2025-12-04 11:58'), -- Astana
+(4, 1, 103, 3, '2025-12-06 22:00',        null       ), -- Hong-Kong
 
-(5, 2, 100, 0,       null        , '2020-12-06 15:30'), -- Moscow
-(6, 2, 101, 1, '2020-12-06 23:55', '2020-12-07 02:00'), -- Myshkin
-(7, 2, 102, 2, '2020-12-08 11:10', '2020-12-08 11:58'), -- Astana
-(8, 2, 103, 3, '2020-12-10 22:00',        null       ); -- Hong-Kong
+(5, 2, 100, 0,       null        , '2025-12-07 15:30'), -- Moscow
+(6, 2, 101, 1, '2025-12-07 23:55', '2025-12-08 02:00'), -- Myshkin
+(7, 2, 102, 2, '2025-12-09 11:10', '2025-12-09 11:58'), -- Astana
+(8, 2, 103, 3, '2025-12-11 22:00',        null       ); -- Hong-Kong
 -- ===========================================================================
 
 -- 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000 --
@@ -133,8 +133,8 @@ INSERT INTO route_point(id, generic_train_id, station_id, order_of_route_point, 
 (107, 2, 19, 3, '22:00',  3  ,  null  , null );
 
 INSERT INTO train(id, generic_train_id, depart_date) VALUES
-(3, 2, '2020-11-30'),
-(4, 2, '2020-12-04');
+(3, 2, '2025-12-01'),
+(4, 2, '2025-12-05');
 
 INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (7, 3, 0, 'PLAZKART'),
@@ -185,13 +185,13 @@ INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 
 
 INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_point, arrival_datetime, depart_datetime) VALUES
-(9,  3, 104, 0,       null        , '2020-11-30 19:30'),
-(10, 3, 105, 1, '2020-11-30 23:55', '2020-12-01 01:00'),
-(11, 3, 106, 2, '2020-12-02 11:10', '2020-12-02 11:30'),
-(12, 3, 107, 3, '2020-12-03 22:00',        null       ),
+(9,  3, 104, 0,       null        , '2025-12-01 19:30'),
+(10, 3, 105, 1, '2025-12-01 23:55', '2025-12-02 01:00'),
+(11, 3, 106, 2, '2025-12-03 11:10', '2025-12-03 11:30'),
+(12, 3, 107, 3, '2025-12-04 22:00',        null       ),
 
-(13, 4, 104, 0,       null        , '2020-12-04 19:30'),
-(14, 4, 105, 1, '2020-12-04 23:55', '2020-12-05 01:00'),
-(15, 4, 106, 2, '2020-12-06 11:10', '2020-12-06 11:30'),
-(16, 4, 107, 3, '2020-12-07 22:00',        null       );
+(13, 4, 104, 0,       null        , '2025-12-05 19:30'),
+(14, 4, 105, 1, '2025-12-05 23:55', '2025-12-06 01:00'),
+(15, 4, 106, 2, '2025-12-07 11:10', '2025-12-07 11:30'),
+(16, 4, 107, 3, '2025-12-08 22:00',        null       );
 -- =====================================================================================

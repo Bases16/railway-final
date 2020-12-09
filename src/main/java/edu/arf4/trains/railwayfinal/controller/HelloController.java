@@ -8,10 +8,17 @@ public class HelloController {
 
 
 
-    @GetMapping("/wtf")
-    public String hello() {
+    @GetMapping
+    public String homePage() {
 
         return "home";
+    }
+
+
+    @GetMapping("/uuSuk")
+    public String hello() {
+
+        return "uuSuk";
     }
 
 

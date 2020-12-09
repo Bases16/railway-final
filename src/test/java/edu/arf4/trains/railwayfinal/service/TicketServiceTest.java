@@ -20,7 +20,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
 
-//@ContextConfiguration(classes = AlterDatabaseConfig.class)
 @ContextConfiguration(classes = JtaDatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TicketServiceTest {
@@ -36,8 +35,6 @@ public class TicketServiceTest {
 
 
 
-
-
     @Test
     @Transactional
 //    @Rollback(value = false)
@@ -47,8 +44,8 @@ public class TicketServiceTest {
         TrainDto dto = new TrainDto();
         dto.setId(1L);
         dto.setLocalRoute("Moscow - Hong-Kong");
-        dto.setLocalSrcDepartDateTime("2020-12-01 at 15:30");
-        dto.setLocalDstArrivalDateTime("2020-12-05 at 22:00");
+        dto.setLocalSrcDepartDateTime("2025-12-02 at 15:30");
+        dto.setLocalDstArrivalDateTime("2025-12-06 at 22:00");
 
         assertThrows( AlreadyRegisteredException.class,
                 () -> ticketService.buyTicket(dto, 1L, "SW")
@@ -70,8 +67,8 @@ public class TicketServiceTest {
         assertEquals(new Integer(2), ticketDto.getSeatNumber());
         assertEquals("f_name7", ticketDto.getPassengerFirstName());
         assertEquals("l_name7", ticketDto.getPassengerLastName());
-        assertEquals("2020-12-01 at 15:30", ticketDto.getDepartureDateTime());
-        assertEquals("2020-12-05 at 22:00", ticketDto.getArrivalDateTime());
+        assertEquals("2025-12-02 at 15:30", ticketDto.getDepartureDateTime());
+        assertEquals("2025-12-06 at 22:00", ticketDto.getArrivalDateTime());
         assertEquals("Moscow", ticketDto.getStationFrom());
         assertEquals("Hong-Kong", ticketDto.getStationTo());
 
@@ -80,7 +77,7 @@ public class TicketServiceTest {
         );
 
         dto.setLocalRoute("Myshkin - Hong-Kong");
-        dto.setLocalSrcDepartDateTime("2020-12-01 at 23:55");
+        dto.setLocalSrcDepartDateTime("2025-12-02 at 23:55");
 
         assertThrows( NoTicketsLeftException.class,
                 () -> ticketService.buyTicket(dto, 8L, "SW")
@@ -93,8 +90,8 @@ public class TicketServiceTest {
         assertEquals(new Integer(3), ticketDto.getSeatNumber());
         assertEquals("f_name8", ticketDto.getPassengerFirstName());
         assertEquals("l_name8", ticketDto.getPassengerLastName());
-        assertEquals("2020-12-01 at 23:55", ticketDto.getDepartureDateTime());
-        assertEquals("2020-12-05 at 22:00", ticketDto.getArrivalDateTime());
+        assertEquals("2025-12-02 at 23:55", ticketDto.getDepartureDateTime());
+        assertEquals("2025-12-06 at 22:00", ticketDto.getArrivalDateTime());
         assertEquals("Myshkin", ticketDto.getStationFrom());
         assertEquals("Hong-Kong", ticketDto.getStationTo());
 
@@ -133,39 +130,6 @@ public class TicketServiceTest {
 //        }
 //
 //    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

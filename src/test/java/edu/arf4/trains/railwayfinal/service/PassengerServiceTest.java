@@ -17,7 +17,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-//@ContextConfiguration(classes = AlterDatabaseConfig.class)
 @ContextConfiguration(classes = JtaDatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PassengerServiceTest {
