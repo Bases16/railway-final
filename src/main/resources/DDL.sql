@@ -7,19 +7,20 @@ DROP INDEX IF EXISTS idx_ticket_to_train_id;
 DROP INDEX IF EXISTS idx_train_car_to_train_id;
 DROP INDEX IF EXISTS idx_train_to_gen_train_id;
 
-DROP TABLE IF EXISTS ticket;
-DROP TABLE IF EXISTS spec_route_point;
+DROP TABLE IF EXISTS tickets;
+DROP TABLE IF EXISTS spec_route_points;
 DROP TABLE IF EXISTS seat_state;
 DROP TABLE IF EXISTS seats_state_at_point;
-DROP TABLE IF EXISTS train_car;
-DROP TABLE IF EXISTS train;
-DROP TABLE IF EXISTS route_point;
-DROP TABLE IF EXISTS passenger;
-DROP TABLE IF EXISTS generic_train;
-DROP TABLE IF EXISTS station;
+DROP TABLE IF EXISTS train_cars;
+DROP TABLE IF EXISTS trains;
+DROP TABLE IF EXISTS route_points;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS passengers;
+DROP TABLE IF EXISTS generic_trains;
+DROP TABLE IF EXISTS stations;
 
 
-CREATE TABLE station
+CREATE TABLE stations
 (
     id bigint NOT NULL,
     name varchar(40) UNIQUE NOT NULL,
@@ -27,7 +28,7 @@ CREATE TABLE station
 );
 
 
-CREATE TABLE generic_train
+CREATE TABLE generic_trains
 (
     id bigint NOT NULL,
     "number" varchar(10) NOT NULL,
@@ -51,7 +52,7 @@ CREATE TABLE generic_train
 );
 
 
-CREATE TABLE passenger
+CREATE TABLE passengers
 (
     id bigint NOT NULL,
     first_name varchar(50) NOT NULL,
@@ -61,8 +62,20 @@ CREATE TABLE passenger
     CONSTRAINT passenger_pkey PRIMARY KEY (id)
 );
 
+CREATE TABLE users
+(
+    email varchar(100) NOT NULL,
+    password varchar(100) NOT NULL,
+    role varchar(5) NOT NULL,
+    status char(6) NOT NULL,
+    passenger_id bigint,
 
-CREATE TABLE route_point
+    CONSTRAINT users_pkey PRIMARY KEY (email),
+    CONSTRAINT fk_from_user_to_pass FOREIGN KEY (passenger_id)
+        REFERENCES passengers (id)
+);
+
+CREATE TABLE route_points
 (
     id bigint NOT NULL,
     generic_train_id bigint NOT NULL,
@@ -75,17 +88,17 @@ CREATE TABLE route_point
     CONSTRAINT route_point_pkey PRIMARY KEY (id),
 
     CONSTRAINT fk_from_rp_to_gen_train FOREIGN KEY (generic_train_id)
-        REFERENCES generic_train (id)
+        REFERENCES generic_trains (id)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_from_rp_to_station FOREIGN KEY (station_id)
-        REFERENCES station (id)
+        REFERENCES stations (id)
         ON DELETE RESTRICT
 );
-CREATE INDEX idx_rp_to_gen_train_id ON route_point(generic_train_id);
+CREATE INDEX idx_rp_to_gen_train_id ON route_points(generic_train_id);
 
 
-CREATE TABLE train
+CREATE TABLE trains
 (
     id bigint NOT NULL,
     generic_train_id bigint NOT NULL,
@@ -93,12 +106,12 @@ CREATE TABLE train
     CONSTRAINT train_pkey PRIMARY KEY (id),
 
     CONSTRAINT fk_from_train_to_gen_train FOREIGN KEY (generic_train_id)
-        REFERENCES generic_train (id)
+        REFERENCES generic_trains (id)
 );
-CREATE INDEX idx_train_to_gen_train_id ON train(generic_train_id);
+CREATE INDEX idx_train_to_gen_train_id ON trains(generic_train_id);
 
 
-CREATE TABLE train_car
+CREATE TABLE train_cars
 (
     id bigint NOT NULL,
     train_id bigint NOT NULL,
@@ -107,10 +120,10 @@ CREATE TABLE train_car
     CONSTRAINT train_car_pkey PRIMARY KEY (id),
 
     CONSTRAINT fk_from_train_car_to_train FOREIGN KEY (train_id)
-        REFERENCES train (id)
+        REFERENCES trains (id)
         ON DELETE CASCADE
 );
-CREATE INDEX idx_train_car_to_train_id ON train_car(train_id);
+CREATE INDEX idx_train_car_to_train_id ON train_cars(train_id);
 
 
 CREATE TABLE seats_state_at_point
@@ -121,7 +134,7 @@ CREATE TABLE seats_state_at_point
     CONSTRAINT seats_state_at_point_pkey PRIMARY KEY (id),
 
     CONSTRAINT fk_from_seats_state_at_point_to_train_car FOREIGN KEY (train_car_id)
-        REFERENCES train_car (id)
+        REFERENCES train_cars (id)
         ON DELETE CASCADE
 );
 CREATE INDEX idx_seats_state_at_point_to_train_id ON seats_state_at_point(train_car_id);
@@ -139,7 +152,7 @@ CREATE TABLE seat_state
         ON DELETE CASCADE
 );
 
-CREATE TABLE spec_route_point
+CREATE TABLE spec_route_points
 (
     id bigint NOT NULL,
     train_id bigint NOT NULL,
@@ -150,17 +163,17 @@ CREATE TABLE spec_route_point
     CONSTRAINT spec_route_point_pkey PRIMARY KEY (id),
 
     CONSTRAINT fk_from_spec_rp_to_rp FOREIGN KEY (route_point_id)
-        REFERENCES route_point (id)
-        ON DELETE CASCADE ,
+        REFERENCES route_points (id)
+        ON DELETE CASCADE,
 
     CONSTRAINT fk_from_spec_rp_to_train FOREIGN KEY (train_id)
-        REFERENCES train (id)
+        REFERENCES trains (id)
         ON DELETE CASCADE
 );
-CREATE INDEX idx_srp_to_train_id ON spec_route_point(train_id);
+CREATE INDEX idx_srp_to_train_id ON spec_route_points(train_id);
 
 
-CREATE TABLE ticket
+CREATE TABLE tickets
 (
     id bigint NOT NULL,
     train_id bigint NOT NULL,
@@ -177,21 +190,21 @@ CREATE TABLE ticket
     CONSTRAINT ticket_pkey PRIMARY KEY (id),
 
     CONSTRAINT fk_from_ticket_to_passenger FOREIGN KEY (passenger_id)
-        REFERENCES passenger (id),
+        REFERENCES passengers (id),
 
     CONSTRAINT fk_from_ticket_to_train FOREIGN KEY (train_id)
-        REFERENCES train (id)
+        REFERENCES trains (id)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_from_ticket_to_station_from FOREIGN KEY (station_from_id)
-        REFERENCES station (id)
+        REFERENCES stations (id)
         ON DELETE RESTRICT,
 
     CONSTRAINT fk_from_ticket_to_station_to FOREIGN KEY (station_to_id)
-        REFERENCES station (id)
+        REFERENCES stations (id)
         ON DELETE RESTRICT
 );
-CREATE INDEX idx_ticket_to_train_id ON train_car(train_id);
+CREATE INDEX idx_ticket_to_train_id ON train_cars(train_id);
 
 
 CREATE SEQUENCE railway_sequence START 999;

@@ -10,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalTime;
 import java.util.List;
 
 @Entity
+@Table(name = "route_points")
 public class RoutePoint {
 
 
@@ -35,6 +37,9 @@ public class RoutePoint {
     private Integer daysFromTrainDepartToDepartFromHere;
 
     private Integer daysFromTrainDepartToArrivalHere;
+
+
+
 
     public Long getId() {
         return id;

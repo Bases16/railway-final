@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Future;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "spec_route_points")
 public class SpecRoutePoint {
 
     @Id
@@ -31,7 +33,10 @@ public class SpecRoutePoint {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private RoutePoint routePoint;
 
+
     protected SpecRoutePoint() {}
+
+
 
     public SpecRoutePoint(Train train) {
         this.train = train;

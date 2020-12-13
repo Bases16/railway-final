@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tickets")
 public class Ticket {
 
     @Id
@@ -21,22 +23,18 @@ public class Ticket {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private Train train;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private Passenger passenger;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private Station stationFrom;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private Station stationTo;
 
     @NotNull

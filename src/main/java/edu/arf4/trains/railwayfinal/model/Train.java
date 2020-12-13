@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "trains")
 public class Train {
 
     @Id

@@ -1,6 +1,6 @@
 
 -- ---------------- STATIONS --------------------
-INSERT INTO station(id, name) VALUES
+INSERT INTO stations(id, name) VALUES
 (13, 'New-York'),
 (14, 'Astana'),
 (15, 'Myshkin'),
@@ -11,7 +11,7 @@ INSERT INTO station(id, name) VALUES
 (20, 'Hong-Kong');
 
 -- ---------------- PASSENGERS --------------------
-INSERT INTO passenger(id, first_name, last_name, date_of_birth) VALUES
+INSERT INTO passengers(id, first_name, last_name, date_of_birth) VALUES
 (1, 'f_name1', 'l_name1', '1990-12-01'),
 (2, 'f_name2', 'l_name2', '1990-12-01'),
 (3, 'f_name3', 'l_name3', '1990-12-01'),
@@ -24,23 +24,23 @@ INSERT INTO passenger(id, first_name, last_name, date_of_birth) VALUES
 -----------------------------------------------------------
 -- GenericTrain 1   Moscow - Myshkin - Astana - Hong-Kong
 -----------------------------------------------------------
-INSERT INTO generic_train(id, number, route, num_of_coope_cars, num_of_seats_in_coope_car, num_of_plazkart_cars,
+INSERT INTO generic_trains(id, number, route, num_of_coope_cars, num_of_seats_in_coope_car, num_of_plazkart_cars,
 num_of_seats_in_plazkart_car, num_of_sw_cars, num_of_seats_in_sw_car,
 week_periodicity, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
 VALUES (1, 'МШМ228', 'Moscow - Hong-Kong', 1, 2, 1, 3, 1, 1, 2, false , true , false , false , false , false , true);
 
-INSERT INTO route_point(id, generic_train_id, station_id, order_of_route_point, arrival_time, days_from_train_depart_to_arrival_here,
+INSERT INTO route_points(id, generic_train_id, station_id, order_of_route_point, arrival_time, days_from_train_depart_to_arrival_here,
                         depart_time, days_from_train_depart_to_depart_from_here) VALUES
 (100, 1, 16, 0,   null , null, '15:30',  0   ),
 (101, 1, 15, 1, '23:55',  0  , '02:00',  1   ),
 (102, 1, 14, 2, '11:10',  2  , '11:58',  2   ),
 (103, 1, 20, 3, '22:00',  4  ,  null  , null );
 
-INSERT INTO train(id, generic_train_id, depart_date) VALUES
+INSERT INTO trains(id, generic_train_id, depart_date) VALUES
 (1, 1, '2025-12-02'), --  #1 train
 (2, 1, '2025-12-07'); --  #2 train
 
-INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
+INSERT INTO train_cars(id, train_id, order_of_car, type) VALUES
 --  #1 train
 (1, 1, 0, 'PLAZKART'),
 (2, 1, 1, 'COOPE'),
@@ -50,7 +50,7 @@ INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
 (5, 2, 1, 'COOPE'),
 (6, 2, 2, 'SW');
 
-INSERT INTO ticket(id, train_id, passenger_id, station_from_id, station_to_id, departure_date_time,
+INSERT INTO tickets(id, train_id, passenger_id, station_from_id, station_to_id, departure_date_time,
                                                arrival_date_time, number_of_train_car, number_of_seat) VALUES
 -- #1 train  Moscow - Myshkin - Astana - Hong-Kong
        -- PLAZKART --
@@ -103,7 +103,7 @@ INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 (17, false, 0),
 (18, false, 0);
 
-INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_point, arrival_datetime, depart_datetime) VALUES
+INSERT INTO spec_route_points(id, train_id, route_point_id, order_of_spec_route_point, arrival_datetime, depart_datetime) VALUES
 (1, 1, 100, 0,       null        , '2025-12-02 15:30'), -- Moscow
 (2, 1, 101, 1, '2025-12-02 23:55', '2025-12-03 02:00'), -- Myshkin
 (3, 1, 102, 2, '2025-12-04 11:10', '2025-12-04 11:58'), -- Astana
@@ -120,23 +120,23 @@ INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_p
 -----------------------------------------------------------
 -- GenericTrain 2    Liski - Myshkin - Warsaw - Genoa
 -----------------------------------------------------------
-INSERT INTO generic_train(id, number, route, num_of_coope_cars, num_of_seats_in_coope_car, num_of_plazkart_cars,
+INSERT INTO generic_trains(id, number, route, num_of_coope_cars, num_of_seats_in_coope_car, num_of_plazkart_cars,
 num_of_seats_in_plazkart_car, num_of_sw_cars, num_of_seats_in_sw_car,
 week_periodicity, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
 VALUES (2, '1488HH', 'Liski - Genoa', 1, 2, 1, 3, 1, 1, 3, true, false , false, false, true, false, false);
 
-INSERT INTO route_point(id, generic_train_id, station_id, order_of_route_point, arrival_time, days_from_train_depart_to_arrival_here,
+INSERT INTO route_points(id, generic_train_id, station_id, order_of_route_point, arrival_time, days_from_train_depart_to_arrival_here,
                         depart_time, days_from_train_depart_to_depart_from_here) VALUES
 (104, 2, 18, 0,   null , null, '19:30',  0   ),
 (105, 2, 15, 1, '23:55',  0  , '01:00',  1   ),
 (106, 2, 17, 2, '11:10',  2  , '11:30',  2   ),
 (107, 2, 19, 3, '22:00',  3  ,  null  , null );
 
-INSERT INTO train(id, generic_train_id, depart_date) VALUES
+INSERT INTO trains(id, generic_train_id, depart_date) VALUES
 (3, 2, '2025-12-01'),
 (4, 2, '2025-12-05');
 
-INSERT INTO train_car(id, train_id, order_of_car, type) VALUES
+INSERT INTO train_cars(id, train_id, order_of_car, type) VALUES
 (7, 3, 0, 'PLAZKART'),
 (8, 3, 1, 'COOPE'),
 (9, 3, 2, 'SW'),
@@ -184,7 +184,7 @@ INSERT INTO seat_state(seats_state_at_point_id, seat_state, seat_number) VALUES
 (36, false, 0);
 
 
-INSERT INTO spec_route_point(id, train_id, route_point_id, order_of_spec_route_point, arrival_datetime, depart_datetime) VALUES
+INSERT INTO spec_route_points(id, train_id, route_point_id, order_of_spec_route_point, arrival_datetime, depart_datetime) VALUES
 (9,  3, 104, 0,       null        , '2025-12-01 19:30'),
 (10, 3, 105, 1, '2025-12-01 23:55', '2025-12-02 01:00'),
 (11, 3, 106, 2, '2025-12-03 11:10', '2025-12-03 11:30'),
