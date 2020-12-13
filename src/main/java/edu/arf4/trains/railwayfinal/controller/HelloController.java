@@ -10,14 +10,12 @@ public class HelloController {
 
     @GetMapping
     public String homePage() {
-
         return "home";
     }
 
 
     @GetMapping("/uuSuk")
     public String hello() {
-
         return "uuSuk";
     }
 

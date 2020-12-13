@@ -19,13 +19,14 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 //        rootContext.scan("edu.arf4.trains.railwayfinal");
 
-//        rootContext.register(WebConfig.class);
-        rootContext.register(WebConfig.class, DatabaseConfig.class);
+        rootContext.register(WebConfig.class);
+//        rootContext.register(WebConfig.class, DatabaseConfig.class);
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
-        ServletRegistration.Dynamic appServlet =
-                servletContext.addServlet("dispatcher", new DispatcherServlet(new GenericWebApplicationContext()));
+        ServletRegistration.Dynamic appServlet = servletContext
+                .addServlet("dispatcher", new DispatcherServlet(new GenericWebApplicationContext()));
+
         appServlet.setLoadOnStartup(1);
         appServlet.addMapping("/");
     }
