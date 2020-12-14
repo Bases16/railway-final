@@ -12,6 +12,6 @@
 
 </head>
 <body>
-      <h2>HomePage</h2>
+      <h2>Welcome everybody</h2>
 </body>
 </html>

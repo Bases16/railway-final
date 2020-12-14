@@ -3,7 +3,7 @@ package edu.arf4.trains.railwayfinal.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+//@Controller
 public class HelloController {
 
 
