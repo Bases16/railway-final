@@ -3,8 +3,8 @@
 -- password is 'pass' for everybody
 INSERT INTO users(email, role, status, passenger_id, password) VALUES
 ('admin@email.com', 'ADMIN', 'ACTIVE', null, '$2y$12$myGBsnhBGHaGG3akE4ttEuDVBed5iz73JfnMF2eL3kzHylLbBHwqq'),
-('user@email.com', 'USER', 'ACTIVE', null, '$2y$12$myGBsnhBGHaGG3akE4ttEuDVBed5iz73JfnMF2eL3kzHylLbBHwqq');
-
+('user@email.com', 'USER', 'ACTIVE', null, '$2y$12$myGBsnhBGHaGG3akE4ttEuDVBed5iz73JfnMF2eL3kzHylLbBHwqq'),
+('banned@email.com', 'USER', 'BANNED', null, '$2y$12$myGBsnhBGHaGG3akE4ttEuDVBed5iz73JfnMF2eL3kzHylLbBHwqq');
 -- ---------------- STATIONS --------------------
 INSERT INTO stations(id, name) VALUES
 (13, 'New-York'),

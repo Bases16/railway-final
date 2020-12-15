@@ -17,15 +17,10 @@ public class AuthController {
     }
 
 
-    @GetMapping("/success")
-    public String success() {
-        return "success";
+    @GetMapping("/register")
+    public String register() {
+        return "register";
     }
-
-
-
-
-
 
 
 }

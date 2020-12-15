@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestRestController {
 
 
-    @GetMapping
-    public String home() {
-        return "<h2>Welcome whoever you are</h2>";
-    }
 
     @GetMapping("/user")
     public String user() {
