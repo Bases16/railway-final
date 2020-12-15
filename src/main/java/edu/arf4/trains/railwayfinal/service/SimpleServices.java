@@ -19,10 +19,8 @@ public class SimpleServices {
 
     public static final Logger log = LoggerFactory.getLogger(SimpleServices.class);
 
-
     private final StationDao stationDao;
 
-    @Autowired
     public SimpleServices(StationDao stationDao) {
         log.debug("{} WAS CREATED", this.getClass());
         this.stationDao = stationDao;

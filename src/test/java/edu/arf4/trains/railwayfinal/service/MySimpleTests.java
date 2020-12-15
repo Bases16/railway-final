@@ -1,5 +1,6 @@
 package edu.arf4.trains.railwayfinal.service;
 
+import edu.arf4.trains.railwayfinal.model.Role;
 import edu.arf4.trains.railwayfinal.model.TrainCarType;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -45,6 +46,12 @@ public class MySimpleTests {
 //
 //
 //    }
+
+
+//   @Test
+//   public void ttt() {
+//       System.out.println(Role.ADMIN.name());
+//   }
 
 
 

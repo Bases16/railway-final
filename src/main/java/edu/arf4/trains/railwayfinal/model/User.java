@@ -18,12 +18,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 public class User {
 
-//    @Id
-//    @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
-//    private Long id;
-
     @Id
-    @NotNull
     private String email;
     @NotNull
     private String password;
@@ -44,11 +39,43 @@ public class User {
 //    private Set<Role> roles = new HashSet<>();
 
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
+    public Status getStatus() {
+        return status;
+    }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
+    public Role getRole() {
+        return role;
+    }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
 }

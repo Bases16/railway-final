@@ -32,7 +32,6 @@ public class GenericTrainService {
     private final GenericTrainDao genericTrainDao;
     private final SimpleServices simpleServices;
 
-    @Autowired
     public GenericTrainService(GenericTrainDao genericTrainDao, SimpleServices simpleServices) {
         log.debug("{} WAS CREATED", this.getClass());
         this.genericTrainDao = genericTrainDao;

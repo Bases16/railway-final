@@ -41,12 +41,12 @@ public class TrainService {
     private final TrainDao trainDao;
     private final StationDao stationDao;
 
-    @Autowired
     public TrainService(GenericTrainDao genericTrainDao, TrainDao trainDao, StationDao stationDao) {
         this.genericTrainDao = genericTrainDao;
         this.trainDao = trainDao;
         this.stationDao = stationDao;
         log.debug("{} WAS CREATED", this.getClass());
+        System.out.println("sout TrainService was");
     }
 
 

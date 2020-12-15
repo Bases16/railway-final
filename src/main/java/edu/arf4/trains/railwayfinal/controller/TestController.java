@@ -2,28 +2,14 @@ package edu.arf4.trains.railwayfinal.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-//@Controller
-public class HelloController {
+@Controller
+@RequestMapping("/jsp")
+public class TestController {
 
-
-
-    @GetMapping
-    public String homePage() {
+    @GetMapping ("/home")
+    public String all() {
         return "home";
     }
-
-
-    @GetMapping("/uuSuk")
-    public String hello() {
-        return "uuSuk";
-    }
-
-
-
-
-
-
-
 }
-

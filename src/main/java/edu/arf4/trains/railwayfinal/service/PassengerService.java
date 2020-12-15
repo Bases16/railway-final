@@ -27,8 +27,6 @@ public class PassengerService {
     private final PassengerDao passengerDao;
     private final TrainDao trainDao;
 
-
-    @Autowired
     public PassengerService(PassengerDao passengerDao, TrainDao trainDao) {
         log.debug("{} WAS CREATED", this.getClass());
 //        System.out.println(this.getClass().getSimpleName() + " WAS CREATED");

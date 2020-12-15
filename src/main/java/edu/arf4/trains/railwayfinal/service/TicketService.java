@@ -43,7 +43,6 @@ public class TicketService {
     private final StationDao stationDao;
     private final PassengerDao passengerDao;
 
-    @Autowired
     public TicketService(TicketDao ticketDao, TrainDao trainDao,
                          StationDao stationDao, PassengerDao passengerDao) {
         log.debug("{} WAS CREATED", this.getClass());
