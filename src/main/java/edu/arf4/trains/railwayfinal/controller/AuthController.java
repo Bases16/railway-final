@@ -1,15 +1,25 @@
 package edu.arf4.trains.railwayfinal.controller;
 
+import edu.arf4.trains.railwayfinal.dto.RegisterUserDto;
+import edu.arf4.trains.railwayfinal.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
+    private final UserService userService;
 
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/login")
     public String login() {
@@ -20,6 +30,24 @@ public class AuthController {
     @GetMapping("/register")
     public String register() {
         return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(RegisterUserDto dto, HttpServletRequest request) {
+
+        try {
+            userService.registerUser(dto);
+        } catch (IllegalArgumentException e) {
+            String msg = "user with email " + e.getMessage() + "already exists";
+            request.setAttribute("errorMessage", msg);
+            return "redirect:errorPage";
+        }
+        return "redirect:login";
+    }
+
+    @GetMapping("/errorPage")
+    public String error() {
+        return "errorPage";
     }
 
 

@@ -8,8 +8,8 @@
 <body>
       <h2>Welcome to "Railway-F" - our transcontinental ways</h2>
 
-      <a href="/auth/login">Log in</a>
-      <a href="/auth/register">Log in</a>
+      <a href="/auth/login">Log in</a> <br>
+      <a href="/auth/register">Register</a>
 
 </body>
 </html>

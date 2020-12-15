@@ -25,7 +25,7 @@ public class UserService {
     public void registerUser(RegisterUserDto dto) {
 
         if (userDao.getUserById(dto.getEmail()) != null) {
-            throw new RuntimeException("USER ALREADY EXISTS"); // TODO
+            throw new IllegalArgumentException(dto.getEmail()); // TODO
         }
         User user = new User();
         user.setEmail(dto.getEmail());
