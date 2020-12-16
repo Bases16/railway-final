@@ -11,7 +11,7 @@
         <h2>Register new user</h2>
         <p>
             <label for="email">Email</label>
-            <input type="text" id="email" name="username" placeholder="Username" required>
+            <input type="text" id="email" name="email" placeholder="Email" required>
         </p>
         <p>
             <label for="password">Password</label>

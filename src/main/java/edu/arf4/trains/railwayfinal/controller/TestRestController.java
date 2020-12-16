@@ -19,5 +19,10 @@ public class TestRestController {
         return "<h2>Welcome ADMIN</h2>";
     }
 
+    @GetMapping("/whoauth")
+    public String forAuthUsers() {
+        return "<h2>Welcome AUTHENTICATED HOMIE</h2>";
+    }
+
 
 }

@@ -13,9 +13,9 @@
     </form>
 </div>
 
-<p>train schedule</p>
-<p>where to go?</p>
-<p>etc.....</p>
+<p><a href="/user">to user stuff</a></p>
+<p><a href="/admin">admin stuff</a></p>
+<p><a href="/whoauth">to any auth homie stuff</a></p>
 
 </body>
 </html>
