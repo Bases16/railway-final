@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stations</title>
+</head>
+<link rel="stylesheet" href="css/style.css">
+<body>
+
+<h2>ALL STATIONS</h2>
+
+<div>
+    <form name="addStation" method="post" action="#">
+        <label for="name">new station name:</label>
+        <input id="name" type="text" placeholder="station name"
+               minlength="3" maxlength="50" autocomplete="off" required>
+        <input type="submit" value="create">
+    </form>
+</div>
+
+<div>
+
+<!--    <form name="delStation" method="post" action="#">-->
+<!--        <input value="23" >-->
+<!--    </form>-->
+
+    <ul>
+        <li>
+            <div data-station-id="23">Moscow
+                <button onclick="shit()"> delete</button>
+
+            </div>
+
+
+    </li>
+
+
+        <li>New-York</li>
+        <li>Warsaw</li>
+        <li>...</li>
+    </ul>
+</div>
+
+
+<script src="js/stations.js"></script>
+
+</body>
+</html>
+
