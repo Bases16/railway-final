@@ -37,6 +37,12 @@ public class StationDaoImpl implements StationDao {
     }
 
     @Override
+    public void deleteStation(Long id) {
+        Station station = getStationById(id, true);
+        em.remove(station);
+    }
+
+    @Override
     public Station getStationById(Long id, boolean getProxy) {
 //        EntityManager em = emf.createEntityManager();
         Station station = null;

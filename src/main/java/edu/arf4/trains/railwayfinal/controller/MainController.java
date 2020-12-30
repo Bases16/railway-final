@@ -15,4 +15,12 @@ public class MainController {
     public String mainPage() {
         return "main";
     }
+
+    @GetMapping("/stations")
+    public String stations() {
+        return "stations";
+    }
+
+
+
 }

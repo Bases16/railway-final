@@ -7,21 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestRestController {
 
-
-
-    @GetMapping("/user")
+    @GetMapping("rest/user")
     public String user() {
         return "<h2>Welcome USER</h2>";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("rest/admin")
     public String admin() {
         return "<h2>Welcome ADMIN</h2>";
-    }
-
-    @GetMapping("/whoauth")
-    public String forAuthUsers() {
-        return "<h2>Welcome AUTHENTICATED HOMIE</h2>";
     }
 
 

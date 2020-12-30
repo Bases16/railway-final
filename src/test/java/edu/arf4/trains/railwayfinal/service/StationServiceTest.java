@@ -13,22 +13,24 @@ import static org.junit.Assert.*;
 
 @ContextConfiguration(classes = DatabaseConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SimpleServicesTest {
+public class StationServiceTest {
 
     @Autowired
-    private SimpleServices simpleServices;
+    private StationService stationService;
 
     @Test
     @Transactional
-    public void createStation() {
+    public void createAndDeleteStation() {
 
         final String NEW_STATION_NAME = "Kingston";
-        Station station = new Station(NEW_STATION_NAME);
+        Long newStationId = stationService.createStation(NEW_STATION_NAME);
 
-        Long newStationId = simpleServices.createStation(station);
-
-        Station newStationFromDB = simpleServices.getStationById(newStationId, false);
+        Station newStationFromDB = stationService.getStationById(newStationId, false);
         assertEquals(NEW_STATION_NAME, newStationFromDB.getName());
+
+        stationService.deleteStation(newStationFromDB.getId());
+        newStationFromDB = stationService.getStationById(newStationId, false);
+        assertNull(newStationFromDB);
     }
 
 

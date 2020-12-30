@@ -25,12 +25,12 @@ public class GenericTrainService {
     public static final Logger log = LoggerFactory.getLogger(GenericTrainService.class);
 
     private final GenericTrainDao genericTrainDao;
-    private final SimpleServices simpleServices;
+    private final StationService stationService;
 
-    public GenericTrainService(GenericTrainDao genericTrainDao, SimpleServices simpleServices) {
+    public GenericTrainService(GenericTrainDao genericTrainDao, StationService stationService) {
         log.debug("{} WAS CREATED", this.getClass());
         this.genericTrainDao = genericTrainDao;
-        this.simpleServices = simpleServices;
+        this.stationService = stationService;
     }
 
 
@@ -85,7 +85,7 @@ public class GenericTrainService {
 
     private RoutePoint convertRoutePointDtoToRoutePoint(RoutePointDto dto, GenericTrain genericTrain) {
         RoutePoint point = new RoutePoint();
-        point.setStation(this.simpleServices.getStationById(dto.getStationId(), true));
+        point.setStation(this.stationService.getStationById(dto.getStationId(), true));
         point.setDaysFromTrainDepartToArrivalHere(dto.getDaysFromTrainDepartToArrivalHere());
         point.setDaysFromTrainDepartToDepartFromHere(dto.getDaysFromTrainDepartToDepartFromHere());
         point.setDepartTime(Converter.convertStringToLocalTime(dto.getDepartTime()));

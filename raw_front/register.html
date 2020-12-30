@@ -14,13 +14,16 @@
         </p>
         <p>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="password" name="password" placeholder="Password" required><br>
+            <label for="confirm_password">Confirm Password</label>
             <input type="password" id="confirm_password" placeholder="Confirm Password" required>
         </p>
         <button type="submit">submit</button>
     </form>
 </div>
 
-<script src="js/confirm-password-input.js"></script>
+<script src="js/confirm-two-inputs.js"></script>
+<script>window.confirmTwoInputs('password', 'confirm_password', 'Passwords')</script>
+
 </body>
 </html>

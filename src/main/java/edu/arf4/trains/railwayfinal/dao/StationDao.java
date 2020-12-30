@@ -12,6 +12,7 @@ public interface StationDao {
 
     Long addStation(Station station);
 
+    void deleteStation(Long id);
 
     Station getStationByName(String name);
 }

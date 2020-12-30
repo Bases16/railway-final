@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>stations</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
 
 <h2>ALL STATIONS</h2>
-
 <div>
     <form name="addStation" method="post" action="#">
         <label for="name">new station name:</label>
@@ -37,12 +35,10 @@
 
 <br><button id="suk">stations</button>
 
-<script src="js/stations.js"></script>
-
-
-<script src="js/confirm-two-inputs.js"></script>
+<script src="resources/js/stations.js"></script>
+<script src="resources/js/confirm-two-inputs.js"></script>
 <script>window.confirmTwoInputs('name', 'confirm_name', 'Names')</script>
+
 
 </body>
 </html>
-
