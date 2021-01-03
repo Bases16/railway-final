@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/rest/stations")
 public class StationsRestController {
@@ -32,8 +34,8 @@ public class StationsRestController {
 
 
     @GetMapping
-    public String allStations() {
-        String s = "hello from rest/stations GET";
+    public String allStations(Principal p) {
+        String s = p.getName();
         return s;
     }
 }
