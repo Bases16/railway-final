@@ -34,8 +34,8 @@ public class TrainServiceTest {
     public void registerTrainByGivenDatesAndGenTrainTest() {
 
         //CASE 1
-        LocalDate start = LocalDate.of(2023, 4, 3);
-        LocalDate end = LocalDate.of(2023, 5, 1);
+        LocalDate start = LocalDate.of(2025, 4, 3);
+        LocalDate end = LocalDate.of(2025, 5, 1);
 
         trainService.registerTrainByGivenDatesAndGenTrain(1L, start, end);
 
@@ -53,8 +53,8 @@ public class TrainServiceTest {
         assertEquals(4, list.size());
 
         //CASE 3 - FULL CHECKING
-        start = LocalDate.of(2023, 5, 8);
-        end = LocalDate.of(2023, 5, 29);
+        start = LocalDate.of(2025, 5, 5);
+        end = LocalDate.of(2025, 5, 26);
         trainService.registerTrainByGivenDatesAndGenTrain(2L, start, end);
 
         list = trainDao.getTrainsByGenTrainIdAndDates(2L, start, end);
@@ -112,8 +112,8 @@ public class TrainServiceTest {
             i++;
         }
         assertNotNull(srp);
-        assertEquals(LocalDateTime.of(2023,5,8,23,55), srp.getArrivalDatetime());
-        assertEquals(LocalDateTime.of(2023,5,9,1,0), srp.getDepartDatetime());
+        assertEquals(LocalDateTime.of(2025,5,5,23,55), srp.getArrivalDatetime());
+        assertEquals(LocalDateTime.of(2025,5,6,1,0), srp.getDepartDatetime());
     }
 
     @Test

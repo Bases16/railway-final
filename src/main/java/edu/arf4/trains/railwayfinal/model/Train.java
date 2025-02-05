@@ -39,20 +39,20 @@ public class Train {
     @NotNull
     private LocalDate departDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_id", nullable = false)
     @OrderColumn(name = "order_of_car", nullable = false)
     private List<TrainCar> trainCars = new ArrayList<>();
 
 
     @Size(min = 2)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "train_id", nullable = false)
     @OrderColumn(name = "order_of_spec_route_point", nullable = false)
     private List<SpecRoutePoint> specRoutePoints = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "train")
     private Set<Ticket> tickets = new HashSet<>();
 
 

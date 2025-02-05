@@ -23,12 +23,11 @@ public class SeatsStateAtPoint {
     @GeneratedValue(generator = Constants.MY_ID_GENERATOR)
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "train_car_id", updatable = false, insertable = false)
-    private TrainCar trainCar;
+    @JoinColumn(name = "train_car_id", updatable = false, insertable = false) // todo DELETE THE FIELD AT ALL, MAKE IT UNI ??
+    private TrainCar trainCar; // todo remove the field ??
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER) // todo might set up EAGER ?
     @CollectionTable(name = "seat_state")
     @OrderColumn(name = "seat_number", nullable = false)
     @Column(name = "seat_state", nullable = false)
@@ -44,7 +43,7 @@ public class SeatsStateAtPoint {
 
     protected SeatsStateAtPoint() {}
 
-    public Long getId() {
+    public Long getId() {  // TODO WHY getId is highlighted as if being used somewhere ??
         return id;
     }
 

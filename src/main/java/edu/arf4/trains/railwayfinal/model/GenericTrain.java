@@ -62,7 +62,7 @@ public class GenericTrain {
 
     @Size(min = 2)
     @org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "generic_train_id", nullable = false)
     @OrderColumn(name = "order_of_route_point", nullable = false)
     private List<RoutePoint> routePoints = new ArrayList<>();

@@ -20,14 +20,18 @@ public class User {
 
     @Id
     private String email;
+
     @NotNull
     private String password;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @OneToOne(fetch = FetchType.LAZY)
     private Passenger passenger;
 

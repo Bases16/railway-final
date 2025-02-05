@@ -52,8 +52,8 @@ public class TrainService {
 
     /**
      *
-     * @param startDate always must be monday
-     * @param endDate   always must be later monday
+     * @param startDate always must be monday (inclusive)
+     * @param endDate   always must be later monday (exclusive)
      */
     @Transactional
     public void registerTrainByGivenDatesAndGenTrain(Long genTrainId, LocalDate startDate, LocalDate endDate) {
@@ -133,10 +133,10 @@ public class TrainService {
 
             for (int k = 1; k < numberOfRoutePoints; k++) {
                 SeatsStateAtPoint seatsAtPoint = new SeatsStateAtPoint(numOfSeatsInTypeCar);
-                seatsAtPoint.setTrainCar(trainCar);
+//                seatsAtPoint.setTrainCar(trainCar);
                 seatsAtPoints.add(seatsAtPoint);
             }
-            trainCar.setTrain(train);
+//            trainCar.setTrain(train);
             trainCarList.add(trainCar);
         }
     }
@@ -270,8 +270,8 @@ public class TrainService {
             for (int i = indStationFrom; i < indStationTo; i++) {
                 List<Boolean> seatStates = seatsAtPoint.get(i).getSeatStates();
                 int counter = 0;
-                for (Boolean seat : seatStates) {
-                    if (!seat) counter++;
+                for (Boolean isOccupied : seatStates) {
+                    if (!isOccupied) counter++;
                 }
                 if (counter < commonCounter) commonCounter = counter;
             }

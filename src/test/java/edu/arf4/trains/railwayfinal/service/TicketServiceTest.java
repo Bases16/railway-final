@@ -8,6 +8,7 @@ import edu.arf4.trains.railwayfinal.dto.TrainDto;
 import edu.arf4.trains.railwayfinal.exceptions.AlreadyRegisteredException;
 import edu.arf4.trains.railwayfinal.exceptions.NoTicketsLeftException;
 import edu.arf4.trains.railwayfinal.dto.TicketDto;
+import edu.arf4.trains.railwayfinal.model.Train;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,8 @@ public class TicketServiceTest {
         );
 
         ticketDto = ticketService.buyTicket(dto, 8L, "PLAZKART");
+
+//        Train trainById = trainDao.getTrainById(1L);  // todo tickets are not stored in DB
 
         assertNotNull(ticketDto);
         assertEquals(new Integer(1), ticketDto.getTrainCarNumber());

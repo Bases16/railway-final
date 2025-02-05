@@ -37,8 +37,8 @@ public class TrainCar {
     private Train train;
 
     @NotEmpty
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    @JoinColumn(name = "train_car_id", nullable = false)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "train_car_id", nullable = false) // why joincolumn here? because it's the OWNER!
     @OrderColumn(name = "order_of_station", nullable = false)
     private List<SeatsStateAtPoint> seatsStateAtCar = new ArrayList<>();
 

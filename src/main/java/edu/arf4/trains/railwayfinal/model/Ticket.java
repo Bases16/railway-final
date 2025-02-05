@@ -49,7 +49,7 @@ public class Ticket {
     @NotNull
     private Integer numberOfSeat;
 
-    @Column(nullable = true)
+    @Column(nullable = true) // todo implement cost feature
     private Float cost;
 
 

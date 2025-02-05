@@ -90,12 +90,12 @@ public class GenericTrainService {
         point.setDaysFromTrainDepartToDepartFromHere(dto.getDaysFromTrainDepartToDepartFromHere());
         point.setDepartTime(Converter.convertStringToLocalTime(dto.getDepartTime()));
         point.setArrivalTime(Converter.convertStringToLocalTime(dto.getArrivalTime()));
-        point.setGenericTrain(genericTrain);
+//        point.setGenericTrain(genericTrain);
         return point;
     }
 
     // this propagation 'cause not so frequently and important operations
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS) //todo do we need SUPPORTS here?
     public GenericTrainDto getGenericTrainDtoById(Long id) {
         GenericTrain genericTrain = this.genericTrainDao.getGenericTrainById(id);
         return convertGenTrainToGenTrainDto(genericTrain);

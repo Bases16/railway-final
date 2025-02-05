@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "stations")
+@Table(name = "stations")   // todo make @Immutable ???
 public class Station {
 
     @Id

@@ -90,7 +90,8 @@ public class TicketService {
 
         for (TrainCar car : trainCars) {
 
-            if (car.getType() != TrainCarType.valueOf(carType)) continue;
+            if (car.getType() != TrainCarType.valueOf(carType))
+                continue;
 
             List<SeatsStateAtPoint> seatsAtCar = car.getSeatsStateAtCar();
             List<Integer> availSeats = new ArrayList<>();
@@ -98,8 +99,8 @@ public class TicketService {
             // firstly we add in the list all available seats at the first station
             List<Boolean> seatsAtFirstStation = seatsAtCar.get(indStationFrom).getSeatStates();
             for (int j = 0; j < seatsAtFirstStation.size(); j++) {
-                Boolean seat = seatsAtFirstStation.get(j);
-                if (!seat) availSeats.add(j);
+                Boolean isOccupied = seatsAtFirstStation.get(j);
+                if (!isOccupied) availSeats.add(j);
             }
 
             // then we exclude from the list those seats which are not available at the following stations
@@ -107,9 +108,9 @@ public class TicketService {
 
                 List<Boolean> seats = seatsAtCar.get(i).getSeatStates();
                 for (int j = 0; j < seats.size(); j++) {
-                    Boolean seat = seats.get(j);
-                    if (seat) {
-                        if (availSeats.contains(j)) availSeats.remove(Integer.valueOf(j));
+                    boolean isOccupied = seats.get(j);
+                    if (isOccupied) {
+                        if (availSeats.contains(j)) availSeats.remove(j);
                     }
                 }
             }
@@ -126,7 +127,7 @@ public class TicketService {
             throw new NoTicketsLeftException();
         }
 
-        // mark seats in our car as reserved
+        // mark the seat in our car as reserved through all points of the route
         TrainCar car = trainCars.get(numberOfTrainCar - 1);
         List<SeatsStateAtPoint> seatsStateAtCar = car.getSeatsStateAtCar();
         for (int i = indStationFrom; i < indStationTo; i++) {
@@ -134,7 +135,7 @@ public class TicketService {
             seats.getSeatStates().set(numberOfEmptySeat - 1, true);
         }
 
-        // adding our ticket in DB
+        // storing the ticket in DB
         Passenger passenger = this.passengerDao.getPassengerById(passengerId);
 
         Ticket ticket = new Ticket();
